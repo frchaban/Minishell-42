@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_management.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
+/*   Updated: 2020/06/08 19:15:37 by gdupont          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
 
 void	prompt(void)
 {
@@ -31,9 +43,7 @@ char ***get_cmd(void)
 	char *line;
 
 	prompt();
-	while (get_next_line(0, &line)!= 1)
-	{
-	}
+	while (get_next_line(0, &line) != 1) ;
 	return(parse_cmd(line));
 }
 
@@ -46,11 +56,11 @@ void	launch(char **cmd, int *status, t_env *envir)
 	else if (ft_strcmp(cmd[0],"pwd") == 0)
 		pwd_builtin(cmd);
 	else if (ft_strcmp(cmd[0],"export") == 0)
-		return;
+		export_builtin(envir, cmd);
 	else if (ft_strcmp(cmd[0],"unset") == 0)
 		return;
 	else if (ft_strcmp(cmd[0],"env") == 0)
-		return;
+		env_builtin(envir);
 	else if (ft_strcmp(cmd[0],"exit") == 0)
 		*status = exit_builtin();
 	else

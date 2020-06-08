@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
+#    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/06/08 17:02:23 by frchaban         ###   ########.fr        #
+#    Updated: 2020/06/08 19:17:39 by gdupont          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS_LIST		= \
 					pwd_builtin.c \
 					lst_manage.c \
 					lst_manage_2.c \
-					exit_builtin.c
+					exit_builtin.c 
 
 
 SRCS = $(addprefix ${PATH_SRCS}/, ${SRCS_LIST})
@@ -50,7 +50,7 @@ all :	$(NAME)
 
 $(NAME) :	$(OBJS)
 	@make -C $(LIBFT)
-	@$(CC) $(SGFLAGS) $(FLAGS) $(LFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+	@$(CC) $(SGFLAGS) $(FLAGS) $(LFLAGS) $(INCLUDES) $(OBJS) libft/libft.a -o $(NAME)
 
 %.o: %.c
 	@$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<

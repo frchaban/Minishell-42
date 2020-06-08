@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lst_manage_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:59:57 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 17:00:18 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:14:16 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int    lst_size(t_env  *env)
 {
@@ -48,4 +48,11 @@ char  **list_to_envp(t_env *env)
   }
   final[i] = NULL;
   return (final);
+}
+
+t_env	*ft_last_elem(t_env *env)
+{
+	while(env->next != NULL)
+		env = env->next;
+	return (env);
 }

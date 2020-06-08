@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 18:05:20 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 18:59:17 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int main(int argc, char **argv, char **env)
 	int i;
 
 	(void)argv;
-	envp_to_list(&envir,env);
 	if (argc != 1)
 		return (0);
+	envp_to_list(&envir, env);
 	status = 1;
 	while (status)
 	{
@@ -43,10 +43,11 @@ int main(int argc, char **argv, char **env)
 		cmd = get_cmd();
 		while (cmd[++i] != NULL)
 		{
-			if ( cmd[i] && cmd[i][0] != NULL)
+			if (cmd[i] && cmd[i][0] != NULL)
 				launch(cmd[i], &status, envir);
 		}
 		ft_free_3dim(cmd);
 	}
+	free_all_list(envir);
 	return (0);
 }

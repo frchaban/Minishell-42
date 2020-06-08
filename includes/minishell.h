@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 18:07:58 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:16:36 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,18 @@ void		cd_builtin(char **cmd, t_env *envir);
 void		pwd_builtin(char **cmd);
 void		echo_builtin(char **cmd);
 int			exit_builtin(void);
-int			envp_to_list(t_env **env, char **envp);
+void		export_builtin(t_env *envir, char **cmd);
+void  		env_builtin(t_env *envir);
+
 void		ft_error(char *error, char *error_errno, char *cmd);
-char  		**list_to_envp(t_env *env);
+char  		**list_to_envp(t_env *envir);
+
+int			envp_to_list(t_env **envir, char **envp);
+t_env		*set_up_elem(char *line);
+t_env		*ft_last_elem(t_env *envir);
+void		free_all_list(t_env *envir);
+
+
 
 
 
