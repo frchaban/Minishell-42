@@ -62,7 +62,6 @@ void	execute(char **cmd, t_env *envir)
 	pid_t	pid;
 	char	**env;
 
-	env = list_to_envp(envir);
 	pid = 0;
 	status = 0;
 	cmd[0] = get_absolute_path(cmd[0], envir);
@@ -78,8 +77,9 @@ void	execute(char **cmd, t_env *envir)
 	}
 	else if (pid == 0)
 	{
+		env = list_to_envp(envir);
 		execve(cmd[0], cmd, env) == -1 ? ft_printf("%s\n", strerror(errno)) : 0;
-		free(env);
+		ft_free_2dim(env);
 		exit(EXIT_FAILURE);
 	}
 }

@@ -3,14 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/08 19:15:37 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/08 20:32:11 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	*get_var_content(char *cmd, t_env *envir)
+{
+	char *tronc;
+
+	tronc = ft_substr(cmd,1,ft_strlen(cmd) - 1);
+	free(cmd);
+	while(envir)
+	{
+		if (ft_strequ(tronc, envir->key) == 1)
+		{
+			free(tronc);
+			return(ft_strdup(envir->content));
+		}
+		envir = envir->next;
+	}
+	free(tronc);
+	return (ft_strdup(""));
+}
+
+char	**replace_var(char **cmd, t_env *envir)
+{
+	int i;
+
+	i = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i][0] == '$')
+			cmd[i] = get_var_content(cmd[i], envir);
+	}
+	return (cmd);
+}
 
 void	prompt(void)
 {
@@ -49,6 +81,7 @@ char ***get_cmd(void)
 
 void	launch(char **cmd, int *status, t_env *envir)
 {
+	cmd = replace_var(cmd, envir);
 	if (ft_strcmp(cmd[0],"echo") == 0)
 		echo_builtin(cmd);
 	else if (ft_strcmp(cmd[0],"cd") == 0)
@@ -64,8 +97,6 @@ void	launch(char **cmd, int *status, t_env *envir)
 	else if (ft_strcmp(cmd[0],"exit") == 0)
 		*status = exit_builtin();
 	else
-	{
 		execute(cmd, envir);
-	}
 }
 
