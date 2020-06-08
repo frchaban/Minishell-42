@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/05/25 14:58:43 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 12:14:03 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 # include "../libft/includes/libft.h"
 # include "../libft/includes/libftprintf.h"
 
-void	echo(char *content, int option);
+void		echo(char *content, int option);
+char		**get_cmd(void);
+void		execute(char **cmd);
+void		launch(char **cmd, int *status);
+
+void		cd_builtin(char **cmd);
+void		pwd_builtin(void);
+void		echo_builtin(char **cmd);
+int			exit_builtin(void);
 
 #endif

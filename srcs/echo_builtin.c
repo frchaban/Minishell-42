@@ -6,11 +6,17 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2020/05/25 14:59:21 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 12:17:11 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	echo_builtin(char **cmd)
+{
+	(void)cmd;
+	return;
+}
 
 void	echo(char *content, int option)
 {

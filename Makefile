@@ -6,7 +6,7 @@
 #    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/05/25 14:59:53 by frchaban         ###   ########.fr        #
+#    Updated: 2020/06/08 11:55:37 by frchaban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,13 @@ PATH_SRCS = srcs
 
 SRCS_LIST		= \
 					minishell.c \
-					echo_builtin.c
+					cmd_management.c \
+					executable.c \
+					echo_builtin.c \
+					env_builtin.c \
+					cd_builtin.c \
+					pwd_builtin.c \
+					exit_builtin.c
 
 
 SRCS = $(addprefix ${PATH_SRCS}/, ${SRCS_LIST})

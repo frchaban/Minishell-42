@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 18:26:50 by frchaban          #+#    #+#             */
-/*   Updated: 2020/04/27 17:12:07 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 11:52:17 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char				*ft_strjoin_s1_freed(char *s1, char *s2);
 char				*ft_strtrim(char const *s, char const *set);
 char				*ft_strtrim_freed(char *s, char const *set);
 char				**ft_split(char const *s, char c);
+int					ft_count_split(char **split);
 char				*ft_itoa(int n);
 char				*ft_itoa_us(unsigned int n);
 void				ft_putchar(char c);

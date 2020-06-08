@@ -6,7 +6,7 @@
 #    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/03 18:24:04 by frchaban          #+#    #+#              #
-#    Updated: 2020/05/25 12:09:50 by frchaban         ###   ########.fr        #
+#    Updated: 2020/06/08 11:52:37 by frchaban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,7 @@ SRCS_LIST = \
 				libft/ft_strtrim_freed.c \
 				libft/ft_substr.c \
 				libft/ft_tolower.c \
+				libft/ft_count_split.c\
 				libft/ft_toupper.c \
 				libft/ft_uhex.c \
 				printf/ft_conv.c \
