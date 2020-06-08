@@ -6,30 +6,11 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/08 20:32:11 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 20:48:11 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	*get_var_content(char *cmd, t_env *envir)
-{
-	char *tronc;
-
-	tronc = ft_substr(cmd,1,ft_strlen(cmd) - 1);
-	free(cmd);
-	while(envir)
-	{
-		if (ft_strequ(tronc, envir->key) == 1)
-		{
-			free(tronc);
-			return(ft_strdup(envir->content));
-		}
-		envir = envir->next;
-	}
-	free(tronc);
-	return (ft_strdup(""));
-}
 
 char	**replace_var(char **cmd, t_env *envir)
 {

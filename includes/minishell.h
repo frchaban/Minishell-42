@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 19:16:36 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/08 20:47:35 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int			envp_to_list(t_env **envir, char **envp);
 t_env		*set_up_elem(char *line);
 t_env		*ft_last_elem(t_env *envir);
 void		free_all_list(t_env *envir);
+char	*get_var_content(char *cmd, t_env *envir);
 
 
 
