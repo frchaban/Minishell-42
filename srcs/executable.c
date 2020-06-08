@@ -7,7 +7,7 @@ char*	get_path(t_env *envir)
 	lst = envir;
 	while (lst->next)
 	{
-		if (ft_strequ(lst->content, "PATH") == 1)
+		if (ft_strequ(lst->key, "PATH") == 1)
 			return (lst->content);
 		else
 			lst = lst->next;
@@ -24,9 +24,9 @@ char*	ft_absolute_path(char *cmd, t_env *envir)
 	int fd;
 
 	(path = get_path(envir)) == NULL ? test_path = NULL : 0;
-	path_folders = ft_split(path, ':');
+	path_folders = (path != NULL ? ft_split(path, ':'): NULL);
 	i = -1;
-	while (path_folders[++i])
+	while (path_folders && path_folders[++i])
 	{
 		test_path = ft_strjoin(path_folders[i],"/");
 		test_path = ft_strjoin_s1_freed(test_path, cmd);
@@ -38,7 +38,7 @@ char*	ft_absolute_path(char *cmd, t_env *envir)
 		else
 			break;
 	}
-	ft_free_2dim(path_folders);
+	path_folders != NULL ? ft_free_2dim(path_folders): 0;
 	fd == 1 ? close(fd) : 0;
 	return(test_path);
 }
@@ -48,7 +48,7 @@ char	*get_absolute_path(char *cmd, t_env *envir)
 	char *absolute_path;
 
 	absolute_path = NULL;
-	if (cmd[0] == '/' || ft_strncmp(cmd,"./", 2) != 0)
+	if (cmd[0] != '/' && ft_strncmp(cmd,"./", 2) != 0)
 		absolute_path = ft_absolute_path(cmd, envir);
 	if (absolute_path == NULL)
 		absolute_path = ft_strdup(cmd);
@@ -60,11 +60,14 @@ void	execute(char **cmd, t_env *envir)
 {
 	int		status;
 	pid_t	pid;
+	char	**env;
 
+	env = list_to_envp(envir);
 	pid = 0;
 	status = 0;
-
 	cmd[0] = get_absolute_path(cmd[0], envir);
+	if (cmd[0][0] != '/' && ft_strncmp(cmd[0],"./", 2) != 0)
+		return (ft_error("minishell: command not found: ", cmd[0]));
 	pid = fork();
 	if (pid == -1)
 		ft_printf("%s\n", strerror(errno)) ; // error to manage
@@ -75,8 +78,8 @@ void	execute(char **cmd, t_env *envir)
 	}
 	else if (pid == 0)
 	{
-		if (execve(cmd[0], cmd, NULL) == -1)
-			ft_printf("%s\n", strerror(errno)) ; // error to manage
+		execve(cmd[0], cmd, env) == -1 ? ft_printf("%s\n", strerror(errno)) : 0;
+		free(env);
 		exit(EXIT_FAILURE);
 	}
 }

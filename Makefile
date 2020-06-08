@@ -6,7 +6,7 @@
 #    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/06/08 15:27:23 by frchaban         ###   ########.fr        #
+#    Updated: 2020/06/08 17:02:23 by frchaban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS_LIST		= \
 					cd_builtin.c \
 					pwd_builtin.c \
 					lst_manage.c \
+					lst_manage_2.c \
 					exit_builtin.c
 
 

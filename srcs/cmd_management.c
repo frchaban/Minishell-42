@@ -13,7 +13,7 @@ char ***parse_cmd(char *line)
 
 	i = -1;
 	cmd = ft_split(line, ';');
-	if (!(data = malloc(sizeof(*data) * ft_count_split(cmd))))
+	if (!(data = malloc(sizeof(*data) * (ft_count_split(cmd) + 1))))
 		return (NULL);
 	data[ft_count_split(cmd)] = NULL;
 	while (cmd[++i])
@@ -40,9 +40,9 @@ char ***get_cmd(void)
 void	launch(char **cmd, int *status, t_env *envir)
 {
 	if (ft_strcmp(cmd[0],"echo") == 0)
-		return;
+		echo_builtin(cmd);
 	else if (ft_strcmp(cmd[0],"cd") == 0)
-		cd_builtin(cmd);
+		cd_builtin(cmd, envir);
 	else if (ft_strcmp(cmd[0],"pwd") == 0)
 		pwd_builtin();
 	else if (ft_strcmp(cmd[0],"export") == 0)

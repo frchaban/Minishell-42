@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/27 10:36:48 by frchaban          #+#    #+#             */
-/*   Updated: 2020/05/25 12:14:51 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 15:37:10 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_substr_mod(char *s, unsigned int start, size_t len)
 	int		i;
 	size_t	s_len;
 
-	if (!s || start < 0)
+	if (!s)
 		return (NULL);
 	s_len = ft_strl(s);
 	if (start >= s_len)
