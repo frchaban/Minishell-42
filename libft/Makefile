@@ -6,7 +6,7 @@
 #    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/03 18:24:04 by frchaban          #+#    #+#              #
-#    Updated: 2020/06/08 11:52:37 by frchaban         ###   ########.fr        #
+#    Updated: 2020/06/08 13:33:12 by frchaban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS_LIST = \
 				libft/ft_bzero.c \
 				libft/ft_calloc.c \
 				libft/ft_free2dim.c \
+				libft/ft_free3dim.c \
 				libft/ft_isalnum.c \
 				libft/ft_isalpha.c \
 				libft/ft_isascii.c \

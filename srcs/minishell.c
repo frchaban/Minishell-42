@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 12:17:37 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 13:45:02 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,27 @@
 
 int main(int argc, char **argv, char **env)
 {
+	char ***cmd;
+	int status;
+	t_env *envir;
+	int i;
+
 	(void)argv;
 	(void)env;
-	char **cmd;
-	int status;
-
+	envir = NULL;
 	if (argc != 1)
 		return (0);
 	status = 1;
+	i = -1;
 	while (status)
 	{
 		cmd = get_cmd();
-		if (cmd[0] != NULL)
+		while (cmd[++i])
 		{
-			launch(cmd, &status);
+			if (cmd[i][0] != NULL)
+				launch(cmd[i], &status, envir);
 		}
-		ft_free_2dim(cmd);
 	}
+	ft_free_3dim(cmd);
 	return (0);
 }

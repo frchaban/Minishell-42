@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_split.c                                   :+:      :+:    :+:   */
+/*   ft_free3dim.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/08 13:33:23 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 13:33:26 by frchaban         ###   ########.fr       */
+/*   Created: 2020/06/08 13:30:55 by frchaban          #+#    #+#             */
+/*   Updated: 2020/06/08 13:33:34 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "libft.h"
 
-int		ft_count_split(char **split)
+void	ft_free_3dim(char ***data)
 {
 	int i;
-
-	i = 0;
-	if (split == NULL)
-		return (0);
-	while(split[i] != NULL)
-		i++;
-	return (i);
+	int j;
+	j = -1;
+	while (data[++j])
+	{
+		i = -1;
+		while (data[j][++i])
+			free(data[j][i]);
+		free(data[j]);
+	}
+	free(data);
 }

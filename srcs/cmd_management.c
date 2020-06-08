@@ -5,16 +5,24 @@ void	prompt(void)
 	ft_printf("%s", "minishell $> ");
 }
 
-char **parse_cmd(char *line)
+char ***parse_cmd(char *line)
 {
 	char **cmd;
+	char ***data;
+	int i;
 
-	cmd = ft_split(line,' ');
+	i = -1;
+	cmd = ft_split(line, ';');
+	data = malloc(sizeof(*data) * ft_count_split(cmd));
+	while (cmd[++i])
+	{
+		data[i] = ft_split(cmd[i],' ');
+	}
 	free(line);
-	return (cmd);
+	return (data);
 }
 
-char **get_cmd(void)
+char ***get_cmd(void)
 {
 	char *line;
 
@@ -25,7 +33,7 @@ char **get_cmd(void)
 	return(parse_cmd(line));
 }
 
-void	launch(char **cmd, int *status)
+void	launch(char **cmd, int *status, t_env *envir)
 {
 	if (ft_strcmp(cmd[0],"echo") == 0)
 		return;
@@ -43,7 +51,7 @@ void	launch(char **cmd, int *status)
 		*status = exit_builtin();
 	else
 	{
-		execute(cmd);
+		execute(cmd, envir);
 	}
 }
 

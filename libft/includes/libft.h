@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 18:26:50 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 11:52:17 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 13:32:54 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void				ft_putnbr_fd(int n, int fd);
 char				*ft_uhex(unsigned int n, char c);
 char				*ft_lhex(long nb, char c);
 void				ft_free_2dim(char **data);
+void				ft_free_3dim(char ***data);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);

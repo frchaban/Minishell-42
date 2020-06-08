@@ -6,7 +6,7 @@
 #    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/06/08 11:55:37 by frchaban         ###   ########.fr        #
+#    Updated: 2020/06/08 14:53:15 by frchaban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SRCS_LIST		= \
 					executable.c \
 					echo_builtin.c \
 					env_builtin.c \
+					unset_builtin.c \
+					export_builtin.c \
 					cd_builtin.c \
 					pwd_builtin.c \
 					exit_builtin.c
