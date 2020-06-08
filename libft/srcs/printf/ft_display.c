@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/27 18:38:23 by frchaban          #+#    #+#             */
-/*   Updated: 2020/05/01 17:49:42 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 14:57:27 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*ft_display_str(t_format f, char *str)
 		str = ft_strdup("");
 		flag = 1;
 	}
-	size = (f.precision ? ft_atoi(f.precision) : ft_strlen(str));
+	size = (f.precision ? ft_atoi(f.precision) : (int)ft_strlen(str));
 	result = ft_substr(str, 0, size);
 	if (flag == 1)
 		free(str);
