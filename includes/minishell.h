@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 13:44:06 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 15:27:37 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void		cd_builtin(char **cmd);
 void		pwd_builtin(void);
 void		echo_builtin(char **cmd);
 int			exit_builtin(void);
+int			envp_to_list(t_env **env, char **envp);
 
 
 

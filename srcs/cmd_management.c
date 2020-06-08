@@ -13,7 +13,6 @@ char ***parse_cmd(char *line)
 
 	i = -1;
 	cmd = ft_split(line, ';');
-	ft_printf("%d\n", ft_count_split(cmd));
 	if (!(data = malloc(sizeof(*data) * ft_count_split(cmd))))
 		return (NULL);
 	data[ft_count_split(cmd)] = NULL;
