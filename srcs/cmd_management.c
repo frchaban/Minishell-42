@@ -13,12 +13,17 @@ char ***parse_cmd(char *line)
 
 	i = -1;
 	cmd = ft_split(line, ';');
-	data = malloc(sizeof(*data) * ft_count_split(cmd));
+	ft_printf("%d\n", ft_count_split(cmd));
+	if (!(data = malloc(sizeof(*data) * ft_count_split(cmd))))
+		return (NULL);
+	data[ft_count_split(cmd)] = NULL;
 	while (cmd[++i])
 	{
+		cmd[i] = ft_strtrim_freed(cmd[i], " ");
 		data[i] = ft_split(cmd[i],' ');
 	}
 	free(line);
+	ft_free_2dim(cmd);
 	return (data);
 }
 

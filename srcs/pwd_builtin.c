@@ -7,7 +7,7 @@ void	pwd_builtin(void)
 
 	if (getcwd(buf, 0) != NULL)
 	{
-		ft_printf("%s\n", buf);
+		ft_printf("%s\n", getcwd(buf, 0));
 	}
 	else
 	{
