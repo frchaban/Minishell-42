@@ -67,7 +67,7 @@ void	execute(char **cmd, t_env *envir)
 	status = 0;
 	cmd[0] = get_absolute_path(cmd[0], envir);
 	if (cmd[0][0] != '/' && ft_strncmp(cmd[0],"./", 2) != 0)
-		return (ft_error("minishell: command not found: ", cmd[0]));
+		return (ft_error("minishell: command not found: ", NULL ,cmd[0]));
 	pid = fork();
 	if (pid == -1)
 		ft_printf("%s\n", strerror(errno)) ; // error to manage

@@ -26,7 +26,7 @@ int		cd(char *path)
 {
 	if (chdir(path) == -1)
 	{
-		ft_printf("%s\n", strerror(errno));
+		ft_error("cd: ", strerror(errno), path);
 		return (0);
 	}
 	return (1);
@@ -53,6 +53,10 @@ void	cd_builtin(char **cmd, t_env *envir)
 	char *old_pwd;
 	int res;
 
+	if (ft_count_split(cmd) > 3)
+		return (ft_error("cd: too many arguments", NULL, NULL));
+	else if (ft_count_split(cmd) == 3)
+		return (ft_error("cd: string not in pwd: ", NULL, cmd[2]));
 	old_pwd = getcwd(NULL,0);
 	res = (cmd[1] == NULL ? cd(get_home(envir)) : cd(cmd[1]));
 	if (res == 1)

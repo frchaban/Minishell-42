@@ -44,7 +44,7 @@ void	launch(char **cmd, int *status, t_env *envir)
 	else if (ft_strcmp(cmd[0],"cd") == 0)
 		cd_builtin(cmd, envir);
 	else if (ft_strcmp(cmd[0],"pwd") == 0)
-		pwd_builtin();
+		pwd_builtin(cmd);
 	else if (ft_strcmp(cmd[0],"export") == 0)
 		return;
 	else if (ft_strcmp(cmd[0],"unset") == 0)
