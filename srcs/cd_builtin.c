@@ -2,9 +2,6 @@
 
 void	update_pwd(char *pwd, char *old_pwd, t_env *envir)
 {
-	t_env *lst;
-
-	lst = envir;
 	while (envir)
 	{
 		if (ft_strequ(envir->key, "PWD") == 1)
@@ -19,7 +16,6 @@ void	update_pwd(char *pwd, char *old_pwd, t_env *envir)
 		}
 		envir = envir->next;
 	}
-	envir = lst;
 }
 
 int		cd(char *path)
@@ -62,8 +58,6 @@ void	cd_builtin(char **cmd, t_env *envir)
 	if (res == 1)
 	{
 		pwd = getcwd(NULL, 0);
-		printf("%s\n", pwd);
-		printf("%s\n", old_pwd);
 		update_pwd(pwd,old_pwd,envir);
 	}
 }
