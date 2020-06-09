@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/08 21:00:18 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/09 09:36:48 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	prompt(void)
 	ft_printf("%s", "minishell $> ");
 }
 
-char ***parse_cmd(char *line)
+char	***parse_cmd(char *line)
 {
-	char **cmd;
-	char ***data;
-	int i;
+	char	**cmd;
+	char	***data;
+	int		i;
 
 	i = -1;
 	cmd = ft_split(line, ';');
@@ -44,40 +44,40 @@ char ***parse_cmd(char *line)
 	while (cmd[++i])
 	{
 		cmd[i] = ft_strtrim_freed(cmd[i], " ");
-		data[i] = ft_split(cmd[i],' ');
+		data[i] = ft_split(cmd[i], ' ');
 	}
 	free(line);
 	ft_free_2dim(cmd);
 	return (data);
 }
 
-char ***get_cmd(void)
+char	***get_cmd(void)
 {
 	char *line;
 
 	prompt();
-	while (get_next_line(0, &line) != 1) ;
-	return(parse_cmd(line));
+	while (get_next_line(0, &line) != 1)
+		;
+	return (parse_cmd(line));
 }
 
 void	launch(char **cmd, int *status, t_env *envir)
 {
 	cmd = replace_var(cmd, envir);
-	if (ft_strcmp(cmd[0],"echo") == 0)
+	if (ft_strcmp(cmd[0], "echo") == 0)
 		echo_builtin(cmd);
-	else if (ft_strcmp(cmd[0],"cd") == 0)
+	else if (ft_strcmp(cmd[0], "cd") == 0)
 		cd_builtin(cmd, envir);
-	else if (ft_strcmp(cmd[0],"pwd") == 0)
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		pwd_builtin(cmd);
-	else if (ft_strcmp(cmd[0],"export") == 0)
+	else if (ft_strcmp(cmd[0], "export") == 0)
 		export_builtin(envir, cmd);
-	else if (ft_strcmp(cmd[0],"unset") == 0)
-		return;
-	else if (ft_strcmp(cmd[0],"env") == 0)
+	else if (ft_strcmp(cmd[0], "unset") == 0)
+		return ;
+	else if (ft_strcmp(cmd[0], "env") == 0)
 		env_builtin(envir, cmd);
-	else if (ft_strcmp(cmd[0],"exit") == 0)
+	else if (ft_strcmp(cmd[0], "exit") == 0)
 		*status = exit_builtin();
 	else
 		execute(cmd, envir);
 }
-
