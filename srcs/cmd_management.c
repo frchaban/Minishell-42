@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/08 20:48:11 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/08 21:00:18 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	launch(char **cmd, int *status, t_env *envir)
 	else if (ft_strcmp(cmd[0],"unset") == 0)
 		return;
 	else if (ft_strcmp(cmd[0],"env") == 0)
-		env_builtin(envir);
+		env_builtin(envir, cmd);
 	else if (ft_strcmp(cmd[0],"exit") == 0)
 		*status = exit_builtin();
 	else
