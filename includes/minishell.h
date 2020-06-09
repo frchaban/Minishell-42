@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/09 14:34:30 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/09 18:22:44 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ t_env		*set_up_elem(char *line);
 t_env		*ft_last_elem(t_env *envir);
 void		free_all_list(t_env *envir);
 char	*get_var_content(char *cmd, t_env *envir);
-int		ft_redir(char **cmd);
+int		ft_redir(char **cmd, int flag);
 
-
+int		args_to_list(t_list **args, char **cmd);
+void	free_args_list(t_list *args);
+int    args_size(t_list  *args);
 
 
 #endif

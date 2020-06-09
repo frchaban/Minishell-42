@@ -6,11 +6,24 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:59:57 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 20:48:13 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/09 18:22:28 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int    args_size(t_list  *args)
+{
+  int i;
+  i = 0;
+  while (args != NULL)
+  {
+    i++;
+    args = args->next;
+  }
+  return (i);
+}
+
 
 int    lst_size(t_env  *env)
 {
