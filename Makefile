@@ -6,7 +6,7 @@
 #    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/06/08 20:30:55 by frchaban         ###   ########.fr        #
+#    Updated: 2020/06/09 14:51:22 by frchaban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS_LIST		= \
 					pwd_builtin.c \
 					lst_manage.c \
 					lst_manage_2.c \
+					redirections.c \
 					exit_builtin.c
 
 
@@ -50,13 +51,14 @@ all :	$(NAME)
 
 $(NAME) :	$(OBJS)
 	@make -C $(LIBFT)
-	@$(CC) $(SGFLAGS) $(FLAGS) $(LFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+	@$(CC) $(FLAGS) $(LFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
 
 %.o: %.c
 	@$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJS)
+	@rm -f *.txt
 	@make clean -s -C $(LIBFT)
 
 fclean: clean
