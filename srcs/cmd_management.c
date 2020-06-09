@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/09 11:12:13 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/09 11:24:33 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	***parse_cmd(char *line)
 	char	**cmd;
 	char	***data;
 	int		i;
+	int		j;
 
 	i = -1;
 	cmd = ft_split(line, ';');
@@ -45,6 +46,9 @@ char	***parse_cmd(char *line)
 	{
 		cmd[i] = ft_strtrim_freed(cmd[i], " ");
 		data[i] = ft_split(cmd[i], ' ');
+		j = -1;
+		while (data[i][++j])
+			data[i][j] = ft_strtrim_freed(data[i][j], "\"\'");
 	}
 	free(line);
 	ft_free_2dim(cmd);
