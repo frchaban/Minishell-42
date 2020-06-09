@@ -59,5 +59,7 @@ void	cd_builtin(char **cmd, t_env *envir)
 	{
 		pwd = getcwd(NULL, 0);
 		update_pwd(pwd,old_pwd,envir);
+		return;
 	}
+	free(old_pwd);
 }

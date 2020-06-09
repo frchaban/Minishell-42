@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/09 09:36:48 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/09 11:12:13 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ char	***get_cmd(void)
 
 void	launch(char **cmd, int *status, t_env *envir)
 {
+	if (ft_strcmp(cmd[0], "export") == 0)
+	{
+		export_builtin(envir, cmd);
+		return;
+	}
 	cmd = replace_var(cmd, envir);
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		echo_builtin(cmd);
@@ -70,8 +75,6 @@ void	launch(char **cmd, int *status, t_env *envir)
 		cd_builtin(cmd, envir);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		pwd_builtin(cmd);
-	else if (ft_strcmp(cmd[0], "export") == 0)
-		export_builtin(envir, cmd);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		return ;
 	else if (ft_strcmp(cmd[0], "env") == 0)
