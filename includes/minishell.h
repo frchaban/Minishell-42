@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/09 18:22:44 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/09 19:57:47 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ char		***get_cmd(void);
 void		execute(char **cmd, t_env *envir);
 void		launch(char **cmd, int *status, t_env *envir);
 
-void		cd_builtin(char **cmd, t_env *envir);
-void		pwd_builtin(char **cmd);
-void		echo_builtin(char **cmd);
+void		cd_builtin(t_list *args, t_env *envir);
+void		pwd_builtin(t_list *args);
+void		echo_builtin(t_list *args);
 int			exit_builtin(void);
-void		export_builtin(t_env *envir, char **cmd);
-void  		env_builtin(t_env *envir, char **cmd);
+void		export_builtin(t_env *envir, t_list *args);
+void  		env_builtin(t_env *envir, t_list *args);
 
 void		ft_error(char *error, char *error_errno, char *cmd);
 char  		**list_to_envp(t_env *envir);

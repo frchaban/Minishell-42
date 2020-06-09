@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:59:57 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/09 18:23:22 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/09 19:29:28 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int    args_size(t_list  *args)
   }
   return (i);
 }
-
 
 int    lst_size(t_env  *env)
 {
