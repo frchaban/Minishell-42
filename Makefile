@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
+#    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/06/10 09:19:46 by gdupont          ###   ########.fr        #
+#    Updated: 2020/06/10 12:35:03 by frchaban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS_LIST		= \
 					lst_manage.c \
 					lst_manage_2.c \
 					redirections.c \
+					parse.c \
 					exit_builtin.c
 
 
@@ -52,7 +53,7 @@ all :	$(NAME)
 
 $(NAME) :	$(OBJS)
 	@make -C $(LIBFT)
-	@$(CC) $(FLAGS) $(LFLAGS) $(INCLUDES) $(OBJS) libft/libft.a -o $(NAME)
+	@$(CC) $(SGFLAGS) $(FLAGS) $(LFLAGS) $(INCLUDES) $(OBJS) libft/libft.a -o $(NAME)
 
 %.o: %.c
 	@$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<

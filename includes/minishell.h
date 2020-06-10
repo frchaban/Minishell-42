@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/10 10:20:59 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:12:43 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int			ft_redir(char **cmd, int flag);
 int			args_to_list(t_list **args, char **cmd);
 void		free_args_list(t_list *args);
 int			args_size(t_list  *args);
+
+char		 **ft_parse_cmd(char *cmd);
 
 
 #endif
