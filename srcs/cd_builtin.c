@@ -43,18 +43,18 @@ char	*get_home(t_env *envir)
 	return (NULL);
 }
 
-void	cd_builtin(char **cmd, t_env *envir)
+void	cd_builtin(t_list *args, t_env *envir)
 {
 	char *pwd;
 	char *old_pwd;
 	int res;
 
-	if (ft_count_split(cmd) > 3)
+	if (args_size(args) > 2)
 		return (ft_error("cd: too many arguments", NULL, NULL));
-	else if (ft_count_split(cmd) == 3)
-		return (ft_error("cd: string not in pwd: ", NULL, cmd[2]));
+	else if (args_size(args) == 2)
+		return (ft_error("cd: string not in pwd: ", NULL, args->next->content));
 	old_pwd = getcwd(NULL,0);
-	res = (cmd[1] == NULL ? cd(get_home(envir)) : cd(cmd[1]));
+	res = (args == NULL ? cd(get_home(envir)) : cd(args->content));
 	if (res == 1)
 	{
 		pwd = getcwd(NULL, 0);

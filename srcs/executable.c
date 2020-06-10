@@ -56,6 +56,7 @@ char	*get_absolute_path(char *cmd, t_env *envir)
 	return (absolute_path);
 }
 
+
 void	execute(char **cmd, t_env *envir)
 {
 	int		status;
@@ -78,6 +79,7 @@ void	execute(char **cmd, t_env *envir)
 	else if (pid == 0)
 	{
 		env = list_to_envp(envir);
+		ft_redir(cmd , 1);
 		execve(cmd[0], cmd, env) == -1 ? ft_error("minishell: ", strerror(errno) ,cmd[0]) : 0;
 		ft_free_2dim(env);
 		exit(EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 14:07:36 by frchaban          #+#    #+#             */
-/*   Updated: 2020/04/27 16:46:00 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/09 17:06:56 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ void	ft_free_2dim(char **data)
 {
 	int i;
 
-	i = -1;
-	while (data[++i])
+	i = 0;
+	while (data[i])
+	{
 		free(data[i]);
+		i++;
+	}
 	free(data);
 }

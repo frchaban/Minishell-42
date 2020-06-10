@@ -1,11 +1,11 @@
 #include "minishell.h"
 
-void	pwd_builtin(char **cmd)
+void	pwd_builtin(t_list *args)
 {
 	char *buf;
 	buf = NULL;
 
-	if (ft_count_split(cmd) > 1)
+	if (args_size(args) > 0)
 		return (ft_error("pwd: too many arguments", NULL, NULL));
 	if (getcwd(buf, 0) != NULL)
 	{
