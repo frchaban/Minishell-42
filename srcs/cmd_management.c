@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 16:05:16 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/10 17:27:25 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,12 @@ int		is_builtin(char *cmd)
 		return (1);
 	else if (ft_strcmp(cmd, "exit") == 0)
 		return (1);
+	else if (ft_strchr(cmd, '='))
+		return (1);
 	return (0);
 }
 
-void	launch_builtin(char *cmd, t_list *args, t_env *envir,int *status)
+void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 {
 	if (ft_strcmp(cmd, "export") == 0)
 		export_builtin(envir, args);
@@ -91,7 +93,9 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir,int *status)
 	else if (ft_strcmp(cmd, "env") == 0)
 		env_builtin(envir);
 	else if (ft_strcmp(cmd, "exit") == 0)
-			*status = exit_builtin();
+		*status = exit_builtin();
+	else if (ft_strchr(cmd, '='))
+		variable_update(cmd, args, envir);
 }
 
 void	launch(char **cmd, int *status, t_env *envir)
@@ -106,17 +110,14 @@ void	launch(char **cmd, int *status, t_env *envir)
 		old_stdout = dup(STDOUT_FILENO);
 		if (ft_redir(cmd, 0) < 0)
 			return ;
+		args = NULL; 
 		if (cmd[1])
 			args_to_list(&args, cmd);
-		else
-			args = NULL;
 		launch_builtin(cmd[0], args, envir, status);
 		free_args_list(args);
 		dup2(old_stdout, STDOUT_FILENO);
 		close(old_stdout);
 	}
 	else
-	{
 		execute(cmd, envir);
-	}
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
+#    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/06/10 15:47:34 by frchaban         ###   ########.fr        #
+#    Updated: 2020/06/10 17:12:49 by gdupont          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS_LIST		= \
 					lst_manage_2.c \
 					redirections.c \
 					parse.c \
+					variable_update.c \
 					exit_builtin.c
 
 
