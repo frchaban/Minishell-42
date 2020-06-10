@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 15:55:02 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 16:06:10 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_find_key(t_env *envir, char *cmd)
 
 void	export_print_lst(t_env *envir)
 {
-	char **temp;
+	char	**temp;
 	t_env	*ordered;
 
 	temp = list_to_envp(envir);
