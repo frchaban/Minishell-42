@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:59:57 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/10 16:16:27 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 16:20:08 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ char  **list_to_envp(t_env *env)
     	ft_strcat(final[i], env->key);
     	ft_strcat(final[i], "=");
     	ft_strcat(final[i++], env->content);
-    	env = env->next;
 	}
+	env = env->next;
   }
   final[i] = NULL;
   return (final);
