@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_manage.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 15:03:33 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/08 16:10:41 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/10 09:05:46 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@ void	free_elem_list(t_env *env)
 	free(env->content);
 	env->content = NULL;
 	free(env);
+}
+
+t_env	*ft_last_elem(t_env *env)
+{
+	while(env->next != NULL)
+		env = env->next;
+	return (env);
 }
 
 void	free_all_list(t_env *env)
@@ -36,7 +43,7 @@ void	free_all_list(t_env *env)
 	env = NULL;
 }
 
-t_env	*set_up_elem(char *line)
+t_env	*set_up_elem(char *line, int exportable)
 {
 	int		i;
 	t_env	*result;
@@ -48,6 +55,7 @@ t_env	*set_up_elem(char *line)
 		i++;
 	result->key = ft_substr(line, 0, i);
 	result->content = ft_strdup(&line[i + 1]);
+	result->exportable = exportable;
 	result->next = NULL;
 	return (result);
 }
@@ -57,7 +65,7 @@ int		envp_to_list(t_env **env, char **envp)
 	int		i;
 	t_env	*new;
 
-	if (!(*env = set_up_elem(envp[0])))
+	if (!(*env = set_up_elem(envp[0], 1)))
 		return (-1);
 	i = 1;
 	while (envp[i])
@@ -65,7 +73,7 @@ int		envp_to_list(t_env **env, char **envp)
 		new = *env;
 		while (new->next != NULL)
 			new = new->next;
-		if (!(new->next = set_up_elem(envp[i])))
+		if (!(new->next = set_up_elem(envp[i], 1)))
 		{
 			free_all_list(*env);
 			return (-1);
