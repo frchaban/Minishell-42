@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 10:45:23 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 16:05:16 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ char	**replace_var(char **cmd, t_env *envir)
 	return (cmd);
 }
 
-void	prompt(void)
-{
-	ft_printf("%s", "minishell $> ");
-}
 
 char	***parse_cmd(char *line)
 {
@@ -43,14 +39,8 @@ char	***parse_cmd(char *line)
 	data[ft_count_split(cmd)] = NULL;
 	while (cmd[++i])
 	{
-		cmd[i] = ft_strtrim_freed(cmd[i], " ");
-		if (ft_strchr(cmd[i], '\"'))
-			data[i] = ft_split(cmd[i], '\"');
-		else if (ft_strchr(cmd[i], '\''))
-			data[i] = ft_split(cmd[i], '\'');
-		else
-			data[i] = ft_split(cmd[i], ' ');
-		data[i][0] = ft_strtrim_freed(data[i][0], " ");
+		cmd[i] = ft_strtrim_freed(cmd[i], " \t");
+		data[i] = ft_parse_cmd(cmd[i]);
 	}
 	free(line);
 	ft_free_2dim(cmd);
@@ -61,7 +51,7 @@ char	***get_cmd(void)
 {
 	char *line;
 
-	prompt();
+	ft_printf("%s", "minishell $> ");
 	while (get_next_line(0, &line) != 1)
 		;
 	return (parse_cmd(line));
@@ -90,17 +80,17 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir,int *status)
 {
 	if (ft_strcmp(cmd, "export") == 0)
 		export_builtin(envir, args);
-		else if (ft_strcmp(cmd, "echo") == 0)
-			echo_builtin(args);
-		else if (ft_strcmp(cmd, "cd") == 0)
-			cd_builtin(args, envir);
-		else if (ft_strcmp(cmd, "pwd") == 0)
-			pwd_builtin(args);
-		else if (ft_strcmp(cmd, "unset") == 0)
-			return ;
-		else if (ft_strcmp(cmd, "env") == 0)
-			env_builtin(envir);
-		else if (ft_strcmp(cmd, "exit") == 0)
+	else if (ft_strcmp(cmd, "echo") == 0)
+		echo_builtin(args);
+	else if (ft_strcmp(cmd, "cd") == 0)
+		cd_builtin(args, envir);
+	else if (ft_strcmp(cmd, "pwd") == 0)
+		pwd_builtin(args);
+	else if (ft_strcmp(cmd, "unset") == 0)
+		return ;
+	else if (ft_strcmp(cmd, "env") == 0)
+		env_builtin(envir);
+	else if (ft_strcmp(cmd, "exit") == 0)
 			*status = exit_builtin();
 }
 
