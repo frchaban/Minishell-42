@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 17:44:46 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/10 10:41:45 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 11:07:26 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int		args_to_list(t_list **args, char **cmd)
 	t_list	*new;
 
 	i = 1;
-	printf("content\n");
 	if (ft_strequ(cmd[i], ">") || ft_strequ(cmd[i], ">>") || ft_strequ(cmd[i], "<"))
 		i += 2 ;
 	if (!(*args = set_up_arg(cmd[i])))

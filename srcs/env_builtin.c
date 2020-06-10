@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:02:36 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 10:03:48 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 11:31:59 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	env_builtin(t_env *envir)
 	while (envir)
 	{
 		if (envir->exportable == 1)
-			printf("%s=%s", envir->key, envir->content);
+			printf("%s=%s\n", envir->key, envir->content);
 		envir = envir->next;
 	}
 }
