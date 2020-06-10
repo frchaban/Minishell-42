@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/10 17:08:23 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 23:23:03 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void		echo_builtin(t_list *args);
 int			exit_builtin(void);
 void		export_builtin(t_env *envir, t_list *args);
 void  		env_builtin(t_env *envir);
+void		unset_builtin(t_list *args, t_env *envir);
 
 void		variable_update(char *first_cmd, t_list *args, t_env *envir);
 

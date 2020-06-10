@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 17:27:25 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 23:24:24 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 	else if (ft_strcmp(cmd, "pwd") == 0)
 		pwd_builtin(args);
 	else if (ft_strcmp(cmd, "unset") == 0)
-		return ;
+		return unset_builtin(args, envir);
 	else if (ft_strcmp(cmd, "env") == 0)
 		env_builtin(envir);
 	else if (ft_strcmp(cmd, "exit") == 0)

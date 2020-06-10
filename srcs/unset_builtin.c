@@ -6,11 +6,17 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 22:06:03 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 23:11:57 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 23:25:50 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	check_valid_cmd(char *cmd)
+{
+	(void)cmd;
+	return (1);
+}
 
 void		remove_variable_from_envir(t_env *envir, char *cmd)
 {
@@ -22,24 +28,22 @@ void		remove_variable_from_envir(t_env *envir, char *cmd)
 			envir->content = ft_strdup("");
 			return ;
 		}
+		else
 		envir = envir->next;
 	}
 }
 
-void	unset_builtin(char *first_cmd, t_list *args, t_env *envir)
+void	unset_builtin(t_list *args, t_env *envir)
 {
 	t_list	*begin;
 
 	begin = args;
-	if (check_valid_cmd(first_cmd) == 0)
-		return ;
 	while (args)
 	{
 		if (check_valid_cmd(args->content) == 0)
 			return ;
 		args = args->next;
 	}
-	remove_variable_from_envir(envir, first_cmd);
 	while (begin)
 	{
 		remove_variable_from_envir(envir, begin->content);
