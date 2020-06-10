@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_manage_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:59:57 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 20:48:13 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/09 16:31:03 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,6 @@ char  **list_to_envp(t_env *env)
   return (final);
 }
 
-t_env	*ft_last_elem(t_env *env)
-{
-	while(env->next != NULL)
-		env = env->next;
-	return (env);
-}
-
 char	*get_var_content(char *cmd, t_env *envir)
 {
 	char *tronc;
@@ -74,4 +67,20 @@ char	*get_var_content(char *cmd, t_env *envir)
 	}
 	free(tronc);
 	return (ft_strdup(""));
+}
+
+int		check_valid_var(char **cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i][0] == '=')
+			return (0);
+		if (ft_strchr(cmd[i], '=') == 0)
+			return (0);
+		i++;
+	}
+	return (1);
 }
