@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 21:48:57 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 22:50:21 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int		check_valid_cmd(char *cmd)
 	while (cmd[i])
 	{
 		c = cmd[i];
-		if ((c > 'z' || c < '0' || (c > '9' && c < 'A') || ( c > 'Z' && c < 'a')) && c != '=')
+		if ((c > 'z' || c < '0' || (c > '9' && c < 'A') || 
+		( c > 'Z' && c < 'a')) && c != '=')
 		{
 			ft_error("issue with your command : ", "export", cmd);
 			return (0);
