@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 10:14:48 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 10:45:23 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		is_builtin(char *cmd)
 void	launch_builtin(char *cmd, t_list *args, t_env *envir,int *status)
 {
 	if (ft_strcmp(cmd, "export") == 0)
-			export_builtin(envir, args);
+		export_builtin(envir, args);
 		else if (ft_strcmp(cmd, "echo") == 0)
 			echo_builtin(args);
 		else if (ft_strcmp(cmd, "cd") == 0)
@@ -116,12 +116,17 @@ void	launch(char **cmd, int *status, t_env *envir)
 		old_stdout = dup(STDOUT_FILENO);
 		if (ft_redir(cmd, 0) < 0)
 			return ;
-		args_to_list(&args, cmd);
+		if (cmd[1])
+			args_to_list(&args, cmd);
+		else
+			args = NULL;
 		launch_builtin(cmd[0], args, envir, status);
 		free_args_list(args);
 		dup2(old_stdout, STDOUT_FILENO);
 		close(old_stdout);
 	}
 	else
+	{
 		execute(cmd, envir);
+	}
 }
