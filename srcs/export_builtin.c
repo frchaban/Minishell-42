@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 17:04:30 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 21:48:57 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ void	export_elem_to_envir(t_env *envir, char *cmd)
 		}
 		envir = envir->next;
 	}
-	previous->next = next;
+	if (equal)
+		previous->next = next;
+	else
+		ft_error("not a valid variable : ", NULL, cmd);
 }
 
 void	export_builtin(t_env *envir, t_list *args)
