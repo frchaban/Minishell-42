@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/09 17:58:19 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 10:21:49 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_find_key(t_env *envir, char *cmd)
 	{
 		if (ft_strcmp(cmd, envir->key) == 0)
 			return (1);
-		envir = envir->key;
+		envir = envir->next;
 	}
 	return (0);
 }
@@ -28,11 +28,8 @@ void	export_print_lst()
 	;
 }
 
-int		check_valid_cmd(t_env *envir, char *cmd)
+int		check_valid_cmd(char *cmd)
 {
-	int		y;
-	char	*key;
-
 	if (cmd == ft_strchr(cmd, '='))
 	{
 		ft_error(cmd, NULL, "export");
@@ -63,25 +60,26 @@ void	export_elem_to_envir(t_env *envir, char *cmd)
 	previous->next = next;
 }
 
-
-void	export_builtin(t_env *envir, char **cmd)
+void	export_builtin(t_env *envir, t_list *args)
 {
-	int i;
+	t_list	*begin;
 
-	if (cmd[1] != NULL)
-		export_print_lst();
-	else if (cmd[1][0] = '\0')
+	if (!args)
 		export_print_lst();
 	else
 	{
-		i = 1;
-		while (cmd[i])
+		begin = args;
+		while (args)
 		{
-			if (check_valid_cmd(envir, cmd[i++]) == 0)
+			if (check_valid_cmd(args->content) == 0)
 				return ;
 		}
-		i = 1;
-		while (cmd[i])
-			export_elem_to_envir(envir, cmd[i++])
+		args = begin;
+		while (args)
+		{
+			export_elem_to_envir(envir, args->content);
+			args = args->next;
+		}
 	}
 }
+

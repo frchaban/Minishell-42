@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/09 19:55:53 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/10 10:14:48 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir,int *status)
 		else if (ft_strcmp(cmd, "unset") == 0)
 			return ;
 		else if (ft_strcmp(cmd, "env") == 0)
-			env_builtin(envir, args);
+			env_builtin(envir);
 		else if (ft_strcmp(cmd, "exit") == 0)
 			*status = exit_builtin();
 }
@@ -114,8 +114,8 @@ void	launch(char **cmd, int *status, t_env *envir)
 	if (is_builtin(cmd[0]) == 1)
 	{
 		old_stdout = dup(STDOUT_FILENO);
-			if (ft_redir(cmd, 0) < 0)
-		return ;
+		if (ft_redir(cmd, 0) < 0)
+			return ;
 		args_to_list(&args, cmd);
 		launch_builtin(cmd[0], args, envir, status);
 		free_args_list(args);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/09 19:57:47 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/10 10:20:59 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@
 # include "../libft/includes/libft.h"
 # include "../libft/includes/libftprintf.h"
 
+# define NOT_EXPORT 0
+# define EXPORT 1
+
 typedef struct 		s_env
 {
 	char 			*key;
 	char 			*content;
+	int				exportable;
 	struct s_env 	*next;
 }					t_env;
 
@@ -44,21 +48,21 @@ void		pwd_builtin(t_list *args);
 void		echo_builtin(t_list *args);
 int			exit_builtin(void);
 void		export_builtin(t_env *envir, t_list *args);
-void  		env_builtin(t_env *envir, t_list *args);
+void  		env_builtin(t_env *envir);
 
 void		ft_error(char *error, char *error_errno, char *cmd);
 char  		**list_to_envp(t_env *envir);
 
 int			envp_to_list(t_env **envir, char **envp);
-t_env		*set_up_elem(char *line);
+t_env		*set_up_elem(char *line, int exportable);
 t_env		*ft_last_elem(t_env *envir);
 void		free_all_list(t_env *envir);
-char	*get_var_content(char *cmd, t_env *envir);
-int		ft_redir(char **cmd, int flag);
+char		*get_var_content(char *cmd, t_env *envir);
+int			ft_redir(char **cmd, int flag);
 
-int		args_to_list(t_list **args, char **cmd);
-void	free_args_list(t_list *args);
-int    args_size(t_list  *args);
+int			args_to_list(t_list **args, char **cmd);
+void		free_args_list(t_list *args);
+int			args_size(t_list  *args);
 
 
 #endif

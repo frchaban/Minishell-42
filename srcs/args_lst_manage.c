@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args_lst_manage.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 17:44:46 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/09 18:17:42 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/10 10:22:54 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	free_args_list(t_list *args)
 
 static t_list	*set_up_arg(char *line)
 {
-	int		i;
 	t_list	*result;
 
-	i = 0;
 	if (!line)
 		return (NULL);
 	if (!(result = malloc(sizeof(*result))))

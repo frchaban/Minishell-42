@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:13:06 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/09 18:20:14 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/10 09:55:00 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int		ft_greater_redir(char **cmd, int i, int flag)
 	int fd;
 
 	flag == 1 ? cmd[i] = NULL : 0;
-	if ((fd = open(cmd[++i],O_CREAT| O_RDWR | O_TRUNC,0644)) < 0)
+	if ((fd = open(cmd[++i], O_CREAT| O_RDWR | O_TRUNC, 0644)) < 0)
 	{
 		ft_error("minishell: no such file or directory: ", NULL, cmd[i]);
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);  // un exit ?
 	}
 	else
 	{
@@ -38,7 +38,7 @@ int		ft_greatgreat_redir(char **cmd,int i, int flag)
 	if ((fd = open(cmd[++i],O_CREAT| O_RDWR | O_APPEND,0644)) < 0)
 	{
 		ft_error("minishell: no such file or directory: ", NULL, cmd[i]);
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);   // un exit ?
 	}
 	else
 	{
