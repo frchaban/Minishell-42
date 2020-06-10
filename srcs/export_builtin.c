@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 15:34:04 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 16:03:21 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		check_valid_cmd(char *cmd)
 	while (cmd[i])
 	{
 		c = cmd[i];
-		if (c > 'z' || c < '0' || (c > '9' && c < 'A') || ( c > 'Z' && c < 'a'))
+		if ((c > 'z' || c < '0' || (c > '9' && c < 'A') || ( c > 'Z' && c < 'a')) && c != '=')
 		{
 			ft_error("issue with your command : ", "export", cmd);
 			return (0);
@@ -64,15 +64,21 @@ void	export_elem_to_envir(t_env *envir, char *cmd)
 {
 	t_env	*next;
 	t_env	*previous;
+	char	*equal;
 
+	equal = ft_strchr(cmd, '=');
 	next = set_up_elem(cmd, EXPORT);
 	while (envir)
 	{
 		previous = envir;
 		if (ft_strcmp(envir->key, next->key) == 0)
 		{
-			free(envir->content);
-			envir->content = next->content;
+			if (equal)
+			{
+				free(envir->content);
+				envir->content = next->content;
+			}
+			envir->exportable = EXPORT;
 			free(next->key);
 			free(next);
 			return ;
@@ -106,3 +112,6 @@ void	export_builtin(t_env *envir, t_list *args)
 	}
 }
 
+/*
+** 
+*/
