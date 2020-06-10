@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 15:10:38 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:34:04 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,19 @@ void	export_print_lst(t_env *envir)
 
 int		check_valid_cmd(char *cmd)
 {
-	if (cmd == ft_strchr(cmd, '='))
+	char	c;
+	int		i;
+
+	i = 0;
+	while (cmd[i])
 	{
-		ft_error(cmd, NULL, "export");
-		return (0);
+		c = cmd[i];
+		if (c > 'z' || c < '0' || (c > '9' && c < 'A') || ( c > 'Z' && c < 'a'))
+		{
+			ft_error("issue with your command : ", "export", cmd);
+			return (0);
+		}
+		i++;
 	}
 	return (1);
 }
