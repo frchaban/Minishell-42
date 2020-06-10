@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/10 11:08:59 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/10 16:01:57 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	echo_builtin(t_list *args)
 
 	flag = 0;
 	mult = 0;
+	!args ?	ft_printf("\n") : 0;
 	if (args)
 	{
 		flag = ((ft_strequ(args->content, "-n") ? 0 : 1));
@@ -27,7 +28,7 @@ void	echo_builtin(t_list *args)
 		else
 			mult = ((args_size(args) > 2) ? 1 : 0);
 	}
-	if (flag == 0)
+	if (args && flag == 0)
 		args = args->next;
 	while(args)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:13:06 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/10 09:55:00 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 16:06:35 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,13 @@ int		ft_redir(char **cmd , int flag)
 	while(cmd[++i])
 	{
 		if (ft_strequ(cmd[i],">"))
+		{	if (!cmd[i+1])
+			{
+				ft_error("minishell: syntax error near unexpected token `newline'", NULL, NULL);
+				return (-1);
+			}
 			res = ft_greater_redir(cmd, i++, flag);
+		}
 		else if (ft_strequ(cmd[i],">>"))
 			res = ft_greatgreat_redir(cmd, i++, flag);
 		else if (ft_strequ(cmd[i],"<"))

@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 15:17:16 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/10 16:05:16 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,17 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir,int *status)
 {
 	if (ft_strcmp(cmd, "export") == 0)
 		export_builtin(envir, args);
-		else if (ft_strcmp(cmd, "echo") == 0)
-			echo_builtin(args);
-		else if (ft_strcmp(cmd, "cd") == 0)
-			cd_builtin(args, envir);
-		else if (ft_strcmp(cmd, "pwd") == 0)
-			pwd_builtin(args);
-		else if (ft_strcmp(cmd, "unset") == 0)
-			return ;
-		else if (ft_strcmp(cmd, "env") == 0)
-			env_builtin(envir);
-		else if (ft_strcmp(cmd, "exit") == 0)
+	else if (ft_strcmp(cmd, "echo") == 0)
+		echo_builtin(args);
+	else if (ft_strcmp(cmd, "cd") == 0)
+		cd_builtin(args, envir);
+	else if (ft_strcmp(cmd, "pwd") == 0)
+		pwd_builtin(args);
+	else if (ft_strcmp(cmd, "unset") == 0)
+		return ;
+	else if (ft_strcmp(cmd, "env") == 0)
+		env_builtin(envir);
+	else if (ft_strcmp(cmd, "exit") == 0)
 			*status = exit_builtin();
 }
 
