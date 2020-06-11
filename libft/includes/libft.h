@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 18:26:50 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/10 11:31:32 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/11 14:44:49 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char				*ft_strjoin_s1_freed(char *s1, char *s2);
 char				*ft_strtrim(char const *s, char const *set);
 char				*ft_strtrim_freed(char *s, char const *set);
 char				**ft_split(char const *s, char c);
+char				**ft_split_freed(char *s, char c);
 void				ft_sort_strings(char **strings);
 int					ft_count_split(char **split);
 char				*ft_itoa(int n);

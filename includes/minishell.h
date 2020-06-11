@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/11 08:46:35 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/11 14:39:00 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,9 @@ void		free_args_list(t_list *args);
 int			args_size(t_list  *args);
 
 char		 **ft_parse_cmd(char *cmd);
+
+void	signal_ctrl_c();
+void	remove_ctrl(char *arg1, char *arg2, t_env *envir);
+char	*get_absolute_path(char *cmd, t_env *envir);
 
 #endif

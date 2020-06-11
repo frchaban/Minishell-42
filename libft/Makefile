@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
+#    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/03 18:24:04 by frchaban          #+#    #+#              #
-#    Updated: 2020/06/10 11:28:22 by gdupont          ###   ########.fr        #
+#    Updated: 2020/06/11 14:44:23 by frchaban         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS_LIST = \
 				libft/ft_putstr.c \
 				libft/ft_putstr_fd.c \
 				libft/ft_split.c \
+				libft/ft_split_freed.c \
 				libft/ft_strcat.c \
 				libft/ft_strchr.c \
 				libft/ft_strclr.c \

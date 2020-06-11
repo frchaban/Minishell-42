@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/09 17:01:24 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/11 14:47:19 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int main(int argc, char **argv, char **env)
 	if (argc != 1)
 		return (0);
 	envp_to_list(&envir, env);
+	remove_ctrl("stty", " -echoctl",envir);
 	status = 1;
 	while (status)
 	{
@@ -49,6 +50,5 @@ int main(int argc, char **argv, char **env)
 		ft_free_3dim(cmd);
 	}
 	free_all_list(envir);
-	//getchar();
 	return (0);
 }
