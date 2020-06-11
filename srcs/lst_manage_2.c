@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:59:57 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/09 16:31:03 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/10 16:20:08 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,24 @@ char  **list_to_envp(t_env *env)
   int    i;
   int    len;
   int    size;
+  
   size = lst_size(env);
   if (!(final = malloc(sizeof(*final) * (size + 1))))
     return (NULL);
   i = 0;
   while (env)
   {
-    len = ft_strlen(env->key) + ft_strlen(env->content) + 1;
-    if (!(final[i] = malloc(sizeof(**final) * (len + 1))))
-      	return(NULL);
-    final[i][0] = '\0';
-    ft_strcat(final[i], env->key);
-    ft_strcat(final[i], "=");
-    ft_strcat(final[i], env->content);
-    i++;
-    env = env->next;
+	if (env->exportable == EXPORT)
+    {
+		len = ft_strlen(env->key) + ft_strlen(env->content) + 1;
+    	if (!(final[i] = malloc(sizeof(**final) * (len + 1))))
+      		return(NULL);
+    	final[i][0] = '\0';
+    	ft_strcat(final[i], env->key);
+    	ft_strcat(final[i], "=");
+    	ft_strcat(final[i++], env->content);
+	}
+	env = env->next;
   }
   final[i] = NULL;
   return (final);

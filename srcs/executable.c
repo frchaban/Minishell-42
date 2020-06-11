@@ -56,7 +56,6 @@ char	*get_absolute_path(char *cmd, t_env *envir)
 	return (absolute_path);
 }
 
-
 void	execute(char **cmd, t_env *envir)
 {
 	int		status;

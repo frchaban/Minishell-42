@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset_builtin.c                                    :+:      :+:    :+:   */
+/*   variable_update.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/10 22:06:03 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/11 09:34:16 by gdupont          ###   ########.fr       */
+/*   Created: 2020/06/10 16:30:54 by gdupont           #+#    #+#             */
+/*   Updated: 2020/06/11 09:05:27 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,40 +33,50 @@ static	int	check_valid_cmd(char *cmd)
 	return (result);
 }
 
-void		remove_variable_from_envir(t_env *envir, char *cmd)
+void		add_variable_to_envir(t_env *envir, char *cmd)
 {
+	t_env	*next;
 	t_env	*previous;
 
+	next = set_up_elem(cmd, NOT_EXPORT);
 	while (envir)
 	{
-		if (ft_strcmp(envir->key, cmd) == 0)
+		previous = envir;
+		if (ft_strcmp(envir->key, next->key) == 0)
 		{
-			previous->next = envir->next;
-			free_elem_list(envir);
+			free(envir->content);
+			envir->content = next->content;
+			free(next->key);
+			free(next);
 			return ;
 		}
-		previous = envir;
 		envir = envir->next;
 	}
+	previous->next = next;
 }
 
-void	unset_builtin(t_list *args, t_env *envir)
+
+void	variable_update(char *first_cmd, t_list *args, t_env *envir)
 {
 	t_list	*begin;
+	int		result;
 
 	begin = args;
+	result = 1;
+	if (check_valid_cmd(first_cmd) == 0)
+		result = 0;
 	while (args)
 	{
 		if (check_valid_cmd(args->content) == 0)
-		{
-			ft_error("issue wiht your unset command : ", NULL, args->content);
-			return ;
-		}
+			result = 0;
 		args = args->next;
 	}
+	if (!result)
+		return (ft_error("issue with your variable update", NULL, NULL));
+	add_variable_to_envir(envir, first_cmd);
 	while (begin)
 	{
-		remove_variable_from_envir(envir, begin->content);
+		add_variable_to_envir(envir, begin->content);
 		begin = begin->next;
 	}
 }

@@ -6,26 +6,36 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 15:55:02 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/11 09:09:24 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_find_key(t_env *envir, char *cmd)
+static	int	check_valid_cmd(char *cmd)
 {
-	while (envir)
+	int		i;
+	t_env	*temp;
+	int		result;
+
+	i = 0;
+	result = 1;
+	temp = set_up_elem(cmd, EXPORT);
+	if (ft_isdigit(temp->key[0]))
+		result = 0;
+	while (temp->key[i])
 	{
-		if (ft_strcmp(cmd, envir->key) == 0)
-			return (1);
-		envir = envir->next;
+		if (!ft_isalnum(temp->key[i]) && temp->key[i] != '_')
+			result = 0;
+		i++;
 	}
-	return (0);
+	free_elem_list(temp);
+	return (result);
 }
 
-void	export_print_lst(t_env *envir)
+void		export_print_lst(t_env *envir)
 {
-	char **temp;
+	char	**temp;
 	t_env	*ordered;
 
 	temp = list_to_envp(envir);
@@ -41,26 +51,7 @@ void	export_print_lst(t_env *envir)
 	free_all_list(ordered);
 }
 
-int		check_valid_cmd(char *cmd)
-{
-	char	c;
-	int		i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		c = cmd[i];
-		if ((c > 'z' || c < '0' || (c > '9' && c < 'A') || ( c > 'Z' && c < 'a')) && c != '=')
-		{
-			ft_error("issue with your command : ", "export", cmd);
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-void	export_elem_to_envir(t_env *envir, char *cmd)
+void		export_elem_to_envir(t_env *envir, char *cmd)
 {
 	t_env	*next;
 	t_env	*previous;
@@ -73,22 +64,24 @@ void	export_elem_to_envir(t_env *envir, char *cmd)
 		previous = envir;
 		if (ft_strcmp(envir->key, next->key) == 0)
 		{
+			envir->exportable = EXPORT;
 			if (equal)
 			{
-				free(envir->content);
-				envir->content = next->content;
+				previous->next = next;
+				next->next = envir->next;
+				free_elem_list(envir);
 			}
-			envir->exportable = EXPORT;
-			free(next->key);
-			free(next);
 			return ;
 		}
 		envir = envir->next;
 	}
-	previous->next = next;
+	if (equal)
+		previous->next = next;
+	else
+		free_elem_list(next);
 }
 
-void	export_builtin(t_env *envir, t_list *args)
+void		export_builtin(t_env *envir, t_list *args)
 {
 	t_list	*begin;
 
@@ -100,7 +93,10 @@ void	export_builtin(t_env *envir, t_list *args)
 		while (args)
 		{
 			if (check_valid_cmd(args->content) == 0)
+			{
+				ft_error("issue with this command: ", NULL, args->content);
 				return ;
+			}
 			args = args->next;
 		}
 		args = begin;
@@ -113,5 +109,5 @@ void	export_builtin(t_env *envir, t_list *args)
 }
 
 /*
-** 
+** salut
 */

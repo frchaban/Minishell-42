@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/10 15:48:41 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/11 08:46:35 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void		echo_builtin(t_list *args);
 int			exit_builtin(void);
 void		export_builtin(t_env *envir, t_list *args);
 void  		env_builtin(t_env *envir);
+void		unset_builtin(t_list *args, t_env *envir);
+
+void		variable_update(char *first_cmd, t_list *args, t_env *envir);
 
 void		ft_error(char *error, char *error_errno, char *cmd);
 char  		**list_to_envp(t_env *envir);
@@ -56,6 +59,7 @@ char  		**list_to_envp(t_env *envir);
 int			envp_to_list(t_env **envir, char **envp);
 t_env		*set_up_elem(char *line, int exportable);
 t_env		*ft_last_elem(t_env *envir);
+void		free_elem_list(t_env *env);
 void		free_all_list(t_env *envir);
 char		*get_var_content(char *cmd, t_env *envir);
 int			ft_redir(char **cmd, int flag);
