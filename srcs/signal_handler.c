@@ -6,17 +6,21 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 13:05:02 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/11 14:43:20 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/11 14:55:57 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signal_ctrl_c(void)
+void	signal_ctrl_c()
 {
 	ft_printf("\nminishell $> ");
 }
-//stty -echoctl
+
+void	signal_ctrl_back()
+{
+	return ;
+}
 
 void	remove_ctrl(char *arg1, char *arg2, t_env *envir)
 {

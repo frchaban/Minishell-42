@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/11 13:12:49 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/11 14:51:37 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	***get_cmd(void)
 
 	ft_printf("%s", "minishell $> ");
 	signal(SIGINT,signal_ctrl_c);
+	signal(SIGQUIT, signal_ctrl_back);
 	while (get_next_line(0, &line) != 1)
 		;
 	return (parse_cmd(line));
