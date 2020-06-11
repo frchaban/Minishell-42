@@ -6,11 +6,27 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/11 11:59:55 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/06/11 12:17:38 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void ft_write(char *line)
+{
+	int i;
+
+	i = -1;
+	while(line[++i])
+	{
+		if (line[i] == '\\')
+			write(1, &line[i], 0);
+		else if (i != 0 && line[i - 1] != '\\' && (line [i] == '\"' || line [i] == '\''))
+			write(1, &line[i], 0);
+		else
+			write(1, &line[i], 1);
+	}
+}
 
 void	echo_builtin(t_list *args)
 {
@@ -32,7 +48,7 @@ void	echo_builtin(t_list *args)
 		args = args->next;
 	while(args)
 	{
-		ft_printf("%s", args->content);
+		ft_write(args->content);
 		if (mult == 1 && args->next)
 			ft_printf(" ");
 		args = args->next;

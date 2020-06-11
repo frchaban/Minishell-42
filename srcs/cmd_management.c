@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/06/11 12:00:42 by frchaban         ###   ########.fr       */
-=======
-/*   Updated: 2020/06/11 08:46:43 by gdupont          ###   ########.fr       */
->>>>>>> 9e0fec10f2e18cc5ef091940a046cbd47dc06601
+/*   Updated: 2020/06/11 12:04:30 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +110,7 @@ void	launch(char **cmd, int *status, t_env *envir)
 		old_stdout = dup(STDOUT_FILENO);
 		if (ft_redir(cmd, 0) < 0)
 			return ;
-		args = NULL; 
+		args = NULL;
 		if (cmd[1])
 			args_to_list(&args, cmd);
 		launch_builtin(cmd[0], args, envir, status);

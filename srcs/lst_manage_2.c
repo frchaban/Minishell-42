@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_manage_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:59:57 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/10 16:20:08 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/11 12:04:35 by frchaban         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char  **list_to_envp(t_env *env)
   int    i;
   int    len;
   int    size;
-  
+
   size = lst_size(env);
   if (!(final = malloc(sizeof(*final) * (size + 1))))
     return (NULL);
