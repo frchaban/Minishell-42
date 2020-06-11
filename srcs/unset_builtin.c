@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 22:06:03 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/11 09:22:54 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/11 09:34:16 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		remove_variable_from_envir(t_env *envir, char *cmd)
 
 	while (envir)
 	{
-		if (ft_strcmp(envir->key, cmd) == 0 && envir->exportable == 0)
+		if (ft_strcmp(envir->key, cmd) == 0)
 		{
 			previous->next = envir->next;
 			free_elem_list(envir);
