@@ -6,29 +6,46 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 22:06:03 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 23:25:50 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/06/11 09:18:53 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	check_valid_cmd(char *cmd)
+static	int	check_valid_cmd(char *cmd)
 {
-	(void)cmd;
-	return (1);
+	int		i;
+	t_env	*temp;
+	int		result;
+
+	i = 0;
+	result = 1;
+	temp = set_up_elem(cmd, EXPORT);
+	if (ft_isdigit(temp->key[0]))
+		result = 0;
+	while (temp->key[i])
+	{
+		if (!ft_isalnum(temp->key[i]) && temp->key[i] != '_')
+			result = 0;
+		i++;
+	}
+	free_elem_list(temp);
+	return (result);
 }
 
 void		remove_variable_from_envir(t_env *envir, char *cmd)
 {
+	t_env	*previous;
+
 	while (envir)
 	{
-		if (ft_strcmp(envir->key, cmd) == 0 && envir->exportable == 0)
+		if (ft_strcmp(envir->key, cmd) == 0 && envir->exportable == 1)
 		{
-			free(envir->content);
-			envir->content = ft_strdup("");
+			previous->next = envir->next;
+			free_elem_list(envir);
 			return ;
 		}
-		else
+		previous = envir;
 		envir = envir->next;
 	}
 }
@@ -41,7 +58,10 @@ void	unset_builtin(t_list *args, t_env *envir)
 	while (args)
 	{
 		if (check_valid_cmd(args->content) == 0)
+		{
+			ft_error("issue wiht your unset command : ", NULL, args->content);
 			return ;
+		}
 		args = args->next;
 	}
 	while (begin)
