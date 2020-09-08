@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/11 12:16:07 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/09/08 15:42:25 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int	count_words(char *cmd)
 		else
 			i++;
 	}
+	ft_putnbr(ret);
+	write(1, "ok\n", 3);
 	return (ret);
 }
 
@@ -99,5 +101,6 @@ char **ft_parse_cmd(char *cmd)
 		i++;
 	}
 	parsed[cpt] = NULL;
+	ft_print_split(parsed);
 	return (parsed);
 }

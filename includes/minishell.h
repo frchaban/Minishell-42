@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/11 14:53:19 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/07/29 15:28:24 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ typedef struct 		s_env
 	struct s_env 	*next;
 }					t_env;
 
-char		***get_cmd(void);
+char		*get_cmd(void);
 void		execute(char **cmd, t_env *envir);
 void		launch(char **cmd, int *status, t_env *envir);
+char		***parse_cmd(char *line);
 
 void		cd_builtin(t_list *args, t_env *envir);
 void		pwd_builtin(t_list *args);

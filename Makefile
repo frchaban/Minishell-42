@@ -6,7 +6,7 @@
 #    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/06/11 14:32:42 by frchaban         ###   ########.fr        #
+#    Updated: 2020/09/08 13:25:40 by gdupont          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ LIBFT = libft
 
 LFLAGS	= -L $(LIBFT) -lft
 
-SGFLAGS = -g -fsanitize=address
+SGFLAGS = -g ulimit -c unlimited
 
 all :	$(NAME)
 

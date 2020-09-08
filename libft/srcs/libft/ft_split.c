@@ -6,12 +6,12 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:35:10 by Francois          #+#    #+#             */
-/*   Updated: 2020/06/10 13:29:42 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/09/08 14:45:28 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
+#include <stdio.h>
 static size_t	ft_wordlen(char const *s, unsigned int pos, char c)
 {
 	unsigned int	i;

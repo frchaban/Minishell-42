@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/11 14:51:37 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/09/08 15:23:25 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	**replace_var(char **cmd, t_env *envir)
 	{
 		if (cmd[i][0] == '$')
 			cmd[i] = get_var_content(cmd[i], envir);
+		write(1, "replace\n", 8);
 	}
 	return (cmd);
 }
@@ -31,23 +32,28 @@ char	***parse_cmd(char *line)
 	char	**cmd;
 	char	***data;
 	int		i;
+	int		len;
 
 	i = -1;
 	cmd = ft_split(line, ';');
-	if (!(data = malloc(sizeof(*data) * (ft_count_split(cmd) + 1))))
+	len = ft_count_split(cmd);
+	if (!(data = malloc(sizeof(*data) * (len + 1))))
 		return (NULL);
-	data[ft_count_split(cmd)] = NULL;
+	data[len] = NULL;
 	while (cmd[++i])
-	{
-		cmd[i] = ft_strtrim_freed(cmd[i], " \t");
+	{	
+		ft_putendl(cmd[i]);
+		cmd[i] = ft_strtrim_freed(cmd[i], " \t");	
 		data[i] = ft_parse_cmd(cmd[i]);
+		ft_print_split(data[i]);
+		write(1, "limiter\n", 8);
 	}
 	free(line);
 	ft_free_2dim(cmd);
 	return (data);
 }
 
-char	***get_cmd(void)
+char	*get_cmd(void)
 {
 	char *line;
 
@@ -56,7 +62,7 @@ char	***get_cmd(void)
 	signal(SIGQUIT, signal_ctrl_back);
 	while (get_next_line(0, &line) != 1)
 		;
-	return (parse_cmd(line));
+	return (line);
 }
 
 int		is_builtin(char *cmd)
@@ -102,8 +108,8 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 
 void	launch(char **cmd, int *status, t_env *envir)
 {
-	t_list *args;
-	int old_stdout;
+	t_list	*args;
+	int		old_stdout;
 
 	old_stdout = 0;
 	cmd = replace_var(cmd, envir);
@@ -114,7 +120,10 @@ void	launch(char **cmd, int *status, t_env *envir)
 			return ;
 		args = NULL;
 		if (cmd[1])
+		{
 			args_to_list(&args, cmd);
+			write(1, "launch\n", 6);
+		}
 		launch_builtin(cmd[0], args, envir, status);
 		free_args_list(args);
 		dup2(old_stdout, STDOUT_FILENO);

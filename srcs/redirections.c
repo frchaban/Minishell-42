@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:13:06 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/10 16:13:01 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/07/17 14:54:03 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,3 +84,4 @@ int		ft_redir(char **cmd , int flag)
 	}
 	return (res);
 }
+
