@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/09/08 14:29:12 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:27:22 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ void		export_print_lst(t_env *envir)
 	char	**temp;
 	t_env	*ordered;
 
-	write(1, "ok\n", 3);
 	temp = list_to_envp(envir);
-	write(1, "ok\n", 3);
 	ft_sort_strings(temp);
 	envp_to_list(&ordered, temp);
 	while (ordered)
@@ -87,7 +85,6 @@ void		export_builtin(t_env *envir, t_list *args)
 {
 	t_list	*begin;
 
-	write(1,"ok\n", 3);
 	if (!args)
 	{
 		export_print_lst(envir);

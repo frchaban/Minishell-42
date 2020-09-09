@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/08 15:24:02 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/09 12:55:17 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,11 @@ int main(int argc, char **argv, char **env)
 			i = -1;
 			while (cmd3d[++i] != NULL)
 			{
-				//ft_print_split(cmd3d[i]);
 				if (cmd3d[i] && cmd3d[i][0] != NULL)
 					launch(cmd3d[i], &status, envir);
 			}
 			ft_free_3dim(cmd3d);
-			//cmd = NULL;
 		}
-//		ft_free_2dim(NULL);		
 	}
 	free_all_list(envir);
 	return (0);
@@ -69,3 +66,9 @@ int main(int argc, char **argv, char **env)
 //{
 	/* code */
 //}
+
+https://stackoverflow.com/questions/8389033/implementation-of-multiple-pipes-in-c
+http://www.cs.loyola.edu/~jglenn/702/S2005/Examples/dup2.html
+https://stackoverflow.com/questions/916900/having-trouble-with-fork-pipe-dup2-and-exec-in-c/
+
+

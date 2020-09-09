@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/08 15:42:25 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/09 12:01:56 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static int	count_words(char *cmd)
 		else
 			i++;
 	}
-	ft_putnbr(ret);
-	write(1, "ok\n", 3);
 	return (ret);
 }
 
@@ -61,46 +59,44 @@ static int	ft_wordlen(char const *s, unsigned int pos, char c)
 	return (i);
 }
 
-
 char **ft_parse_cmd(char *cmd)
 {
-	char **parsed;
-	int	cpt;
-	int	i;
-	int			len;
+	char	**parsed;
+	int		cpt;
+	int		i;
+	int		len;
 
 	if (!(parsed = malloc(sizeof(*parsed) * (count_words(cmd) + 1))))
 		return (NULL);
 	cpt = 0;
 	i = 0;
 	while (cmd[i])
-	{
+	{	
 		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
 			i++;
-		if (!ft_strchr("\'\"\t ",cmd[i]))
+		if (!ft_strchr("\'\"\t ", cmd[i]))
 		{
 			len = (ft_wordlen(cmd, i, ' ') == 0 ? ft_wordlen(cmd, i, '\t') : ft_wordlen(cmd, i, ' '));
 			parsed[cpt] = ft_substr(cmd, i, len);
 			cpt++;
-			i = i + len;
+			i = i + len - 1;
 		}
 		else if (cmd[i] == '\'')
 		{
 			len = ft_wordlen(cmd, ++i, '\'');
 			parsed[cpt] = ft_substr(cmd, i, len);
 			cpt++;
-			i = i + len;
+			i = i + len - 1;
 		}
 		else if (cmd[i] == '\"')
 		{
 			len = ft_wordlen(cmd, ++i, '\"');
 			parsed[cpt] = ft_substr(cmd, i, len);
 			cpt++;
-			i = i + len;
+			i = i + len - 1;
 		}
 		i++;
 	}
 	parsed[cpt] = NULL;
-	ft_print_split(parsed);
 	return (parsed);
 }
