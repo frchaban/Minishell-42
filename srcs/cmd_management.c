@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/11 14:51:37 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/09/09 12:02:16 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,22 @@ char	**replace_var(char **cmd, t_env *envir)
 	return (cmd);
 }
 
-
 char	***parse_cmd(char *line)
 {
 	char	**cmd;
 	char	***data;
 	int		i;
+	int		len;
 
 	i = -1;
 	cmd = ft_split(line, ';');
-	if (!(data = malloc(sizeof(*data) * (ft_count_split(cmd) + 1))))
+	len = ft_count_split(cmd);
+	if (!(data = malloc(sizeof(*data) * (len + 1))))
 		return (NULL);
-	data[ft_count_split(cmd)] = NULL;
+	data[len] = NULL;
 	while (cmd[++i])
 	{
-		cmd[i] = ft_strtrim_freed(cmd[i], " \t");
+		cmd[i] = ft_strtrim_freed(cmd[i], " \t");	
 		data[i] = ft_parse_cmd(cmd[i]);
 	}
 	free(line);
@@ -47,7 +48,7 @@ char	***parse_cmd(char *line)
 	return (data);
 }
 
-char	***get_cmd(void)
+char	*get_cmd(void)
 {
 	char *line;
 
@@ -56,7 +57,7 @@ char	***get_cmd(void)
 	signal(SIGQUIT, signal_ctrl_back);
 	while (get_next_line(0, &line) != 1)
 		;
-	return (parse_cmd(line));
+	return (line);
 }
 
 int		is_builtin(char *cmd)
@@ -102,8 +103,8 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 
 void	launch(char **cmd, int *status, t_env *envir)
 {
-	t_list *args;
-	int old_stdout;
+	t_list	*args;
+	int		old_stdout;
 
 	old_stdout = 0;
 	cmd = replace_var(cmd, envir);
@@ -123,3 +124,4 @@ void	launch(char **cmd, int *status, t_env *envir)
 	else
 		execute(cmd, envir);
 }
+

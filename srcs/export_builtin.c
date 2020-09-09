@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/11 09:09:24 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:27:22 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,12 @@ void		export_builtin(t_env *envir, t_list *args)
 	t_list	*begin;
 
 	if (!args)
-		export_print_lst(envir);
-	else
 	{
+		export_print_lst(envir);
+	}	
+		else
+	{
+	
 		begin = args;
 		while (args)
 		{
@@ -108,6 +111,3 @@ void		export_builtin(t_env *envir, t_list *args)
 	}
 }
 
-/*
-** salut
-*/
