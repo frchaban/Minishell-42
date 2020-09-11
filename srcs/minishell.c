@@ -25,15 +25,33 @@ void		ft_error(char *error, char *error_errno, char *cmd)
 	ft_putchar_fd('\n', 2);
 }
 
+void	main_2(int *status, char *line, t_env *envir)
+{
+	char	***cmd3d;
+	int	i;
+	int	y;
+	char	**pipe_split;
+
+	pipe_split = ft_split(line, '|');
+	y = 0;
+	while (pipe_split[y] != NULL)
+	{
+		cmd3d = parse_cmd(pipe_split[y++]);
+		i = 0;
+		while (cmd3d[i] != NULL)
+		{
+			if (cmd3d[i] && cmd3d[i][0] != NULL)
+				launch(cmd3d[i++], status, envir);
+		}
+		ft_free_3dim(cmd3d);
+	}
+}
+
 int main(int argc, char **argv, char **env)
 {
-	char ***cmd3d;
-	char *line;
-	char **pipe_split;
-	int status;
-	t_env *envir;
-	int i;
-	int y;
+	char	*line;
+	int	status;
+	t_env	*envir;
 
 	(void)argv;
 	if (argc != 1)
@@ -44,21 +62,10 @@ int main(int argc, char **argv, char **env)
 	while (status)
 	{
 		line = get_cmd();
-		pipe_split = ft_split(line, '|');
-		y = 0;
-		while (pipe_split[y] != NULL)
-		{
-			cmd3d = parse_cmd(pipe_split[y++]);
-			i = -1;
-			while (cmd3d[++i] != NULL)
-			{
-				if (cmd3d[i] && cmd3d[i][0] != NULL)
-					launch(cmd3d[i], &status, envir);
-			}
-			ft_free_3dim(cmd3d);
-		}
+		main_2(&status, line, envir);
+	
 	}
-	free_all_list(envir);
+		free_all_list(envir);
 	return (0);
 }
 
