@@ -67,8 +67,8 @@ int main(int argc, char **argv, char **env)
 	/* code */
 //}
 
-https://stackoverflow.com/questions/8389033/implementation-of-multiple-pipes-in-c
-http://www.cs.loyola.edu/~jglenn/702/S2005/Examples/dup2.html
-https://stackoverflow.com/questions/916900/having-trouble-with-fork-pipe-dup2-and-exec-in-c/
+//https://stackoverflow.com/questions/8389033/implementation-of-multiple-pipes-in-c
+//http://www.cs.loyola.edu/~jglenn/702/S2005/Examples/dup2.html
+//https://stackoverflow.com/questions/916900/having-trouble-with-fork-pipe-dup2-and-exec-in-c/
 
 
