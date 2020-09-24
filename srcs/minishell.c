@@ -6,7 +6,7 @@
 /*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/09 12:55:17 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/16 17:01:51 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,58 @@ void		ft_error(char *error, char *error_errno, char *cmd)
 	ft_putchar_fd('\n', 2);
 }
 
-void	main_2(int *status, char *line, t_env *envir)
-{
-	char	***cmd3d;
-	int	i;
-	int	y;
-	char	**pipe_split;
 
-	pipe_split = ft_split(line, '|');
-	y = 0;
+//void	handle_pipe(char **cmds, int *status, t_env *envir, int pipe_nb)
+void	handle_pipe()
+{
+	char ***cmd3d;
+	int		*the_pipe;
+
+	if (!(the_pipe = malloc(sizeof(pipe_nb))));
+		return ;
 	while (pipe_split[y] != NULL)
 	{
 		cmd3d = parse_cmd(pipe_split[y++]);
 		i = 0;
 		while (cmd3d[i] != NULL)
 		{
+			pipe(the_pipe);
+			if (fork() == 0)
+			{
+				dup2(old
+			}
 			if (cmd3d[i] && cmd3d[i][0] != NULL)
 				launch(cmd3d[i++], status, envir);
 		}
 		ft_free_3dim(cmd3d);
-	}
 }
+
+void	main_2(int *status, char *line, t_env *envir)
+{
+	char	***cmd3d;
+	int		i;
+	char	**pipe_split;
+	int		split_size;
+
+	pipe_split = ft_split(line, '|');
+	if ((split_size = ft_count_split(pipe_split)) == 1)
+	{
+			cmd3d = parse_cmd(line);
+			i = 0;
+			while (cmd3d[i] != NULL)
+			{
+				if (cmd3d[i] && cmd3d[i][0] != NULL)
+					launch(cmd3d[i++], status, envir);
+			}
+			ft_free_3dim(cmd3d);
+		}
+	}
+	else
+		handle_pipe();	
+		//handle_pipe(pipe_split, status, envir, split_size - 1);	
+}
+
+
 
 int main(int argc, char **argv, char **env)
 {

@@ -30,7 +30,7 @@ char*	ft_absolute_path(char *cmd, t_env *envir)
 	{
 		test_path = ft_strjoin(path_folders[i],"/");
 		test_path = ft_strjoin_s1_freed(test_path, cmd);
-		if ((fd = open(test_path,O_RDONLY)) == -1)
+		if ((fd = open(test_path, O_RDONLY)) == -1)
 		{
 			free(test_path);
 			test_path = NULL;
