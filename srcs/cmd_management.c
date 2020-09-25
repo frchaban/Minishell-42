@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/09/16 17:01:48 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/25 14:23:22 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,9 @@ void	launch(char **cmd, int *status, t_env *envir)
 		close(old_stdout);
 	}
 	else
+	{
+		write(1, "test\n", 5);
 		execute(cmd, envir);
+	}
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
+#    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/09/08 13:25:40 by gdupont          ###   ########.fr        #
+#    Updated: 2020/09/25 11:44:35 by gdupont          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRCS_LIST		= \
 					variable_update.c \
 					get_line.c \
 					signal_handler.c \
-					exit_builtin.c
+					exit_builtin.c \
+					pipe_management.c
 
 
 SRCS = $(addprefix ${PATH_SRCS}/, ${SRCS_LIST})
@@ -52,11 +53,13 @@ LFLAGS	= -L $(LIBFT) -lft
 
 SGFLAGS = -g ulimit -c unlimited
 
+FFLAGS = -g3 -fsanitize=address
+
 all :	$(NAME)
 
 $(NAME) :	$(OBJS)
 	@make -C $(LIBFT)
-	@$(CC) $(FLAGS) $(LFLAGS) $(INCLUDES) $(OBJS) libft/libft.a -o $(NAME)
+	@$(CC) $(FLAGS) $(LFLAGS) $(FFLAGS) $(INCLUDES) $(OBJS) libft/libft.a -o $(NAME)
 
 %.o: %.c
 	@$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<

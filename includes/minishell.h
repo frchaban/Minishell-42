@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/07/29 15:28:24 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/25 11:22:35 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,7 @@ void	signal_ctrl_c();
 void	signal_ctrl_back();
 void	remove_ctrl(char *arg1, char *arg2, t_env *envir);
 char	*get_absolute_path(char *cmd, t_env *envir);
+
+void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir);
 
 #endif

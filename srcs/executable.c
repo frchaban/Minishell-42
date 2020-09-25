@@ -52,7 +52,7 @@ char	*get_absolute_path(char *cmd, t_env *envir)
 		absolute_path = ft_absolute_path(cmd, envir);
 	if (absolute_path == NULL)
 		absolute_path = ft_strdup(cmd);
-	free(cmd);
+	//free(cmd);
 	return (absolute_path);
 }
 
