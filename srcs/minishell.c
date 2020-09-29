@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/25 15:55:36 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/29 11:56:23 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ void		ft_error(char *error, char *error_errno, char *cmd)
 
 void	main_2(int *status, char *line, t_env *envir)
 {
-
 	char	**pipe_split;
 
+	if (!line || !line[0])
+		return ;
 	pipe_split = ft_split(line, '|');
 	pipe_cmd(pipe_split, NULL, status, envir);
+	free(pipe_split);
 }
 
 int main(int argc, char **argv, char **env)

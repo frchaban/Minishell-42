@@ -28,7 +28,7 @@ char*	ft_absolute_path(char *cmd, t_env *envir)
 	i = -1;
 	while (path_folders && path_folders[++i])
 	{
-		test_path = ft_strjoin(path_folders[i],"/");
+		test_path = ft_strjoin(path_folders[i], "/");
 		test_path = ft_strjoin_s1_freed(test_path, cmd);
 		if ((fd = open(test_path, O_RDONLY)) == -1)
 		{
@@ -52,11 +52,11 @@ char	*get_absolute_path(char *cmd, t_env *envir)
 		absolute_path = ft_absolute_path(cmd, envir);
 	if (absolute_path == NULL)
 		absolute_path = ft_strdup(cmd);
-	//free(cmd);
+	free(cmd);
 	return (absolute_path);
 }
 
-void	execute(char **cmd, t_env *envir)
+void	execute(char **cmd, t_env *envir, int *previous, int *next)
 {
 	int		status;
 	pid_t	pid;
@@ -64,23 +64,28 @@ void	execute(char **cmd, t_env *envir)
 
 	pid = 0;
 	status = 0;
+	env = NULL;
+	(void)next;
+	(void)previous;
 	cmd[0] = get_absolute_path(cmd[0], envir);
-	if (ft_strchr(cmd[0],'/') == 0 && ft_strncmp(cmd[0],"./", 2) != 0)
+	if (ft_strchr(cmd[0], '/') == 0 && ft_strncmp(cmd[0],"./", 2) != 0)
 		return (ft_error("minishell: command not found: ", NULL ,cmd[0]));
 	pid = fork();
 	if (pid == -1)
 		ft_printf("%s\n", strerror(errno)) ; // error to manage
-	else if (pid > 0)
-	{
-		waitpid(pid, &status, 0);
-		kill(pid, SIGTERM);
-	}
-	else if (pid == 0)
+	else if (pid == 0)  //enfant
 	{
 		env = list_to_envp(envir);
 		ft_redir(cmd , 1);
-		execve(cmd[0], cmd, env) == -1 ? ft_error("minishell: ", strerror(errno) ,cmd[0]) : 0;
-		ft_free_2dim(env);
-		exit(EXIT_FAILURE);
+		execve(cmd[0], cmd, env) == -1 ? ft_error("minishell: ", strerror(errno), cmd[0]) : 0;
+	}
+	else if (pid > 0)  //parent
+	{
+		close(1);
+		close(0);
+		close(next[0]);
+		close(next[1]);
+		waitpid(pid, &status, 0);
+		kill(pid, SIGTERM);
 	}
 }

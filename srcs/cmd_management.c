@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/09/25 14:23:22 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/29 15:16:34 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*get_cmd(void)
 {
 	char *line;
 
-	ft_printf("%s", "minishell $> ");
+	ft_putstr("minishell $>");
 	signal(SIGINT,signal_ctrl_c);
 	signal(SIGQUIT, signal_ctrl_back);
 	while (get_next_line(0, &line) != 1)
@@ -101,7 +101,7 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 		variable_update(cmd, args, envir);
 }
 
-void	launch(char **cmd, int *status, t_env *envir)
+void	launch(char **cmd, int *status, t_env *envir, int *previous, int *next)
 {
 	t_list	*args;
 	int		old_stdout;
@@ -122,9 +122,6 @@ void	launch(char **cmd, int *status, t_env *envir)
 		close(old_stdout);
 	}
 	else
-	{
-		write(1, "test\n", 5);
-		execute(cmd, envir);
-	}
+		execute(cmd, envir, previous, next);
 }
 
