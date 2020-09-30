@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/09/29 15:16:34 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/30 14:49:09 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,13 @@ char	**replace_var(char **cmd, t_env *envir)
 	return (cmd);
 }
 
-char	***parse_cmd(char *line)
+char	***parse_cmd(char **cmd)
 {
-	char	**cmd;
 	char	***data;
 	int		i;
 	int		len;
 
 	i = -1;
-	cmd = ft_split(line, ';');
 	len = ft_count_split(cmd);
 	if (!(data = malloc(sizeof(*data) * (len + 1))))
 		return (NULL);
@@ -43,7 +41,6 @@ char	***parse_cmd(char *line)
 		cmd[i] = ft_strtrim_freed(cmd[i], " \t");	
 		data[i] = ft_parse_cmd(cmd[i]);
 	}
-	free(line);
 	ft_free_2dim(cmd);
 	return (data);
 }
@@ -101,12 +98,14 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 		variable_update(cmd, args, envir);
 }
 
-void	launch(char **cmd, int *status, t_env *envir, int *previous, int *next)
+void	launch(char **cmd, int *status, t_env *envir, int last_command)
 {
 	t_list	*args;
 	int		old_stdout;
 
 	old_stdout = 0;
+	if (!cmd || !cmd[0])
+		return ;
 	cmd = replace_var(cmd, envir);
 	if (is_builtin(cmd[0]) == 1)
 	{
@@ -122,6 +121,6 @@ void	launch(char **cmd, int *status, t_env *envir, int *previous, int *next)
 		close(old_stdout);
 	}
 	else
-		execute(cmd, envir, previous, next);
+		execute(cmd, envir, last_command);
 }
 

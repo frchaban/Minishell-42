@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+         #
+#    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/03 18:24:04 by frchaban          #+#    #+#              #
-#    Updated: 2020/07/29 15:54:55 by gdupont          ###   ########.fr        #
+#    Updated: 2020/09/30 13:30:16 by gdupont          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,6 +97,7 @@ SRCS_LIST = \
 				libft/ft_uhex.c \
 				libft/ft_sort_strings.c \
 				libft/ft_print_split.c \
+				libft/ft_count_3dim.c \
 				printf/ft_conv.c \
 				printf/ft_display.c \
 				printf/ft_display_tools.c \

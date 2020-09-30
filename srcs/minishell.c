@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/29 11:56:23 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/30 14:58:49 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,21 @@ void		ft_error(char *error, char *error_errno, char *cmd)
 
 void	main_2(int *status, char *line, t_env *envir)
 {
+	char	**semicolon_split;
 	char	**pipe_split;
+	int 	i;
 
+	i = -1;
 	if (!line || !line[0])
 		return ;
-	pipe_split = ft_split(line, '|');
-	pipe_cmd(pipe_split, NULL, status, envir);
-	free(pipe_split);
+	semicolon_split = ft_split(line, ';');
+	free(line);
+	while (semicolon_split[++i])
+	{
+		pipe_split = ft_split(semicolon_split[i], '|');
+		set_pipe(pipe_split, status, envir);
+	}
+	free(semicolon_split);
 }
 
 int main(int argc, char **argv, char **env)
@@ -56,11 +64,6 @@ int main(int argc, char **argv, char **env)
 	free_all_list(envir);
 	return (0);
 }
-
-//void call_cmd(int status, char **pipe_split, t_env *envir)
-//{
-	/* code */
-//}
 
 //https://stackoverflow.com/questions/8389033/implementation-of-multiple-pipes-in-c
 //http://www.cs.loyola.edu/~jglenn/702/S2005/Examples/dup2.html

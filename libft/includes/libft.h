@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 18:26:50 by frchaban          #+#    #+#             */
-/*   Updated: 2020/07/29 15:53:36 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/30 13:29:01 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char				**ft_split(char const *s, char c);
 char				**ft_split_freed(char *s, char c);
 void				ft_sort_strings(char **strings);
 int					ft_count_split(char **split);
+int					ft_count_3dim(char ***split);
 char				*ft_itoa(int n);
 char				*ft_itoa_us(unsigned int n);
 void				ft_putchar(char c);

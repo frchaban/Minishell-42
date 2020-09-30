@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/29 15:19:13 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/30 14:56:00 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ typedef struct 		s_env
 }					t_env;
 
 char		*get_cmd(void);
-void		execute(char **cmd, t_env *envir, int *previous, int *next);
-void		launch(char **cmd, int *status, t_env *envir, int *previous, int *next);
-char		***parse_cmd(char *line);
+void		execute(char **cmd, t_env *envir, int last_command);
+void		launch(char **cmd, int *status, t_env *envir, int last_command);
+char		***parse_cmd(char **line);
 
 void		cd_builtin(t_list *args, t_env *envir);
 void		pwd_builtin(t_list *args);
@@ -71,11 +71,12 @@ int			args_size(t_list  *args);
 
 char		 **ft_parse_cmd(char *cmd);
 
-void	signal_ctrl_c();
-void	signal_ctrl_back();
-void	remove_ctrl(char *arg1, char *arg2, t_env *envir);
-char	*get_absolute_path(char *cmd, t_env *envir);
+void		signal_ctrl_c();
+void		signal_ctrl_back();
+void		remove_ctrl(char *arg1, char *arg2, t_env *envir);
+char		*get_absolute_path(char *cmd, t_env *envir);
 
-void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir);
+void 		pipe_cmd(char **cmd_split, int *status, t_env *envir);
+void 		set_pipe(char **cmd_split, int *status, t_env *envir);
 
 #endif
