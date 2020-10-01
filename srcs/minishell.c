@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/16 17:01:51 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 16:39:15 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,58 +25,49 @@ void		ft_error(char *error, char *error_errno, char *cmd)
 	ft_putchar_fd('\n', 2);
 }
 
-
-//void	handle_pipe(char **cmds, int *status, t_env *envir, int pipe_nb)
-void	handle_pipe()
+void	check_cmd_exit(char **cmd, int *status)
 {
-	char ***cmd3d;
-	int		*the_pipe;
+	int i;
+	char **cmd_cleaned;
 
-	if (!(the_pipe = malloc(sizeof(pipe_nb))));
-		return ;
-	while (pipe_split[y] != NULL)
-	{
-		cmd3d = parse_cmd(pipe_split[y++]);
-		i = 0;
-		while (cmd3d[i] != NULL)
-		{
-			pipe(the_pipe);
-			if (fork() == 0)
-			{
-				dup2(old
-			}
-			if (cmd3d[i] && cmd3d[i][0] != NULL)
-				launch(cmd3d[i++], status, envir);
-		}
-		ft_free_3dim(cmd3d);
+	i = 0;
+	while(cmd[i + 1])
+		i++;
+	cmd_cleaned = parse_cmd(cmd[i]);
+	if (ft_strequ(cmd_cleaned[0], "exit"))
+		*status = 0;
 }
+
 
 void	main_2(int *status, char *line, t_env *envir)
 {
-	char	***cmd3d;
-	int		i;
-	char	**pipe_split;
-	int		split_size;
+	char	**semicolon_split;
+	char	**cmd;
+	pid_t	pid;
+	int 	stt;
+	int i;
 
-	pipe_split = ft_split(line, '|');
-	if ((split_size = ft_count_split(pipe_split)) == 1)
+	if (!line || !line[0])
+		return ;
+	semicolon_split = ft_split(line, ';');
+	i = 0;
+	while (semicolon_split[i])
 	{
-			cmd3d = parse_cmd(line);
-			i = 0;
-			while (cmd3d[i] != NULL)
-			{
-				if (cmd3d[i] && cmd3d[i][0] != NULL)
-					launch(cmd3d[i++], status, envir);
-			}
-			ft_free_3dim(cmd3d);
+		cmd = ft_split(semicolon_split[i++], '|');
+		pid = fork();
+		stt = 0;
+		if (pid == 0)
+		{
+			pipe_cmd(cmd, NULL, status, envir);
+			exit(1);
 		}
+		else
+			waitpid(pid, &stt, 0);
+		check_cmd_exit(cmd, status);
+		free(cmd);
 	}
-	else
-		handle_pipe();	
-		//handle_pipe(pipe_split, status, envir, split_size - 1);	
+	ft_free_2dim(semicolon_split);
 }
-
-
 
 int main(int argc, char **argv, char **env)
 {
@@ -94,9 +85,9 @@ int main(int argc, char **argv, char **env)
 	{
 		line = get_cmd();
 		main_2(&status, line, envir);
-	
+		free(line);
 	}
-		free_all_list(envir);
+	free_all_list(envir);
 	return (0);
 }
 

@@ -3,6 +3,75 @@
 #include <unistd.h>
 #include "libft/libft.h"
 
+
+void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
+{
+	int		next_fd[2];
+	pid_t	pid_fork;
+	char	***cmd_semicolon;
+	int		keep_fd[2];
+
+	int		i[3];
+
+	cmd_semicolon = parse_cmd(cmd_split[0]);
+	if (previous_fd)
+	{
+		dup2(previous_fd[0], 0);
+		close(previous_fd[0]);
+	}
+	if (cmd_split[1])
+	{
+		keep_fd[0] = dup(0);
+		keep_fd[1] = dup(1);
+		pipe(next_fd);	//add security
+		pid_fork = fork();
+		if (pid_fork == 0)  
+		{
+			close(next_fd[1]);
+			pipe_cmd(cmd_split + 1, next_fd, status, envir);
+			kill(pid_fork, 0);
+			
+		}
+		else
+		{
+			close(next_fd[0]);
+			dup2(next_fd[1], 1);
+			close(next_fd[1]);
+			//execvp(*cmd, cmd);
+			launch(cmd_semicolon[0], status, envir);
+			dup2(keep_fd[0], 0);
+			close (keep_fd[0]);
+			dup2(keep_fd[1], 1);
+			close (keep_fd[0]);
+		}
+	}
+	else
+	{
+		//execvp(*cmd, cmd);
+		launch(cmd_split, status, envir);
+	}
+	close(previous_fd[0]);
+}
+
+int main(void)
+{
+	char *cmds[4];
+	char **cmd;
+
+
+	cmds[0] = "ls libft";
+	cmds[2] = "grep a";
+	cmds[1] = "sort";
+	cmds[3] = NULL;
+
+
+//	execvp(*cmd, cmd);
+	pipe_cmd(cmds, NULL);
+}
+
+
+/*
+
 void 	pipe_cmd(char **cmd, int *previous_fd)
 {
 	int		next_fd[2];
@@ -63,22 +132,9 @@ void 	pipe_cmd(char **cmd, int *previous_fd)
 		}
 	}
 }
-
-int main(void)
-{
-	char *cmds[4];
-	char **cmd;
+*/
 
 
-	cmds[0] = "ls libft";
-	cmds[2] = "grep a";
-	cmds[1] = "sort";
-	cmds[3] = NULL;
-
-
-//	execvp(*cmd, cmd);
-	pipe_cmd(cmds, NULL);
-}
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/07/29 15:28:24 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 15:56:19 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct 		s_env
 char		*get_cmd(void);
 void		execute(char **cmd, t_env *envir);
 void		launch(char **cmd, int *status, t_env *envir);
-char		***parse_cmd(char *line);
+char		**parse_cmd(char *line);
 
 void		cd_builtin(t_list *args, t_env *envir);
 void		pwd_builtin(t_list *args);
@@ -75,5 +75,7 @@ void	signal_ctrl_c();
 void	signal_ctrl_back();
 void	remove_ctrl(char *arg1, char *arg2, t_env *envir);
 char	*get_absolute_path(char *cmd, t_env *envir);
+
+void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir);
 
 #endif

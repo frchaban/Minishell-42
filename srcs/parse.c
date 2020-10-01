@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/09 12:01:56 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 15:56:37 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ static int	ft_wordlen(char const *s, unsigned int pos, char c)
 	while (s[pos + i] && s[pos + i] != c)
 		i++;
 	return (i);
+}
+
+char	**parse_cmd(char *cmd)
+{
+	char	**result;
+	int		i;
+
+	i = -1;
+	cmd = ft_strtrim_freed(cmd, " \t");	
+	result = ft_parse_cmd(cmd);
+	return (result);
 }
 
 char **ft_parse_cmd(char *cmd)

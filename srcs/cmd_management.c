@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/09/16 17:01:48 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 15:49:50 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,11 @@ char	**replace_var(char **cmd, t_env *envir)
 	return (cmd);
 }
 
-char	***parse_cmd(char *line)
-{
-	char	**cmd;
-	char	***data;
-	int		i;
-	int		len;
-
-	i = -1;
-	cmd = ft_split(line, ';');
-	len = ft_count_split(cmd);
-	if (!(data = malloc(sizeof(*data) * (len + 1))))
-		return (NULL);
-	data[len] = NULL;
-	while (cmd[++i])
-	{
-		cmd[i] = ft_strtrim_freed(cmd[i], " \t");	
-		data[i] = ft_parse_cmd(cmd[i]);
-	}
-	free(line);
-	ft_free_2dim(cmd);
-	return (data);
-}
-
 char	*get_cmd(void)
 {
 	char *line;
 
-	ft_printf("%s", "minishell $> ");
+	ft_putstr("minishell $>");
 	signal(SIGINT,signal_ctrl_c);
 	signal(SIGQUIT, signal_ctrl_back);
 	while (get_next_line(0, &line) != 1)
