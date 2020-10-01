@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/01 15:19:12 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 15:52:55 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,30 @@ void		ft_error(char *error, char *error_errno, char *cmd)
 
 void	main_2(int *status, char *line, t_env *envir)
 {
-	char	**pipe_split;
+	char	**semicolon_split;
+	char	**cmd;
 	pid_t	pid;
 	int 	stt;
+	int i;
 
 	if (!line || !line[0])
 		return ;
-	pipe_split = ft_split(line, '|');
-	pid = fork();
-	stt = 0;
-	if (pid == 0)
+	semicolon_split = ft_split(line, ';');
+	i = 0;
+	while (semicolon_split[i])
 	{
-		pipe_cmd(pipe_split, NULL, status, envir);
-		exit(1);
-	}
-	else
-	{
-		waitpid(pid, &stt, 0);
-	}
+		cmd = pipe_split(semicolon_split[i++], '|');
+		pid = fork();
+		stt = 0;
+		if (pid == 0)
+		{
+			pipe_cmd(pipe_split, NULL, status, envir);
+			exit(1);
+		}
+		else
+			waitpid(pid, &stt, 0);
 	free(pipe_split);
+	}
 }
 
 int main(int argc, char **argv, char **env)

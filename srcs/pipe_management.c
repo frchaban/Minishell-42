@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/01 15:31:30 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 15:48:46 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 {
 	int		next_fd[2];
 	pid_t	pid_fork;
-	char	***cmd_semicolon;
+	char	**cmd;
 
-	cmd_semicolon = parse_cmd(cmd_split[0]);
+	cmd = parse_cmd(cmd_split[0]);
 	if (previous_fd)
 	dup2(previous_fd[0], 0);
 	if (cmd_split[1])
