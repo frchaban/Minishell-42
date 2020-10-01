@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/01 16:39:15 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 18:09:56 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	check_cmd_exit(char **cmd, int *status)
 	if (ft_strequ(cmd_cleaned[0], "exit"))
 		*status = 0;
 }
-
 
 void	main_2(int *status, char *line, t_env *envir)
 {
@@ -90,14 +89,3 @@ int main(int argc, char **argv, char **env)
 	free_all_list(envir);
 	return (0);
 }
-
-//void call_cmd(int status, char **pipe_split, t_env *envir)
-//{
-	/* code */
-//}
-
-//https://stackoverflow.com/questions/8389033/implementation-of-multiple-pipes-in-c
-//http://www.cs.loyola.edu/~jglenn/702/S2005/Examples/dup2.html
-//https://stackoverflow.com/questions/916900/having-trouble-with-fork-pipe-dup2-and-exec-in-c/
-
-

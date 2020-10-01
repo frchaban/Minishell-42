@@ -53,12 +53,12 @@ void	cd_builtin(t_list *args, t_env *envir)
 		return (ft_error("cd: too many arguments", NULL, NULL));
 	else if (args_size(args) == 2)
 		return (ft_error("cd: string not in pwd: ", NULL, args->next->content));
-	old_pwd = getcwd(NULL,0);
+	old_pwd = getcwd(NULL, 0);
 	res = (args == NULL ? cd(get_home(envir)) : cd(args->content));
 	if (res == 1)
 	{
 		pwd = getcwd(NULL, 0);
-		update_pwd(pwd,old_pwd,envir);
+		update_pwd(pwd, old_pwd, envir);
 		return;
 	}
 	free(old_pwd);
