@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/01 10:11:36 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 15:31:30 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,51 +20,26 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 
 	cmd_semicolon = parse_cmd(cmd_split[0]);
 	if (previous_fd)
+	dup2(previous_fd[0], 0);
+	if (cmd_split[1])
 	{
-		dup2(previous_fd[0], 0);
-		if (cmd_split[1])
+		pipe(next_fd);	//add security
+		pid_fork = fork();
+		if (pid_fork == 0)  
 		{
-			pipe(next_fd);	//add security
-			pid_fork = fork();
-			if (pid_fork == 0)  
-			{
-				close(next_fd[0]);
-				dup2(next_fd[1], 1);
-				launch(cmd_semicolon[0], status, envir);
-			}
-			else
-			{
-				close(next_fd[1]);
-				pipe_cmd(cmd_split + 1, next_fd, status, envir);
-			}
+			close(next_fd[0]);
+			dup2(next_fd[1], 1);
+			launch(cmd_semicolon[0], status, envir);
 		}
 		else
-			launch(cmd_semicolon[0], status, envir);
+		{
+			close(next_fd[1]);
+			pipe_cmd(cmd_split + 1, next_fd, status, envir);
+		}
 	}
 	else
-	{
-		if (cmd_split[1])
-		{
-			pipe(next_fd);	//add security
-			pid_fork = fork();
-			if (pid_fork == 0)  
-			{
-				close(next_fd[0]);
-				dup2(next_fd[1], 1);
-				launch(cmd_semicolon[0], status, envir);
-			}
-			else
-			{
-				close(next_fd[1]);
-				pipe_cmd(cmd_split + 1, next_fd, status, envir);
-			}
-		}
-		else
-			launch(cmd_semicolon[0], status, envir);
-	}
+		launch(cmd_semicolon[0], status, envir);
 }
-
-
 
 // void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 // {
