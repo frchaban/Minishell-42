@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/01 15:55:55 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 16:39:15 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@ void		ft_error(char *error, char *error_errno, char *cmd)
 		ft_putstr_fd(cmd, 2);
 	ft_putchar_fd('\n', 2);
 }
+
+void	check_cmd_exit(char **cmd, int *status)
+{
+	int i;
+	char **cmd_cleaned;
+
+	i = 0;
+	while(cmd[i + 1])
+		i++;
+	cmd_cleaned = parse_cmd(cmd[i]);
+	if (ft_strequ(cmd_cleaned[0], "exit"))
+		*status = 0;
+}
+
 
 void	main_2(int *status, char *line, t_env *envir)
 {
@@ -49,8 +63,10 @@ void	main_2(int *status, char *line, t_env *envir)
 		}
 		else
 			waitpid(pid, &stt, 0);
+		check_cmd_exit(cmd, status);
 		free(cmd);
 	}
+	ft_free_2dim(semicolon_split);
 }
 
 int main(int argc, char **argv, char **env)
@@ -69,6 +85,7 @@ int main(int argc, char **argv, char **env)
 	{
 		line = get_cmd();
 		main_2(&status, line, envir);
+		free(line);
 	}
 	free_all_list(envir);
 	return (0);
