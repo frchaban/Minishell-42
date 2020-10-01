@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/01 10:05:09 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 15:19:12 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	main_2(int *status, char *line, t_env *envir)
 	else
 	{
 		waitpid(pid, &stt, 0);
-		ft_putnbr(stt);
 	}
 	free(pipe_split);
 }
