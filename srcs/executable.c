@@ -56,36 +56,32 @@ char	*get_absolute_path(char *cmd, t_env *envir)
 	return (absolute_path);
 }
 
-void	execute(char **cmd, t_env *envir, int *previous, int *next)
+void	execute(char **cmd, t_env *envir)
 {
 	int		status;
-	pid_t	pid;
+	// pid_t	pid;
 	char	**env;
 
-	pid = 0;
+	// pid = 0;
 	status = 0;
 	env = NULL;
-	(void)next;
-	(void)previous;
 	cmd[0] = get_absolute_path(cmd[0], envir);
 	if (ft_strchr(cmd[0], '/') == 0 && ft_strncmp(cmd[0],"./", 2) != 0)
 		return (ft_error("minishell: command not found: ", NULL ,cmd[0]));
-	pid = fork();
-	if (pid == -1)
-		ft_printf("%s\n", strerror(errno)) ; // error to manage
-	else if (pid == 0)  //enfant
-	{
+	// pid = fork();
+	// if (pid == -1)
+	// 	ft_printf("%s\n", strerror(errno)) ; // error to manage
+	// // else if (pid == 0)  //enfant
+	// {
 		env = list_to_envp(envir);
-		ft_redir(cmd , 1);
-		execve(cmd[0], cmd, env) == -1 ? ft_error("minishell: ", strerror(errno), cmd[0]) : 0;
-	}
-	else if (pid > 0)  //parent
-	{
-		close(1);
-		close(0);
-		close(next[0]);
-		close(next[1]);
-		waitpid(pid, &status, 0);
-		kill(pid, SIGTERM);
-	}
+	ft_redir(cmd , 1);
+	execve(cmd[0], cmd, env) == -1 ? ft_error("minishell: ", strerror(errno), cmd[0]) : 0;
+	//exit(1);
+	// }
+	// else if (pid > 0)  //parent
+	// {
+	// 	waitpid(pid, &status, 0);
+	// 	kill(pid, SIGTERM);
+		//exit(1);
+	//}
 }

@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/09/29 15:16:34 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/30 15:53:29 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 		variable_update(cmd, args, envir);
 }
 
-void	launch(char **cmd, int *status, t_env *envir, int *previous, int *next)
+void	launch(char **cmd, int *status, t_env *envir)
 {
 	t_list	*args;
 	int		old_stdout;
@@ -122,6 +122,6 @@ void	launch(char **cmd, int *status, t_env *envir, int *previous, int *next)
 		close(old_stdout);
 	}
 	else
-		execute(cmd, envir, previous, next);
+		execute(cmd, envir);
 }
 

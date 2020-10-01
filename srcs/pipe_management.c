@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/09/29 15:32:02 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/30 15:54:29 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 				close(next_fd[0]);
 				dup2(next_fd[1], 1);
 				close(next_fd[1]);
-				launch(cmd_semicolon[0], status, envir, previous_fd, next_fd);
+				launch(cmd_semicolon[0], status, envir);
 			}
 		}
 		else
 		{
-			launch(cmd_semicolon[0], status, envir, previous_fd, next_fd);
+			launch(cmd_semicolon[0], status, envir);
 		}
 	}
 	else
@@ -61,12 +61,12 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 				close(next_fd[0]);
 				dup2(next_fd[1], 1);
 				close(next_fd[1]);
-				launch(cmd_semicolon[0], status, envir, previous_fd, next_fd);
+				launch(cmd_semicolon[0], status, envir);
 			}
 		}
 		else
 		{
-			launch(cmd_semicolon[0], status, envir, previous_fd, next_fd);
+			launch(cmd_semicolon[0], status, envir);
 		}
 	}
 }

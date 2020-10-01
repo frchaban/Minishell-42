@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/29 15:19:13 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/09/30 15:53:50 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct 		s_env
 }					t_env;
 
 char		*get_cmd(void);
-void		execute(char **cmd, t_env *envir, int *previous, int *next);
-void		launch(char **cmd, int *status, t_env *envir, int *previous, int *next);
+void		execute(char **cmd, t_env *envir);
+void		launch(char **cmd, int *status, t_env *envir);
 char		***parse_cmd(char *line);
 
 void		cd_builtin(t_list *args, t_env *envir);
