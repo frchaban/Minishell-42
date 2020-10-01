@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/01 15:52:55 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 15:55:55 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@ void	main_2(int *status, char *line, t_env *envir)
 	i = 0;
 	while (semicolon_split[i])
 	{
-		cmd = pipe_split(semicolon_split[i++], '|');
+		cmd = ft_split(semicolon_split[i++], '|');
 		pid = fork();
 		stt = 0;
 		if (pid == 0)
 		{
-			pipe_cmd(pipe_split, NULL, status, envir);
+			pipe_cmd(cmd, NULL, status, envir);
 			exit(1);
 		}
 		else
 			waitpid(pid, &stt, 0);
-	free(pipe_split);
+		free(cmd);
 	}
 }
 

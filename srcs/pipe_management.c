@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/01 15:48:46 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 15:57:19 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 		{
 			close(next_fd[0]);
 			dup2(next_fd[1], 1);
-			launch(cmd_semicolon[0], status, envir);
+			launch(cmd, status, envir);
 		}
 		else
 		{
@@ -38,7 +38,7 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 		}
 	}
 	else
-		launch(cmd_semicolon[0], status, envir);
+		launch(cmd, status, envir);
 }
 
 // void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)

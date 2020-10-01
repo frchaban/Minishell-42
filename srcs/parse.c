@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/01 15:51:34 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/01 15:56:37 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,11 @@ char	**parse_cmd(char *cmd)
 {
 	char	**result;
 	int		i;
-	int		len;
 
 	i = -1;
 	cmd = ft_strtrim_freed(cmd, " \t");	
 	result = ft_parse_cmd(cmd);
-	ft_free_2dim(cmd);
-	return (data);
+	return (result);
 }
 
 char **ft_parse_cmd(char *cmd)
