@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/01 18:09:56 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/02 13:02:44 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,34 @@ void		ft_error(char *error, char *error_errno, char *cmd)
 	ft_putchar_fd('\n', 2);
 }
 
-void	check_cmd_exit(char **cmd, int *status)
+void	check_last_cmd(char **cmds, int *status, t_env *envir)
 {
-	int i;
-	char **cmd_cleaned;
+	int		i;
+	char	**cmd;
+	t_list	*args;
 
 	i = 0;
-	while(cmd[i + 1])
+	while (cmds[i + 1])
 		i++;
-	cmd_cleaned = parse_cmd(cmd[i]);
-	if (ft_strequ(cmd_cleaned[0], "exit"))
-		*status = 0;
+	cmd = parse_cmd(cmds[i]);
+	if (cmd[1])
+		args_to_list(&args, cmd);
+	if (ft_strcmp(cmd[0], "export") == 0)
+		export_builtin(envir, args);
+	else if (ft_strcmp(cmd[0], "echo") == 0)
+		echo_builtin(args);
+	else if (ft_strcmp(cmd[0], "cd") == 0)
+		cd_builtin(args, envir);
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
+		pwd_builtin(args);
+	else if (ft_strcmp(cmd[0], "unset") == 0)
+		return unset_builtin(args, envir);
+	else if (ft_strcmp(cmd[0], "env") == 0)
+		env_builtin(envir);
+	else if (ft_strcmp(cmd[0], "exit") == 0)
+		*status = exit_builtin();
+	else if (ft_strchr(cmd[0], '='))
+		variable_update(cmd[0], args, envir);
 }
 
 void	main_2(int *status, char *line, t_env *envir)
@@ -62,7 +79,7 @@ void	main_2(int *status, char *line, t_env *envir)
 		}
 		else
 			waitpid(pid, &stt, 0);
-		check_cmd_exit(cmd, status);
+		check_last_cmd(cmd, status, envir);
 		free(cmd);
 	}
 	ft_free_2dim(semicolon_split);

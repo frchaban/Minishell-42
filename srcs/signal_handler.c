@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 13:05:02 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/01 18:33:58 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/02 11:13:16 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	signal_ctrl_c()
 {
-	ft_printf("\nminishell $>");
+	ft_printf("\nminishell $>ctrl");
 }
 
 void	signal_ctrl_back()

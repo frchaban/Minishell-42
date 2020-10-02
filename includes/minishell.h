@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/01 15:56:19 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/02 11:49:37 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,7 @@ void	remove_ctrl(char *arg1, char *arg2, t_env *envir);
 char	*get_absolute_path(char *cmd, t_env *envir);
 
 void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir);
+
+void		export_print_lst(t_env *envir);
 
 #endif

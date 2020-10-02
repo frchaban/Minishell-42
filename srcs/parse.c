@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/01 15:56:37 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/02 12:48:16 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ char	**parse_cmd(char *cmd)
 	int		i;
 
 	i = -1;
-	cmd = ft_strtrim_freed(cmd, " \t");	
+	cmd = ft_strtrim_freed(cmd, " \t");
+	ft_putchar('|');
+	ft_putstr(cmd);
+	ft_putchar('|');
 	result = ft_parse_cmd(cmd);
 	return (result);
 }

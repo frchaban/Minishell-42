@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/09/09 11:27:22 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/02 12:29:56 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void		export_elem_to_envir(t_env *envir, char *cmd)
 			envir->exportable = EXPORT;
 			if (equal)
 			{
-				previous->next = next;
-				next->next = envir->next;
-				free_elem_list(envir);
+				envir->content = next->content;
+				free(next->key);
+				free(next);
+				return ;
 			}
-			return ;
 		}
 		envir = envir->next;
 	}
@@ -86,12 +86,9 @@ void		export_builtin(t_env *envir, t_list *args)
 	t_list	*begin;
 
 	if (!args)
-	{
 		export_print_lst(envir);
-	}	
 		else
 	{
-	
 		begin = args;
 		while (args)
 		{

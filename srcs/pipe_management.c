@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/01 16:16:00 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/02 11:59:48 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 {
-	int		next_fd[2];
+	int		next_fd[3];
 	pid_t	pid_fork;
 	char	**cmd;
 
@@ -35,6 +35,7 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 		else
 		{
 			close(next_fd[1]);
+			waitpid(pid_fork, &next_fd[2], 0);
 			pipe_cmd(cmd_split + 1, next_fd, status, envir);
 		}
 	}

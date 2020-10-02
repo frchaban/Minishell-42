@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/01 15:49:50 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/02 12:50:53 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*get_cmd(void)
 
 int		is_builtin(char *cmd)
 {
+	if (!cmd || !cmd[0])
+		return (0);
 	if (ft_strcmp(cmd, "export") == 0)
 		return (1);
 	else if (ft_strcmp(cmd, "echo") == 0)
@@ -73,7 +75,7 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 	else if (ft_strcmp(cmd, "env") == 0)
 		env_builtin(envir);
 	else if (ft_strcmp(cmd, "exit") == 0)
-		*status = exit_builtin();
+		*status = 0;
 	else if (ft_strchr(cmd, '='))
 		variable_update(cmd, args, envir);
 }

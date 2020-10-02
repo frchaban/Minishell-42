@@ -48,6 +48,8 @@ char	*get_absolute_path(char *cmd, t_env *envir)
 	char *absolute_path;
 
 	absolute_path = NULL;
+	if (!cmd || !cmd[0])
+		return (absolute_path);
 	if (cmd[0] != '/' && ft_strncmp(cmd,"./", 2) != 0)
 		absolute_path = ft_absolute_path(cmd, envir);
 	if (absolute_path == NULL)
@@ -63,6 +65,8 @@ void	execute(char **cmd, t_env *envir)
 
 	status = 0;
 	env = NULL;
+	if (!cmd[0] || !cmd[0][0])
+		exit(1);
 	cmd[0] = get_absolute_path(cmd[0], envir);
 	if (ft_strchr(cmd[0], '/') == 0 && ft_strncmp(cmd[0],"./", 2) != 0)
 		return (ft_error("minishell: command not found: ", NULL, cmd[0]));
