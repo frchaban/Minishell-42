@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/02 13:02:44 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/05 11:51:56 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ void	check_last_cmd(char **cmds, int *status, t_env *envir)
 	int		i;
 	char	**cmd;
 	t_list	*args;
+	int		save_fdout;
 
 	i = 0;
 	while (cmds[i + 1])
 		i++;
 	cmd = parse_cmd(cmds[i]);
+	save_fdout = dup(STDOUT_FILENO);
+	close(STDOUT_FILENO);
 	if (cmd[1])
 		args_to_list(&args, cmd);
 	if (ft_strcmp(cmd[0], "export") == 0)
@@ -53,6 +56,8 @@ void	check_last_cmd(char **cmds, int *status, t_env *envir)
 		*status = exit_builtin();
 	else if (ft_strchr(cmd[0], '='))
 		variable_update(cmd[0], args, envir);
+	dup2(save_fdout, STDOUT_FILENO);
+	close(save_fdout);
 }
 
 void	main_2(int *status, char *line, t_env *envir)
