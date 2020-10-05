@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/02 12:50:53 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/05 14:10:05 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@ char	**replace_var(char **cmd, t_env *envir)
 	return (cmd);
 }
 
-char	*get_cmd(void)
+char	*get_cmd(int print_prompt)
 {
 	char *line;
 
-	ft_putstr("minishell $>");
-	signal(SIGINT,signal_ctrl_c);
+	if (print_prompt)
+		ft_putstr("minishell $>");
+	print_prompt = 1;
+	signal(SIGINT, signal_ctrl_c);
 	signal(SIGQUIT, signal_ctrl_back);
+
 	while (get_next_line(0, &line) != 1)
 		;
 	return (line);

@@ -6,7 +6,7 @@
 #    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/09/25 11:44:35 by gdupont          ###   ########.fr        #
+#    Updated: 2020/10/05 12:00:28 by gdupont          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,6 @@ $(NAME) :	$(OBJS)
 
 clean:
 	@rm -f $(OBJS)
-	@rm -f *.txt
 	@make clean -s -C $(LIBFT)
 
 fclean: clean

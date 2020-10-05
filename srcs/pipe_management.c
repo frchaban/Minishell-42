@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/02 11:59:48 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/05 13:29:39 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 		dup2(previous_fd[0], 0);
 	if (cmd_split[1])
 	{
-		pipe(next_fd);	//add security
+		pipe(next_fd);
 		if ((pid_fork = fork()) == -1)
 			exit(1);
 		else if (pid_fork == 0)  

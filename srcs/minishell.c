@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/05 11:51:56 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/05 14:34:50 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	check_last_cmd(char **cmds, int *status, t_env *envir)
 	cmd = parse_cmd(cmds[i]);
 	save_fdout = dup(STDOUT_FILENO);
 	close(STDOUT_FILENO);
+	args = NULL;
 	if (cmd[1])
 		args_to_list(&args, cmd);
 	if (ft_strcmp(cmd[0], "export") == 0)
@@ -56,6 +57,7 @@ void	check_last_cmd(char **cmds, int *status, t_env *envir)
 		*status = exit_builtin();
 	else if (ft_strchr(cmd[0], '='))
 		variable_update(cmd[0], args, envir);
+	free_args_list(args);
 	dup2(save_fdout, STDOUT_FILENO);
 	close(save_fdout);
 }
@@ -90,13 +92,33 @@ void	main_2(int *status, char *line, t_env *envir)
 	ft_free_2dim(semicolon_split);
 }
 
+
+int		check_cat_ctrl_c_case(char *line)
+{
+	char *cp;
+
+	if (!(cp = malloc(sizeof(*cp) * (ft_strlen(line) + 1))))
+		return (-1);
+	ft_strcpy(cp, line);
+	cp = ft_strtrim_freed(cp, " \t");
+	if (ft_strequ(cp, "cat") == 1)
+	{
+		free(cp);
+		return (0);
+	}
+	free(cp);
+	return (1);
+}
+
 int main(int argc, char **argv, char **env)
 {
 	char	*line;
 	int	status;
 	t_env	*envir;
+	int	print_prompt;
 
 	(void)argv;
+	print_prompt = 1;
 	if (argc != 1)
 		return (0);
 	envp_to_list(&envir, env);
@@ -104,7 +126,8 @@ int main(int argc, char **argv, char **env)
 	status = 1;
 	while (status)
 	{
-		line = get_cmd();
+		line = get_cmd(print_prompt);
+		print_prompt = check_cat_ctrl_c_case(line);
 		main_2(&status, line, envir);
 		free(line);
 	}
