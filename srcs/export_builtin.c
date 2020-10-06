@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/05 11:45:09 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/06 11:41:06 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		export_print_lst(t_env *envir)
 	while (ordered)
 	{
 		if (ordered->exportable == 1)
-			ft_printf("declare -x %s=\"%s\"\n", ordered->key, ordered->content);
+			ft_printf("%s=\'%s\'\n", ordered->key, ordered->content);
 		ordered = ordered->next;
 	}
 	free(temp);

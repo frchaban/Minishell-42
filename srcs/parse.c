@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/05 14:45:01 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/06 12:24:04 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static	int		count_words(char *cmd)
 	return (ret);
 }
 
-static	void	clean_useless_quote(char *cmd)
+void	clean_useless_quote(char *cmd)
 {
 	int i;
 	int quote_nbr;
@@ -70,7 +70,7 @@ static	void	clean_useless_quote(char *cmd)
 	}
 }
 
-static	void	clean_useless_simple_quote(char *cmd)
+void	clean_useless_simple_quote(char *cmd)
 {
 	int i;
 	int quote_nbr;
