@@ -34,7 +34,6 @@ char	*get_cmd(int print_prompt)
 	print_prompt = 1;
 	signal(SIGINT, signal_ctrl_c);
 	signal(SIGQUIT, signal_ctrl_back);
-
 	while (get_next_line(0, &line) != 1)
 		;
 	return (line);
@@ -102,6 +101,7 @@ void	launch(char **cmd, int *status, t_env *envir)
 		free_args_list(args);
 		dup2(old_stdout, STDOUT_FILENO);
 		close(old_stdout);
+		ft_free_2dim(cmd);
 	}
 	else
 		execute(cmd, envir);

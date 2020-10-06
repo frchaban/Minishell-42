@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 static	int		count_words(char *cmd)
 {
@@ -101,16 +101,14 @@ static int	ft_wordlen(char const *s, unsigned int pos, char c)
 	return (i);
 }
 
-char	**parse_cmd(char *cmd)
+char	**parse_cmd(char **cmd)
 {
 	char	**result;
-	int		i;
 
-	i = -1;
-	clean_useless_quote(cmd);
-	clean_useless_simple_quote(cmd);
-	cmd = ft_strtrim_freed(cmd, " \t");
-	result = ft_parse_cmd(cmd);
+	clean_useless_quote(*cmd);
+	clean_useless_simple_quote(*cmd);
+	*cmd = ft_strtrim_freed(*cmd, " \t");
+	result = ft_parse_cmd(*cmd);
 	return (result);
 }
 

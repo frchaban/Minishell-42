@@ -31,16 +31,14 @@ t_env	*ft_last_elem(t_env *env)
 void	free_all_list(t_env *env)
 {
 	t_env	*actual;
-	t_env	*temp;
 
 	actual = env;
-	while (actual)
+	while (env)
 	{
-		temp = actual;
-		actual = actual->next;
-		free_elem_list(temp);
+		actual = env;
+		env = env->next;
+		free_elem_list(actual);
 	}
-	env = NULL;
 }
 
 t_env	*set_up_elem(char *line, int exportable)

@@ -35,7 +35,6 @@ SRCS_LIST		= \
 					redirections.c \
 					parse.c \
 					variable_update.c \
-					get_line.c \
 					signal_handler.c \
 					exit_builtin.c \
 					pipe_management.c

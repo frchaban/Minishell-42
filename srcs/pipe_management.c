@@ -18,7 +18,7 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 	pid_t	pid_fork;
 	char	**cmd;
 
-	cmd = parse_cmd(cmd_split[0]);
+	cmd = parse_cmd(&cmd_split[0]);
 	if (previous_fd)
 		dup2(previous_fd[0], 0);
 	if (cmd_split[1])
@@ -37,6 +37,7 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 			close(next_fd[1]);
 			waitpid(pid_fork, &next_fd[2], 0);
 			pipe_cmd(cmd_split + 1, next_fd, status, envir);
+			ft_free_2dim(cmd);
 		}
 	}
 	else

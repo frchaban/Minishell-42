@@ -42,7 +42,7 @@ typedef struct 		s_env
 char		*get_cmd(int print_prompt);
 void		execute(char **cmd, t_env *envir);
 void		launch(char **cmd, int *status, t_env *envir);
-char		**parse_cmd(char *line);
+char		**parse_cmd(char **line);
 
 void		cd_builtin(t_list *args, t_env *envir);
 void		pwd_builtin(t_list *args);

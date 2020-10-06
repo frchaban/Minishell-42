@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void		ft_error(char *error, char *error_errno, char *cmd)
 {
@@ -20,7 +20,7 @@ void		ft_error(char *error, char *error_errno, char *cmd)
 		ft_putstr_fd(error_errno, 2);
 		ft_putstr_fd(": ", 2);
 	}
-	if (cmd != NULL)
+	if (cmd)
 		ft_putstr_fd(cmd, 2);
 	ft_putchar_fd('\n', 2);
 }
@@ -35,7 +35,7 @@ void	check_last_cmd(char **cmds, int *status, t_env *envir)
 	i = 0;
 	while (cmds[i + 1])
 		i++;
-	cmd = parse_cmd(cmds[i]);
+	cmd = parse_cmd(&cmds[i]);
 	save_fdout = dup(STDOUT_FILENO);
 	close(STDOUT_FILENO);
 	args = NULL;
@@ -57,6 +57,7 @@ void	check_last_cmd(char **cmds, int *status, t_env *envir)
 		*status = exit_builtin();
 	else if (ft_strchr(cmd[0], '='))
 		variable_update(cmd[0], args, envir);
+	ft_free_2dim(cmd);
 	free_args_list(args);
 	dup2(save_fdout, STDOUT_FILENO);
 	close(save_fdout);
@@ -87,7 +88,7 @@ void	main_2(int *status, char *line, t_env *envir)
 		else
 			waitpid(pid, &stt, 0);
 		check_last_cmd(cmd, status, envir);
-		free(cmd);
+		ft_free_2dim(cmd);
 	}
 	ft_free_2dim(semicolon_split);
 }
@@ -100,7 +101,6 @@ int		check_cat_ctrl_c_case(char *line)
 	if (!(cp = malloc(sizeof(*cp) * (ft_strlen(line) + 1))))
 		return (-1);
 	ft_strcpy(cp, line);
-
 	cp = ft_strtrim_freed(cp, " \t");
 	if (ft_strequ(cp, "cat") == 1)
 	{

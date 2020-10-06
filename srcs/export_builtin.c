@@ -37,18 +37,22 @@ void		export_print_lst(t_env *envir)
 {
 	char	**temp;
 	t_env	*ordered;
+	t_env	*ordered_for_free;
+
 
 	temp = list_to_envp(envir);
 	ft_sort_strings(temp);
 	envp_to_list(&ordered, temp);
+	ordered_for_free = ordered;
 	while (ordered)
 	{
 		if (ordered->exportable == 1)
-			ft_printf("%s=\'%s\'\n", ordered->key, ordered->content);
+			ft_printf("declare -x %s=\"%s\"\n", ordered->key, ordered->content);
+		
 		ordered = ordered->next;
 	}
-	free(temp);
-	free_all_list(ordered);
+	ft_free_2dim(temp);
+	free_all_list(ordered_for_free);
 }
 
 void		export_elem_to_envir(t_env *envir, char *cmd)
@@ -87,7 +91,7 @@ void		export_builtin(t_env *envir, t_list *args)
 
 	if (!args)
 		export_print_lst(envir);
-		else
+	else
 	{
 		begin = args;
 		while (args)

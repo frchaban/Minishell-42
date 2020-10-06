@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 char*	get_path(t_env *envir)
 {
@@ -60,17 +60,23 @@ char	*get_absolute_path(char *cmd, t_env *envir)
 
 void	execute(char **cmd, t_env *envir)
 {
-	int		status;
 	char	**env;
 
-	status = 0;
 	env = NULL;
 	if (!cmd[0] || !cmd[0][0])
 		exit(1);
 	cmd[0] = get_absolute_path(cmd[0], envir);
 	if (ft_strchr(cmd[0], '/') == 0 && ft_strncmp(cmd[0],"./", 2) != 0)
-		return (ft_error("minishell: command not found: ", NULL, cmd[0]));
+	{
+		
+		ft_error("minishell: command not found: ", NULL, cmd[0]);
+		return (ft_free_2dim(cmd));
+	}
 	env = list_to_envp(envir);
 	ft_redir(cmd , 1);
-	execve(cmd[0], cmd, env) == -1 ? ft_error("minishell: ", strerror(errno), cmd[0]) : 0;
+	if (execve(cmd[0], cmd, env) == -1)
+	{
+		ft_error("minishell: ", strerror(errno), cmd[0]);
+		ft_free_2dim(cmd);
+	}
 }
