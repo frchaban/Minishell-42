@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/05 14:10:05 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/06 12:37:46 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ char	*get_cmd(int print_prompt)
 
 	while (get_next_line(0, &line) != 1)
 		;
+	clean_line_from_empty_quote(line);
+	clean_useless_quote(line);
+	clean_useless_simple_quote(line);
 	return (line);
 }
 

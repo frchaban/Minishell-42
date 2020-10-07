@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/06 12:19:47 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/06 12:44:36 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,47 @@ void		ft_error(char *error, char *error_errno, char *cmd)
 	if (cmd != NULL)
 		ft_putstr_fd(cmd, 2);
 	ft_putchar_fd('\n', 2);
+}
+
+int		check_cat_ctrl_c_case(char *line)
+{
+	char *cp;
+
+	if (!(cp = malloc(sizeof(*cp) * (ft_strlen(line) + 1))))
+		return (-1);
+	ft_strcpy(cp, line);
+
+	cp = ft_strtrim_freed(cp, " \t");
+	if (ft_strequ(cp, "cat") == 1)
+	{
+		free(cp);
+		return (0);
+	}
+	free(cp);
+	return (1);
+}
+
+void	clean_line_from_empty_quote(char *line)
+{
+	int		i;
+	int		save_index;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\"' || line[i] == '\'')
+		{
+			save_index = i++;
+			while (ft_is_whitespaces(line[i]))
+				i++;
+			if (line[save_index] == line[i])
+			{
+				ft_strcpy(&line[save_index + 1], &line[i]);
+				i = save_index + 1;
+			}
+		}
+		i++;
+	}
 }
 
 void	check_last_cmd(char **cmds, int *status, t_env *envir)
@@ -92,68 +133,23 @@ void	main_2(int *status, char *line, t_env *envir)
 	ft_free_2dim(semicolon_split);
 }
 
-
-int		check_cat_ctrl_c_case(char *line)
-{
-	char *cp;
-
-	if (!(cp = malloc(sizeof(*cp) * (ft_strlen(line) + 1))))
-		return (-1);
-	ft_strcpy(cp, line);
-
-	cp = ft_strtrim_freed(cp, " \t");
-	if (ft_strequ(cp, "cat") == 1)
-	{
-		free(cp);
-		return (0);
-	}
-	free(cp);
-	return (1);
-}
-
-void	clean_line_from_empty_quote(char *line)
-{
-	int		i;
-	int		save_index;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\"' || line[i] == '\'')
-		{
-			save_index = i++;
-			while (ft_is_whitespaces(line[i]))
-				i++;
-			if (line[save_index] == line[i])
-			{
-				ft_strcpy(&line[save_index + 1], &line[i]);
-				i = save_index + 1;
-			}
-		}
-		i++;
-	}
-}
-
 int main(int argc, char **argv, char **env)
 {
 	char	*line;
-	int	status;
+	int		status;
 	t_env	*envir;
-	int	print_prompt;
+	int		print_prompt;
 
 	(void)argv;
 	print_prompt = 1;
 	if (argc != 1)
 		return (0);
 	envp_to_list(&envir, env);
-	//remove_ctrl("stty", " -echoctl", envir);
+	remove_ctrl("stty", " -echoctl", envir);
 	status = 1;
 	while (status)
 	{
 		line = get_cmd(print_prompt);
-		clean_line_from_empty_quote(line);
-		clean_useless_quote(line);
-		clean_useless_simple_quote(line);
 		print_prompt = check_cat_ctrl_c_case(line);
 		main_2(&status, line, envir);
 		free(line);
