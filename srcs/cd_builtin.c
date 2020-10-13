@@ -18,11 +18,11 @@ void	update_pwd(char *pwd, char *old_pwd, t_env *envir)
 	}
 }
 
-int		cd(char *path)
+int		cd(char *path, t_env *env)
 {
 	if (chdir(path) == -1)
 	{
-		ft_error("cd: ", strerror(errno), path);
+		ft_error("cd: no such file or directory: ", path, 2, env); //done
 		return (0);
 	}
 	return (1);
@@ -50,11 +50,11 @@ void	cd_builtin(t_list *args, t_env *envir)
 	int res;
 
 	if (args_size(args) > 2)
-		return (ft_error("cd: too many arguments", NULL, NULL));
+		return (ft_error("cd: too many arguments", NULL, 1,  envir)); //done
 	else if (args_size(args) == 2)
-		return (ft_error("cd: string not in pwd: ", NULL, args->next->content));
+		return (ft_error("cd: string not in pwd: ", args->content, 1, envir)); //done
 	old_pwd = getcwd(NULL, 0);
-	res = (args == NULL ? cd(get_home(envir)) : cd(args->content));
+	res = (args == NULL ? cd(get_home(envir), envir) : cd(args->content, envir));
 	if (res == 1)
 	{
 		pwd = getcwd(NULL, 0);

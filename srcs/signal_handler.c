@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 13:05:02 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/05 13:48:32 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/13 12:24:25 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	remove_ctrl(char *arg1, char *arg2, t_env *envir)
 	status = 0;
 	pid = fork();
 	if (pid == -1)
-		ft_printf("%s\n", strerror(errno)) ; // error to manage
+		ft_error("Fork attempt failed", NULL, 1, envir);
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
@@ -42,7 +42,7 @@ void	remove_ctrl(char *arg1, char *arg2, t_env *envir)
 	}
 	else if (pid == 0)
 	{
-		execve(cmd[0], cmd, NULL) == -1 ? ft_error("minishell: ", strerror(errno) ,cmd[0]) : 0;
+		execve(cmd[0], cmd, NULL) == -1 ? ft_error("minishell: ", strerror(errno), 1, NULL) : 0;
 		exit(EXIT_FAILURE);
 	}
 	ft_free_2dim(cmd);

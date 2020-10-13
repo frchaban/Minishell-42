@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:30:54 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/02 11:20:51 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/13 12:23:32 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	variable_update(char *first_cmd, t_list *args, t_env *envir)
 		args = args->next;
 	}
 	if (!result)
-		return (ft_error("issue with your variable update", NULL, NULL));
+		return (ft_error("minishell: no matches found: ",first_cmd, 1, NULL)); //done
 	add_variable_to_envir(envir, first_cmd);
 	while (begin)
 	{

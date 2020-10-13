@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 15:03:33 by gdupont           #+#    #+#             */
-/*   Updated: 2020/09/08 14:20:36 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/09 14:11:47 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		envp_to_list(t_env **env, char **envp)
 	int		i;
 	t_env	*new;
 
-	if (!(*env = set_up_elem("?= ", NOT_EXPORT)))
+	if (!(*env = set_up_elem("?=0", NOT_EXPORT)))
 		return (-1);
 	i = 0;
 	while (envp[i])

@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/06 12:20:30 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/13 12:29:01 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdio.h>
 # include <dirent.h>
 # include <sys/errno.h>
+# include <errno.h>
 # include "../libft/includes/get_next_line.h"
 # include "../libft/includes/libft.h"
 # include "../libft/includes/libftprintf.h"
@@ -45,7 +46,7 @@ void		launch(char **cmd, int *status, t_env *envir);
 char		**parse_cmd(char **line);
 
 void		cd_builtin(t_list *args, t_env *envir);
-void		pwd_builtin(t_list *args);
+void		pwd_builtin(t_list *args, t_env *env);
 void		echo_builtin(t_list *args);
 int			exit_builtin(void);
 void		export_builtin(t_env *envir, t_list *args);
@@ -54,7 +55,7 @@ void		unset_builtin(t_list *args, t_env *envir);
 
 void		variable_update(char *first_cmd, t_list *args, t_env *envir);
 
-void		ft_error(char *error, char *error_errno, char *cmd);
+void		ft_error(char *cmd_n_error_msg, char *arg, int error_nb, t_env *env);
 char  		**list_to_envp(t_env *envir);
 
 int			envp_to_list(t_env **envir, char **envp);
@@ -71,16 +72,16 @@ int			args_size(t_list  *args);
 
 char		 **ft_parse_cmd(char *cmd);
 
-void	signal_ctrl_c();
-void	signal_ctrl_back();
-void	remove_ctrl(char *arg1, char *arg2, t_env *envir);
-char	*get_absolute_path(char *cmd, t_env *envir);
+void		signal_ctrl_c();
+void		signal_ctrl_back();
+void		remove_ctrl(char *arg1, char *arg2, t_env *envir);
+char		*get_absolute_path(char *cmd, t_env *envir);
 
-void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir);
+void 		pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir);
 
-void	export_print_lst(t_env *envir);
-void	clean_useless_simple_quote(char *cmd);
-void	clean_useless_quote(char *cmd);
+void		export_print_lst(t_env *envir);
+void		clean_useless_simple_quote(char *cmd);
+void		clean_useless_quote(char *cmd);
 
 
 #endif

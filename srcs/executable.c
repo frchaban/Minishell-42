@@ -61,6 +61,7 @@ char	*get_absolute_path(char *cmd, t_env *envir)
 void	execute(char **cmd, t_env *envir)
 {
 	char	**env;
+	char	error_msg[100];
 
 	env = NULL;
 	if (!cmd[0] || !cmd[0][0])
@@ -68,15 +69,18 @@ void	execute(char **cmd, t_env *envir)
 	cmd[0] = get_absolute_path(cmd[0], envir);
 	if (ft_strchr(cmd[0], '/') == 0 && ft_strncmp(cmd[0],"./", 2) != 0)
 	{
-		
-		ft_error("minishell: command not found: ", NULL, cmd[0]);
+		ft_error("minishell: command not found: ", cmd[0], 127, envir);
 		return (ft_free_2dim(cmd));
 	}
 	env = list_to_envp(envir);
-	ft_redir(cmd , 1);
+	ft_redir(cmd, 1);
+	error_msg[0] = '\0';
 	if (execve(cmd[0], cmd, env) == -1)
 	{
-		ft_error("minishell: ", strerror(errno), cmd[0]);
+		ft_strcat(error_msg, "minishell: ");
+		ft_strcat(error_msg, strerror(errno));
+		ft_strcat(error_msg, " : ");
+		ft_error(error_msg, cmd[0], errno, envir);
 		ft_free_2dim(cmd);
 	}
 }

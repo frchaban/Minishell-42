@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 22:06:03 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/11 09:34:16 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/13 12:35:27 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	unset_builtin(t_list *args, t_env *envir)
 	{
 		if (check_valid_cmd(args->content) == 0)
 		{
-			ft_error("issue wiht your unset command : ", NULL, args->content);
+			ft_error("minishell: no matches found: ", args->content, 1, envir); //done
 			return ;
 		}
 		args = args->next;

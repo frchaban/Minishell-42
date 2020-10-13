@@ -6,34 +6,34 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/06 11:41:06 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/13 12:29:23 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static	int	check_valid_cmd(char *cmd)
+static	char	*check_valid_cmd(char *cmd)
 {
 	int		i;
 	t_env	*temp;
-	int		result;
+	char	*result;
 
 	i = 0;
-	result = 1;
+	result = NULL;
 	temp = set_up_elem(cmd, EXPORT);
 	if (ft_isdigit(temp->key[0]))
-		result = 0;
+		result = "export: not an identifier: ";
 	while (temp->key[i])
 	{
 		if (!ft_isalnum(temp->key[i]) && temp->key[i] != '_')
-			result = 0;
+			result = "minishell: no matches found: ";
 		i++;
 	}
 	free_elem_list(temp);
 	return (result);
 }
 
-void		export_print_lst(t_env *envir)
+void			export_print_lst(t_env *envir)
 {
 	char	**temp;
 	t_env	*ordered;
@@ -55,7 +55,7 @@ void		export_print_lst(t_env *envir)
 	free_all_list(ordered_for_free);
 }
 
-void		export_elem_to_envir(t_env *envir, char *cmd)
+void			export_elem_to_envir(t_env *envir, char *cmd)
 {
 	t_env	*next;
 	t_env	*previous;
@@ -85,9 +85,10 @@ void		export_elem_to_envir(t_env *envir, char *cmd)
 		free_elem_list(next);
 }
 
-void		export_builtin(t_env *envir, t_list *args)
+void			export_builtin(t_env *envir, t_list *args)
 {
 	t_list	*begin;
+	char	*error_msg;
 
 	if (!args)
 		export_print_lst(envir);
@@ -96,9 +97,9 @@ void		export_builtin(t_env *envir, t_list *args)
 		begin = args;
 		while (args)
 		{
-			if (check_valid_cmd(args->content) == 0)
+			if ((error_msg = check_valid_cmd(args->content)) != NULL)
 			{
-				ft_error("issue with this command: ", NULL, args->content);
+				ft_error(error_msg, args->content, 1, envir); //done
 				return ;
 			}
 			args = args->next;
@@ -111,4 +112,3 @@ void		export_builtin(t_env *envir, t_list *args)
 		}
 	}
 }
-
