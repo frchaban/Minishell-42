@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/19 13:44:23 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/19 19:49:17 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ void	not_builtin(char **cmd, t_env *envir, int pipe_c[3])
 	char	*line;
 	char	*msg;
 
+	
 	pid_fork = fork();
 	if (pid_fork == 0)
 	{
 		close(pipe_c[0]);
 		execute(cmd, envir);
 		msg = ft_itoa(errno);
+		puts(msg);
 		write(pipe_c[1], msg, ft_strlen(msg));
 		close(pipe_c[1]);
 		exit(0);
@@ -50,6 +52,10 @@ void	not_builtin(char **cmd, t_env *envir, int pipe_c[3])
 		waitpid(pid_fork, &pipe_c[2], 0);
 		if (ft_strlen(line) > 0)	
 			envir->content = line;
+		else if (WIFEXITED(pipe_c[2]))
+    		envir->content = ft_itoa(WEXITSTATUS(pipe_c[2]));
+		else if (WIFSIGNALED(pipe_c[2]))
+    		envir->content = ft_itoa(WTERMSIG(pipe_c[2]));
 	}
 }
 
@@ -137,7 +143,6 @@ void	main_2(int *status, char *line, t_env *envir)
 	ft_free_2dim(semicolon_split);
 }
 
-
 int		check_cat_ctrl_c_case(char *line)
 {
 	char *cp;
@@ -195,7 +200,7 @@ int main(int argc, char **argv, char **env)
 	if (argc != 1)
 		return (0);
 	envp_to_list(&envir, env);
-	//remove_ctrl("stty", " -echoctl", envir);
+	remove_ctrl("stty", " -echoctl", envir);
 	status = 1;
 	while (status)
 	{

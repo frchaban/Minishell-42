@@ -10,7 +10,6 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 	pid_t	pid_fork;
 	char	***cmd_semicolon;
 	int		keep_fd[2];
-
 	int		i[3];
 
 	cmd_semicolon = parse_cmd(cmd_split[0]);
@@ -30,14 +29,12 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 			close(next_fd[1]);
 			pipe_cmd(cmd_split + 1, next_fd, status, envir);
 			kill(pid_fork, 0);
-			
 		}
 		else
 		{
 			close(next_fd[0]);
 			dup2(next_fd[1], 1);
 			close(next_fd[1]);
-			//execvp(*cmd, cmd);
 			launch(cmd_semicolon[0], status, envir);
 			dup2(keep_fd[0], 0);
 			close (keep_fd[0]);
@@ -47,7 +44,6 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 	}
 	else
 	{
-		//execvp(*cmd, cmd);
 		launch(cmd_split, status, envir);
 	}
 	close(previous_fd[0]);

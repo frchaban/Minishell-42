@@ -69,7 +69,7 @@ void	execute(char **cmd, t_env *envir)
 	cmd[0] = get_absolute_path(cmd[0], envir);
 	if (ft_strchr(cmd[0], '/') == 0 && ft_strncmp(cmd[0],"./", 2) != 0)
 	{
-		ft_error("minishell: ommand not found: ", cmd[0], 127, envir);
+		ft_error("minishell: command not found: ", cmd[0], 127, envir);
 		errno = 127;
 		return (ft_free_2dim(cmd));
 	}
