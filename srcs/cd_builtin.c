@@ -22,7 +22,7 @@ int		cd(char *path, t_env *env)
 {
 	if (chdir(path) == -1)
 	{
-		ft_error("cd: no such file or directory: ", path, 2, env); //done
+		ft_error("cd: no such file or directory: ", path, 1, env); //done
 		return (0);
 	}
 	return (1);
