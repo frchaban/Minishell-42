@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/19 16:06:40 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/22 15:43:02 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 		variable_update(cmd, args, envir);
 }
 
-void	launch(char **cmd, int *status, t_env *envir)
+void	launch(char **cmd, int *status, t_env *envir, int lst_cmd)
 {
 	t_list	*args;
 	int		old_stdout;
@@ -108,6 +108,6 @@ void	launch(char **cmd, int *status, t_env *envir)
 		ft_free_2dim(cmd);
 	}
 	else
-		execute(cmd, envir);
+		execute(cmd, envir, lst_cmd);
 }
 

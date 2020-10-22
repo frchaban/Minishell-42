@@ -58,30 +58,46 @@ char	*get_absolute_path(char *cmd, t_env *envir)
 	return (absolute_path);
 }
 
-void	execute(char **cmd, t_env *envir)
+void	execute(char **cmd, t_env *envir, int lst_cmd)
 {
 	char	**env;
 	char	error_msg[100];
+	pid_t	fork_pid;
+	int		status;
 
 	env = NULL;
 	if (!cmd[0] || !cmd[0][0])
 		exit(1);
 	cmd[0] = get_absolute_path(cmd[0], envir);
-	if (ft_strchr(cmd[0], '/') == 0 && ft_strncmp(cmd[0],"./", 2) != 0)
+	status = 0;
+	(void)lst_cmd;
+	if ((fork_pid = fork()) == -1)
+		exit(2);
+	else if (fork_pid == 0)
 	{
-		ft_error("minishell: command not found: ", cmd[0], 127, envir);
-		errno = 127;
-		return (ft_free_2dim(cmd));
+		if (ft_strchr(cmd[0], '/') == 0 && ft_strncmp(cmd[0],"./", 2) != 0)
+		{
+			ft_error("minishell: command not found: ", cmd[0], 127, envir);
+			errno = 127;
+			ft_free_2dim(cmd);
+			exit(127);
+		}
+		env = list_to_envp(envir);
+		ft_redir(cmd, 1);
+		error_msg[0] = '\0';
+		if (execve(cmd[0], cmd, env) == -1)
+		{
+			ft_strcat(error_msg, "minishell: ");
+			ft_strcat(error_msg, strerror(errno));
+			ft_strcat(error_msg, " : ");
+			ft_error(error_msg, cmd[0], errno, envir);
+			ft_free_2dim(cmd);
+			exit(errno);
+		}
 	}
-	env = list_to_envp(envir);
-	ft_redir(cmd, 1);
-	error_msg[0] = '\0';
-	if (execve(cmd[0], cmd, env) == -1)
+	else
 	{
-		ft_strcat(error_msg, "minishell: ");
-		ft_strcat(error_msg, strerror(errno));
-		ft_strcat(error_msg, " : ");
-		ft_error(error_msg, cmd[0], errno, envir);
-		ft_free_2dim(cmd);
+		waitpid(fork_pid, &status, 0);
 	}
+
 }
