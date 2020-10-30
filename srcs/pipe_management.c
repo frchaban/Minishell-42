@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/07 12:04:29 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/23 11:53:07 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 			close(next_fd[0]);
 			dup2(next_fd[1], 1);
 			launch(cmd, status, envir);
+			exit(errno);
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/13 12:29:01 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/28 12:08:21 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct 		s_env
 	struct s_env 	*next;
 }					t_env;
 
-char		*get_cmd(int print_prompt);
+char		*get_cmd(int *print_prompt);
 void		execute(char **cmd, t_env *envir);
 void		launch(char **cmd, int *status, t_env *envir);
 char		**parse_cmd(char **line);
@@ -73,7 +73,8 @@ int			args_size(t_list  *args);
 char		 **ft_parse_cmd(char *cmd);
 
 void		signal_ctrl_c();
-void		signal_ctrl_back();
+void		signal_ctrl_back_exit();
+void		signal_ctrl_back_nothing();
 void		remove_ctrl(char *arg1, char *arg2, t_env *envir);
 char		*get_absolute_path(char *cmd, t_env *envir);
 
@@ -82,6 +83,5 @@ void 		pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir);
 void		export_print_lst(t_env *envir);
 void		clean_useless_simple_quote(char *cmd);
 void		clean_useless_quote(char *cmd);
-
 
 #endif

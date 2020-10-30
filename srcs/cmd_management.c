@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/19 16:06:40 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/28 15:27:04 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,36 @@ char	**replace_var(char **cmd, t_env *envir)
 	return (cmd);
 }
 
-char	*get_cmd(int print_prompt)
+char	*get_cmd(int *print_prompt)
 {
 	char	*line;
-	int		gnl_return;
+	int		return_gnl;
+	char	*save;
+	char	*temp;	
 
-	if (print_prompt)
+	if (*print_prompt)
 		ft_putstr("minishell $>");
-	print_prompt = 1;
 	signal(SIGINT, signal_ctrl_c);
-	signal(SIGQUIT, signal_ctrl_back);
-	while ((gnl_return = get_next_line(0, &line)) != 1)
+	signal(SIGQUIT, signal_ctrl_back_nothing);
+	save = ft_strdup("");
+	while ((return_gnl = get_next_line(0, &line)) != 1)
 	{
-		if (gnl_return == 0 && ft_strlen(line) == 0)
+		if (return_gnl == 0 && !line[0] && !save[0])
+		{
+			ft_putstr("exit\n");
 			exit(0);
+		}
+		if (return_gnl == 0)
+		{
+			temp = save;
+			save = ft_strjoin(save, line);
+			free(temp);
+		}
 	}
+	temp = line;
+	line = ft_strjoin(save, line);
+	free(temp);
+	free(save);
 	return (line);
 }
 
@@ -84,6 +99,7 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 		*status = 0;
 	else if (ft_strchr(cmd, '='))
 		variable_update(cmd, args, envir);
+
 }
 
 void	launch(char **cmd, int *status, t_env *envir)
@@ -110,4 +126,3 @@ void	launch(char **cmd, int *status, t_env *envir)
 	else
 		execute(cmd, envir);
 }
-

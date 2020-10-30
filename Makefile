@@ -6,7 +6,7 @@
 #    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/10/05 12:00:28 by gdupont          ###   ########.fr        #
+#    Updated: 2020/10/23 10:57:55 by gdupont          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ $(NAME) :	$(OBJS)
 	@$(CC) $(FLAGS) $(LFLAGS) $(FFLAGS) $(INCLUDES) $(OBJS) libft/libft.a -o $(NAME)
 
 %.o: %.c
-	@$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<
+	@$(CC) $(FLAGS) $(FFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJS)
