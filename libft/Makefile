@@ -6,7 +6,7 @@
 #    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/03 18:24:04 by frchaban          #+#    #+#              #
-#    Updated: 2020/10/06 11:57:46 by gdupont          ###   ########.fr        #
+#    Updated: 2020/10/23 11:00:11 by gdupont          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = libft.a
 CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
+
+FFLAGS = -g3 -fsanitize=address
 
 PATH_SRCS = ./srcs
 
@@ -119,7 +121,7 @@ $(NAME): $(OBJS)
 	ar rcs $(NAME) $^
 
 %.o: %.c
-	$(CC) $(FLAGS) -c $< $(INCLUDES) -o $@
+	$(CC) $(FLAGS) $(FFLAGS) -c $< $(INCLUDES) -o $@
 
 clean:
 			rm -f $(OBJS)

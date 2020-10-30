@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/22 16:01:35 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/23 11:53:07 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 		{
 			close(next_fd[0]);
 			dup2(next_fd[1], 1);
-			launch(cmd, status, envir, 0);
+			launch(cmd, status, envir);
 			exit(errno);
 		}
 		else
@@ -39,14 +39,8 @@ void 	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 			waitpid(pid_fork, &next_fd[2], 0);
 			pipe_cmd(cmd_split + 1, next_fd, status, envir);
 			ft_free_2dim(cmd);
-
 		}
 	}
 	else
-		launch(cmd, status, envir, 1);
-		//close(0);
-		//if (previous_fd)
-		//{
-		//	close(previous_fd[0]);
-		//}
+		launch(cmd, status, envir);
 }

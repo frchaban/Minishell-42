@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 13:05:02 by frchaban          #+#    #+#             */
-/*   Updated: 2020/10/19 17:37:05 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/10/28 15:27:33 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 void	signal_ctrl_c()
 {
-	ft_printf("\nminishell $>");
+	ft_putstr("\nminishell $>");
+	errno = 1;
+}
+void	signal_ctrl_back_exit()
+{
+	kill(-1, SIGINT);
+	ft_putchar('\n');
 }
 
-void	signal_ctrl_back()
+void	signal_ctrl_back_nothing()
 {
 	return ;
 }
@@ -36,10 +42,7 @@ void	remove_ctrl(char *arg1, char *arg2, t_env *envir)
 	if (pid == -1)
 		ft_error("Fork attempt failed", NULL, 1, envir);
 	else if (pid > 0)
-	{
 		waitpid(pid, &status, 0);
-		kill(pid, SIGTERM);
-	}
 	else if (pid == 0)
 	{
 		execve(cmd[0], cmd, NULL) == -1 ? ft_error("minishell: ", strerror(errno), errno, envir) : 0;

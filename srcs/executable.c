@@ -46,19 +46,22 @@ char*	ft_absolute_path(char *cmd, t_env *envir)
 char	*get_absolute_path(char *cmd, t_env *envir)
 {
 	char *absolute_path;
+	int	 save_errno;
 
 	absolute_path = NULL;
 	if (!cmd || !cmd[0])
 		return (absolute_path);
+	save_errno = errno;
 	if (cmd[0] != '/' && ft_strncmp(cmd,"./", 2) != 0)
 		absolute_path = ft_absolute_path(cmd, envir);
 	if (absolute_path == NULL)
 		absolute_path = ft_strdup(cmd);
 	free(cmd);
+	errno = save_errno;
 	return (absolute_path);
 }
 
-void	execute(char **cmd, t_env *envir, int lst_cmd)
+void	execute(char **cmd, t_env *envir)
 {
 	char	**env;
 	char	error_msg[100];
@@ -70,15 +73,15 @@ void	execute(char **cmd, t_env *envir, int lst_cmd)
 		exit(1);
 	cmd[0] = get_absolute_path(cmd[0], envir);
 	status = 0;
-	(void)lst_cmd;
+	signal(SIGQUIT, signal_ctrl_back_nothing);
 	if ((fork_pid = fork()) == -1)
 		exit(2);
 	else if (fork_pid == 0)
 	{
+		signal(SIGQUIT, signal_ctrl_back_exit);
 		if (ft_strchr(cmd[0], '/') == 0 && ft_strncmp(cmd[0],"./", 2) != 0)
 		{
 			ft_error("minishell: command not found: ", cmd[0], 127, envir);
-			errno = 127;
 			ft_free_2dim(cmd);
 			exit(127);
 		}
@@ -97,7 +100,12 @@ void	execute(char **cmd, t_env *envir, int lst_cmd)
 	}
 	else
 	{
+		signal(SIGQUIT, signal_ctrl_back_nothing);
 		waitpid(fork_pid, &status, 0);
+		if (WIFEXITED(status))
+    		errno = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+     		errno = WTERMSIG(status);
 	}
 
 }
