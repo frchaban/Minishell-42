@@ -28,7 +28,7 @@ static	int		count_words(char *cmd)
 				i++;
 			ret++;
 		}
-		else if ( cmd[i] == '\'')
+		else if (cmd[i] == '\'')
 		{
 			i++;
 			while (cmd[i] && cmd[i] != '\'')
@@ -43,7 +43,7 @@ static	int		count_words(char *cmd)
 				i++;
 			ret++;
 		}
-		else
+		if (cmd[i])
 			i++;
 	}
 	return (ret);
@@ -105,12 +105,38 @@ char	**parse_cmd(char **cmd)
 {
 	char	**result;
 
-	clean_useless_quote(*cmd);
-	clean_useless_simple_quote(*cmd);
+	//clean_useless_quote(*cmd);
+	//clean_useless_simple_quote(*cmd);
 	*cmd = ft_strtrim_freed(*cmd, " \t");
 	result = ft_parse_cmd(*cmd);
 	return (result);
 }
+
+
+int			check_valid_quote_nb(char *cmd)
+{
+	int 	nb_simple_quote;
+	int		nb_double_quote;
+	int		i;
+
+	if (!cmd)
+		return (0);
+	i = 0;
+	nb_simple_quote = 0;
+	nb_double_quote = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '\'' && (!i || cmd[i - 1] != '\\'))
+			nb_simple_quote++;
+		if (cmd[i] == '\"' && (!i || cmd[i - 1] != '\\'))
+			nb_double_quote++;
+		i++;
+	}
+	if (nb_simple_quote % 2 != 0 || (nb_double_quote % 2 != 0))
+		return (0);
+	return (1);	
+}
+
 
 
 char		**ft_parse_cmd(char *cmd)
@@ -120,6 +146,8 @@ char		**ft_parse_cmd(char *cmd)
 	int		i;
 	int		len;
 
+	if (!check_valid_quote_nb(cmd))
+		return (NULL);
 	if (!(parsed = malloc(sizeof(*parsed) * (count_words(cmd) + 1))))
 		return (NULL);
 	cpt = 0;

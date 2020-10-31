@@ -23,7 +23,7 @@ void	free_elem_list(t_env *env)
 
 t_env	*ft_last_elem(t_env *env)
 {
-	while(env->next != NULL)
+	while (env->next != NULL)
 		env = env->next;
 	return (env);
 }
@@ -51,8 +51,11 @@ t_env	*set_up_elem(char *line, int exportable)
 		return (NULL);
 	while (line[i] != '=' && line[i])
 		i++;
+	if (!line[i])
+		result->content = ft_strdup("");
+	else
+		result->content = ft_strdup(&line[i + 1]);
 	result->key = ft_substr(line, 0, i);
-	result->content = ft_strdup(&line[i + 1]);
 	result->exportable = exportable;
 	result->next = NULL;
 	return (result);

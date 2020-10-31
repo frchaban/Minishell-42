@@ -17,6 +17,8 @@ char	**replace_var(char **cmd, t_env *envir)
 	int i;
 
 	i = -1;
+	if (!cmd)
+		return (NULL);
 	while (cmd[++i])
 	{
 		if (cmd[i][0] == '$')
@@ -42,6 +44,8 @@ char	*get_cmd(int *print_prompt)
 		if (return_gnl == 0 && !line[0] && !save[0])
 		{
 			ft_putstr("exit\n");
+			free(line);
+			free(save);
 			exit(0);
 		}
 		if (return_gnl == 0)
@@ -92,7 +96,7 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 	else if (ft_strcmp(cmd, "pwd") == 0)
 		pwd_builtin(args, envir);
 	else if (ft_strcmp(cmd, "unset") == 0)
-		return unset_builtin(args, envir);
+		unset_builtin(args, envir);
 	else if (ft_strcmp(cmd, "env") == 0)
 		env_builtin(envir);
 	else if (ft_strcmp(cmd, "exit") == 0)
@@ -108,7 +112,7 @@ void	launch(char **cmd, int *status, t_env *envir)
 	int		old_stdout;
 
 	old_stdout = 0;
-	cmd = replace_var(cmd, envir);
+	replace_var(cmd, envir);
 	if (is_builtin(cmd[0]) == 1)
 	{
 		old_stdout = dup(STDOUT_FILENO);
@@ -123,6 +127,6 @@ void	launch(char **cmd, int *status, t_env *envir)
 		close(old_stdout);
 		ft_free_2dim(cmd);
 	}
-	else
+	else if (cmd && *cmd)
 		execute(cmd, envir);
 }

@@ -35,7 +35,7 @@ int		check_cat_ctrl_c_case(char *line)
 		return (-1);
 	ft_strcpy(cp, line);
 	cp = ft_strtrim_freed(cp, " \t");
-	if (!cp || !cp[0])
+	if (!cp)
 		return (1);
 	cp2 = ft_split(cp, ' ');
 	free(cp);
@@ -55,7 +55,6 @@ void	clean_line_from_empty_quote(char *line)
 
 	i = 0;
 	return ;
-	ft_putnbr(ft_strlen(line));
 	while (line[i])
 	{
 		if ((line[i] == '\"' || line[i] == '\'') && line[i + 1])
@@ -70,11 +69,7 @@ void	clean_line_from_empty_quote(char *line)
 				i = save_index + 1;
 			}
 		}
-		ft_putchar('-');
-		ft_putchar(line[i]);
-		ft_putchar('-');
 		i++;
-		ft_putnbr(i);
 	}
 }
 
@@ -140,11 +135,12 @@ int main(int argc, char **argv, char **env)
 	while (status)
 	{
 		line = get_cmd(&print_prompt);
-		clean_line_from_empty_quote(line);
-		clean_useless_quote(line);
-		clean_useless_simple_quote(line);
+		//clean_line_from_empty_quote(line);
+		//clean_useless_quote(line);
+		//clean_useless_simple_quote(line);
 		print_prompt = check_cat_ctrl_c_case(line);
 		main_2(&status, line, envir);
+		free(envir->content);
 		envir->content = ft_itoa(errno);
 		free(line);
 	}

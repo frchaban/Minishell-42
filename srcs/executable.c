@@ -69,8 +69,6 @@ void	execute(char **cmd, t_env *envir)
 	int		status;
 
 	env = NULL;
-	if (!cmd[0] || !cmd[0][0])
-		exit(1);
 	cmd[0] = get_absolute_path(cmd[0], envir);
 	status = 0;
 	signal(SIGQUIT, signal_ctrl_back_nothing);
@@ -101,6 +99,7 @@ void	execute(char **cmd, t_env *envir)
 	else
 	{
 		signal(SIGQUIT, signal_ctrl_back_nothing);
+		ft_free_2dim(cmd);
 		waitpid(fork_pid, &status, 0);
 		if (WIFEXITED(status))
     		errno = WEXITSTATUS(status);

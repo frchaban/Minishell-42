@@ -64,6 +64,7 @@ SRCS_LIST = \
 				libft/ft_putstr_fd.c \
 				libft/ft_split.c \
 				libft/ft_split_freed.c \
+				libft/ft_print_split_fd.c \
 				libft/ft_strcat.c \
 				libft/ft_strchr.c \
 				libft/ft_strclr.c \

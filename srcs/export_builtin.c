@@ -79,10 +79,7 @@ void			export_elem_to_envir(t_env *envir, char *cmd)
 		}
 		envir = envir->next;
 	}
-	if (equal)
-		previous->next = next;
-	else
-		free_elem_list(next);
+	previous->next = next;
 }
 
 void			export_builtin(t_env *envir, t_list *args)
@@ -99,7 +96,7 @@ void			export_builtin(t_env *envir, t_list *args)
 		{
 			if ((error_msg = check_valid_cmd(args->content)) != NULL)
 			{
-				ft_error(error_msg, args->content, 1, envir); //done
+				ft_error(error_msg, args->content, 1, envir);
 				return ;
 			}
 			args = args->next;
