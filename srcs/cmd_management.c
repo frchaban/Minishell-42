@@ -103,7 +103,6 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 		*status = 0;
 	else if (ft_strchr(cmd, '='))
 		variable_update(cmd, args, envir);
-
 }
 
 void	launch(char **cmd, int *status, t_env *envir)
@@ -113,6 +112,8 @@ void	launch(char **cmd, int *status, t_env *envir)
 
 	old_stdout = 0;
 	replace_var(cmd, envir);
+	if (!cmd)
+		return ;
 	if (is_builtin(cmd[0]) == 1)
 	{
 		old_stdout = dup(STDOUT_FILENO);

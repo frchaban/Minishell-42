@@ -12,85 +12,6 @@
 
 #include "../includes/minishell.h"
 
-// static	int		count_words(char *cmd)
-// {
-// 	int ret;
-// 	int i;
-
-// 	ret = 1;
-// 	i = 0;
-// 	while (cmd[i])
-// 	{
-// 		if (cmd[i] == '\"')
-// 		{
-// 			i++;
-// 			while (cmd[i] && cmd[i] != '\"')
-// 				i++;
-// 			ret++;
-// 		}
-// 		else if (cmd[i] == '\'')
-// 		{
-// 			i++;
-// 			while (cmd[i] && cmd[i] != '\'')
-// 				i++;
-// 			ret++;
-// 		}
-// 		else if (cmd[i] == ' ' || cmd[i] == '\t' )
-// 		{
-// 			while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
-// 				i++;
-// 			while (cmd[i] && cmd[i] == ' ' && cmd[i] == '\t')
-// 				i++;
-// 			ret++;
-// 		}
-// 		if (cmd[i])
-// 			i++;
-// 	}
-// 	return (ret);
-// }
-
-void	clean_useless_quote(char *cmd)
-{
-	int i;
-	int quote_nbr;
-
-	i= -1;
-	while (cmd[++i])
-	{
-		if (cmd[i] == '\"' && i != 0 && cmd[i - 1] != '\\')
-		{
-			quote_nbr++;
-			if (cmd[++i] == '\"' && (quote_nbr % 2) == 1)
-			{
-				quote_nbr = 0;
-				cmd[i - 1] = ' ';
-				cmd[i] = ' ';
-			}
-		}
-	}
-}
-
-void	clean_useless_simple_quote(char *cmd)
-{
-	int i;
-	int quote_nbr;
-
-	i= -1;
-	while (cmd[++i])
-	{
-		if (cmd[i] == '\'' && i != 0 && cmd[i - 1] != '\\')
-		{
-			quote_nbr++;
-			if (cmd[++i] == '\'' && (quote_nbr % 2) == 1)
-			{
-				quote_nbr = 0;
-				cmd[i - 1] = ' ';
-				cmd[i] = ' ';
-			}
-		}
-	}
-}
-
 int			check_valid_quote_nb(char *cmd)
 {
 	int 	nb_simple_quote;
@@ -117,8 +38,6 @@ int			check_valid_quote_nb(char *cmd)
 
 char	**parse_cmd(char **cmd)
 {
-	//clean_useless_quote(*cmd);
-	//clean_useless_simple_quote(*cmd);
 	*cmd = ft_strtrim_freed(*cmd, " \t");
 	if (!check_valid_quote_nb(*cmd))
 		return (NULL);
@@ -170,16 +89,9 @@ char		**ft_parse_cmd(char *cmd)
 	{
 		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
 			i++;
-		if (cmd[i] == '\'' || cmd[i] == '\"')
-		{
-			end_next_word = ft_substr(&cmd[i], 0, 1);
-			word_begin = ++i;
-		}
-		else
-		{
-			end_next_word = ft_strdup(" \t");
-			word_begin = i++;
-		}
+		end_next_word = (cmd[i] == '\'' || cmd[i] == '\"') ? 
+		ft_substr(&cmd[i], 0, 1) : ft_strdup(" \t");
+		word_begin = (cmd[i] == '\'' || cmd[i] == '\"') ? ++i : i++;
 		while (!ft_strchr(end_next_word, cmd[i]) && cmd[i])
 			i++;
 		parsed[word_nb++] = ft_substr(cmd, word_begin, i - word_begin);
@@ -188,78 +100,5 @@ char		**ft_parse_cmd(char *cmd)
 		free(end_next_word);
 	}
 	parsed[word_nb] = NULL;
-	ft_print_split(parsed);
 	return (parsed);
 }
-
-
-
-
-
-	// while (cmd[i])
-	// {	
-	// 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
-	// 		i++;
-	// 	if (!ft_strchr("\'\"\t ", cmd[i]))
-	// 	{
-	// 		len = (ft_wordlen(cmd, i, ' ') == 0 ? ft_wordlen(cmd, i, '\t') : ft_wordlen(cmd, i, ' '));
-	// 		parsed[cpt] = ft_substr(cmd, i, len);
-	// 		cpt++;
-	// 		i = i + len - 1;
-	// 	}
-	// 	else if (cmd[i] == '\'')
-	// 	{
-	// 		len = ft_wordlen(cmd, ++i, '\'');
-	// 		parsed[cpt] = ft_substr(cmd, i, len);
-	// 		cpt++;
-	// 		i = i + len - 1;
-	// 	}
-	// 	else if (cmd[i] == '\"')
-	// 	{
-	// 		len = ft_wordlen(cmd, ++i, '\"');
-	// 		parsed[cpt] = ft_substr(cmd, i, len);
-	// 		cpt++;
-	// 		i = i + len - 1;
-	// 	}
-	// 	i++;
-	// }
-	// parsed[cpt] = NULL;
-
-// 	return (parsed);
-// }
-
-
-/*
-char		**ft_count_cmd(char *cmd)
-{
-	int		i;
-	int		word_begin;
-	char	*end_next_word;
-	int		word_nb;
-
-	i =	0;
-	word_nb = 0;
-	(void)word_begin;
-	while (cmd[i])
-	{
-		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
-			i++;
-		if (cmd[i] == '\'' && cmd[i] == '\"')
-		{
-			end_next_word = ft_strdup(&cmd[i]);
-			word_begin = ++i;
-		}
-		else
-		{
-			end_next_word = ft_strdup(" \t");
-			word_begin = i++;
-		}
-		ft_putnbr(i);
-		while (!ft_strchr(end_next_word, cmd[i]) && cmd[i])
-			i++;
-		word_nb++;
-		ft_putnbr(i);
-	}
-	return (NULL);
-}
-*/
