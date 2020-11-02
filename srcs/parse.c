@@ -89,14 +89,13 @@ char		**ft_parse_cmd(char *cmd)
 	{
 		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
 			i++;
-		end_next_word = (cmd[i] == '\'' || cmd[i] == '\"') ? 
+		end_next_word = (cmd[i] == '\'' || cmd[i] == '\"') ?
 		ft_substr(&cmd[i], 0, 1) : ft_strdup(" \t");
 		word_begin = (cmd[i] == '\'' || cmd[i] == '\"') ? ++i : i++;
 		while (!ft_strchr(end_next_word, cmd[i]) && cmd[i])
 			i++;
 		parsed[word_nb++] = ft_substr(cmd, word_begin, i - word_begin);
-		if (cmd[i])
-			i++;
+		i += ((cmd[i]) ? 1 : 0); 
 		free(end_next_word);
 	}
 	parsed[word_nb] = NULL;
