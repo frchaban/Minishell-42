@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/11/11 17:36:27 by user42           ###   ########.fr       */
+/*   Updated: 2020/11/11 17:53:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		check_cat_ctrl_c_case(char *line)
 		return (1);
 	cp2 = ft_split(cp, ' ');
 	free(cp);
-	if ((ft_strequ(cp2[0], "cat") == 1 && !cp2[1]) 
+	if ((ft_strequ(cp2[0], "cat") == 1 && !cp2[1])
 	|| ft_strequ(cp2[0], "yes") == 1)
 	{
 		ft_free_2dim(cp2);
@@ -102,7 +102,6 @@ void	main_2(int *status, char **line, t_env *envir)
 	}
 	ft_free_2dim(semicolon_split);
 }
-
 
 int		main(int argc, char **argv, char **env)
 {
