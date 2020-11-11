@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd_builtin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/11 12:59:40 by user42            #+#    #+#             */
+/*   Updated: 2020/11/11 12:59:42 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
 
 void	update_pwd(char *pwd, char *old_pwd, t_env *envir)
 {
@@ -22,7 +34,7 @@ int		cd(char *path, t_env *env)
 {
 	if (chdir(path) == -1)
 	{
-		ft_error("cd: no such file or directory: ", path, 1, env); //done
+		ft_error("cd: no such file or directory: ", path, 1, env);
 		return (0);
 	}
 	return (1);
@@ -45,21 +57,22 @@ char	*get_home(t_env *envir)
 
 void	cd_builtin(t_list *args, t_env *envir)
 {
-	char *pwd;
-	char *old_pwd;
-	int res;
+	char	*pwd;
+	char	*old_pwd;
+	int		res;
 
 	if (args_size(args) > 2)
-		return (ft_error("cd: too many arguments", NULL, 1,  envir)); //done
+		return (ft_error("cd: too many arguments", NULL, 1, envir));
 	else if (args_size(args) == 2)
-		return (ft_error("cd: string not in pwd: ", args->content, 1, envir)); //done
+		return (ft_error("cd: string not in pwd: ", args->content, 1, envir));
 	old_pwd = getcwd(NULL, 0);
-	res = (args == NULL ? cd(get_home(envir), envir) : cd(args->content, envir));
+	res = (args == NULL ? cd(get_home(envir), envir) :
+	cd(args->content, envir));
 	if (res == 1)
 	{
 		pwd = getcwd(NULL, 0);
 		update_pwd(pwd, old_pwd, envir);
-		return;
+		return ;
 	}
 	free(old_pwd);
 }

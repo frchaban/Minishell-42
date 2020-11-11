@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_builtin.c                                     :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/11 13:00:33 by user42            #+#    #+#             */
-/*   Updated: 2020/11/11 13:00:33 by user42           ###   ########.fr       */
+/*   Created: 2020/11/11 17:31:31 by user42            #+#    #+#             */
+/*   Updated: 2020/11/11 17:34:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		exit_builtin(void)
+void	ft_error(char *cmd_n_error_msg, char *arg, int error_nb, t_env *env)
 {
-	return (0);
+	if (env)
+	{
+		free(env->content);
+		env->content = ft_itoa(error_nb);
+	}
+	if (cmd_n_error_msg)
+		ft_putstr_fd(cmd_n_error_msg, 2);
+	if (arg)
+		ft_putstr_fd(arg, 2);
+	ft_putchar_fd('\n', 2);
 }

@@ -39,7 +39,6 @@ void			export_print_lst(t_env *envir)
 	t_env	*ordered;
 	t_env	*ordered_for_free;
 
-
 	temp = list_to_envp(envir);
 	ft_sort_strings(temp);
 	envp_to_list(&ordered, temp);
@@ -48,7 +47,6 @@ void			export_print_lst(t_env *envir)
 	{
 		if (ordered->exportable == 1)
 			ft_printf("declare -x %s=\"%s\"\n", ordered->key, ordered->content);
-		
 		ordered = ordered->next;
 	}
 	ft_free_2dim(temp);

@@ -55,8 +55,7 @@ void		add_variable_to_envir(t_env *envir, char *cmd)
 	previous->next = next;
 }
 
-
-void	variable_update(char *first_cmd, t_list *args, t_env *envir)
+void		variable_update(char *first_cmd, t_list *args, t_env *envir)
 {
 	t_list	*begin;
 	int		result;
@@ -72,7 +71,7 @@ void	variable_update(char *first_cmd, t_list *args, t_env *envir)
 		args = args->next;
 	}
 	if (!result)
-		return (ft_error("minishell: no matches found: ",first_cmd, 1, NULL)); //done
+		return (ft_error("minishell: no matches found: ", first_cmd, 1, NULL));
 	add_variable_to_envir(envir, first_cmd);
 	while (begin)
 	{

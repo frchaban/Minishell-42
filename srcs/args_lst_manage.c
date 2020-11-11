@@ -12,14 +12,14 @@
 
 #include "../includes/minishell.h"
 
-static void	free_arg_list(t_list *args)
+static void		free_arg_list(t_list *args)
 {
 	free(args->content);
 	args->content = NULL;
 	free(args);
 }
 
-void	free_args_list(t_list *args)
+void			free_args_list(t_list *args)
 {
 	t_list	*actual;
 	t_list	*temp;
@@ -47,20 +47,29 @@ static t_list	*set_up_arg(char *line)
 	return (result);
 }
 
-int		args_to_list(t_list **args, char **cmd)
+static int		ft_is_redir_symb(char *c)
+{
+	if (ft_strequ(c, ">") || ft_strequ(c, ">>")
+	|| ft_strequ(c, "<"))
+		return (1);
+	else
+		return (0);
+}
+
+int				args_to_list(t_list **args, char **cmd)
 {
 	int		i;
 	t_list	*new;
 
 	i = 1;
-	if (ft_strequ(cmd[i], ">") || ft_strequ(cmd[i], ">>") || ft_strequ(cmd[i], "<"))
-		i += 2 ;
+	if (ft_is_redir_symb(cmd[i]))
+		i += 2;
 	if (!(*args = set_up_arg(cmd[i])))
 		return (-1);
 	while (cmd[++i])
 	{
-		if (ft_strequ(cmd[i], ">") || ft_strequ(cmd[i], ">>") || ft_strequ(cmd[i], "<"))
-			i += 1 ;
+		if (ft_is_redir_symb(cmd[i]))
+			i += 1;
 		else
 		{
 			new = *args;

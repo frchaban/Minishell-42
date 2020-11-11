@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/28 15:27:04 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/11/11 13:19:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,26 @@ char	**replace_var(char **cmd, t_env *envir)
 	return (cmd);
 }
 
+void	ft_free_and_exit_ctrl_d(char *line, char *save)
+{
+	ft_putstr("exit\n");
+	free(line);
+	free(save);
+	exit(0);
+}
+
+void	ft_free_double_str(char *temp, char *save)
+{
+	free(temp);
+	free(save);
+}
+
 char	*get_cmd(int *print_prompt)
 {
 	char	*line;
 	int		return_gnl;
 	char	*save;
-	char	*temp;	
+	char	*temp;
 
 	if (*print_prompt)
 		ft_putstr("minishell $>");
@@ -42,12 +56,7 @@ char	*get_cmd(int *print_prompt)
 	while ((return_gnl = get_next_line(0, &line)) != 1)
 	{
 		if (return_gnl == 0 && !line[0] && !save[0])
-		{
-			ft_putstr("exit\n");
-			free(line);
-			free(save);
-			exit(0);
-		}
+			ft_free_and_exit_ctrl_d(line, save);
 		if (return_gnl == 0)
 		{
 			temp = save;
@@ -57,52 +66,8 @@ char	*get_cmd(int *print_prompt)
 	}
 	temp = line;
 	line = ft_strjoin(save, line);
-	free(temp);
-	free(save);
+	ft_free_double_str(temp, save);
 	return (line);
-}
-
-int		is_builtin(char *cmd)
-{
-	if (!cmd || !cmd[0])
-		return (0);
-	if (ft_strcmp(cmd, "export") == 0)
-		return (1);
-	else if (ft_strcmp(cmd, "echo") == 0)
-		return (1);
-	else if (ft_strcmp(cmd, "cd") == 0)
-		return (1);
-	else if (ft_strcmp(cmd, "pwd") == 0)
-		return (1);
-	else if (ft_strcmp(cmd, "unset") == 0)
-		return (1);
-	else if (ft_strcmp(cmd, "env") == 0)
-		return (1);
-	else if (ft_strcmp(cmd, "exit") == 0)
-		return (1);
-	else if (ft_strchr(cmd, '='))
-		return (1);
-	return (0);
-}
-
-void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
-{
-	if (ft_strcmp(cmd, "export") == 0)
-		export_builtin(envir, args);
-	else if (ft_strcmp(cmd, "echo") == 0)
-		echo_builtin(args);
-	else if (ft_strcmp(cmd, "cd") == 0)
-		cd_builtin(args, envir);
-	else if (ft_strcmp(cmd, "pwd") == 0)
-		pwd_builtin(args, envir);
-	else if (ft_strcmp(cmd, "unset") == 0)
-		unset_builtin(args, envir);
-	else if (ft_strcmp(cmd, "env") == 0)
-		env_builtin(envir);
-	else if (ft_strcmp(cmd, "exit") == 0)
-		*status = 0;
-	else if (ft_strchr(cmd, '='))
-		variable_update(cmd, args, envir);
 }
 
 void	launch(char **cmd, int *status, t_env *envir)
@@ -130,4 +95,6 @@ void	launch(char **cmd, int *status, t_env *envir)
 	}
 	else if (cmd && *cmd)
 		execute(cmd, envir);
+	else if (cmd)
+		free(cmd);
 }

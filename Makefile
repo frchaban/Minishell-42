@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/10/23 10:57:55 by gdupont          ###   ########.fr        #
+#    Updated: 2020/11/11 17:33:45 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ PATH_SRCS = srcs
 SRCS_LIST		= \
 					minishell.c \
 					cmd_management.c \
+					cmd_management_2.c \
 					executable.c \
 					echo_builtin.c \
 					env_builtin.c \
@@ -37,7 +38,9 @@ SRCS_LIST		= \
 					variable_update.c \
 					signal_handler.c \
 					exit_builtin.c \
-					pipe_management.c
+					pipe_management.c \
+					error.c \
+					path_finding.c
 
 
 SRCS = $(addprefix ${PATH_SRCS}/, ${SRCS_LIST})

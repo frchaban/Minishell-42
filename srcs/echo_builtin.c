@@ -10,32 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-static void ft_write(char *line)
+static void	ft_write(char *line)
 {
 	int i;
 
 	i = -1;
-	while(line[++i])
+	while (line[++i])
 	{
 		if (line[i] == '\\')
 			write(1, &line[i], 0);
-		else if (i != 0 && line[i - 1] != '\\' && (line [i] == '\"' || line [i] == '\''))
+		else if (i != 0 && line[i - 1] != '\\'
+		&& (line[i] == '\"' || line[i] == '\''))
 			write(1, &line[i], 0);
 		else
 			write(1, &line[i], 1);
 	}
 }
 
-void	echo_builtin(t_list *args)
+void		echo_builtin(t_list *args)
 {
 	int		flag;
 	int		mult;
 
 	flag = 0;
 	mult = 0;
-	!args ?	ft_printf("\n") : 0;
+	!args ? ft_printf("\n") : 0;
 	if (args)
 	{
 		flag = ((ft_strequ(args->content, "-n") ? 0 : 1));
@@ -46,7 +47,7 @@ void	echo_builtin(t_list *args)
 	}
 	if (args && flag == 0)
 		args = args->next;
-	while(args)
+	while (args)
 	{
 		ft_write(args->content);
 		if (mult == 1 && args->next)

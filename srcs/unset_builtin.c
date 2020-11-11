@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 22:06:03 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/13 12:35:27 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/11/11 13:05:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		remove_variable_from_envir(t_env *envir, char *cmd)
 	}
 }
 
-void	unset_builtin(t_list *args, t_env *envir)
+void		unset_builtin(t_list *args, t_env *envir)
 {
 	t_list	*begin;
 
@@ -59,7 +59,8 @@ void	unset_builtin(t_list *args, t_env *envir)
 	{
 		if (check_valid_cmd(args->content) == 0)
 		{
-			ft_error("minishell: no matches found: ", args->content, 1, envir); //done
+			ft_error("minishell: no matches found: ",
+			args->content, 1, envir);
 			return ;
 		}
 		args = args->next;
