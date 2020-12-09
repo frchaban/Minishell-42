@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/11/11 17:46:04 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/09 15:02:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 # define NOT_EXPORT 0
 # define EXPORT 1
+int G_PRINT_PROMPT;
 
 typedef struct		s_env
 {
@@ -40,7 +41,7 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-char				*get_cmd(int *print_prompt);
+char				*get_cmd(void);
 void				execute(char **cmd, t_env *envir);
 void				launch(char **cmd, int *status, t_env *envir);
 char				**parse_cmd(char **line);

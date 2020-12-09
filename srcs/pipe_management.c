@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_management.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/23 11:53:07 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/11/27 11:28:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	call_next_cmd(char **cmd_split, char **cmd, int *status, t_env *envir)
 	else if (pid_fork == 0)
 	{
 		close(next_fd[0]);
-		dup2(next_fd[1], 1);
+		dup2(next_fd[1], STDOUT_FILENO);
 		launch(cmd, status, envir);
 		exit(errno);
 	}
@@ -43,7 +43,7 @@ void	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 
 	cmd = parse_cmd(&cmd_split[0]);
 	if (previous_fd)
-		dup2(previous_fd[0], 0);
+		dup2(previous_fd[0], STDIN_FILENO);
 	if (cmd_split[1])
 		call_next_cmd(cmd_split, cmd, status, envir);
 	else

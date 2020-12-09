@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort_strings.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 11:20:07 by gdupont           #+#    #+#             */
-/*   Updated: 2020/06/10 15:07:20 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/12/09 12:51:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_sort_strings(char **strings)
 	{
 		if (ft_strcmp(strings[i], strings[i + 1]) > 0)
 		{
-			temp =  strings[i];
+			temp = strings[i];
 			strings[i] = strings[i + 1];
 			strings[i + 1] = temp;
 			i = 0;

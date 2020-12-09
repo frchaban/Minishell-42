@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 13:33:23 by frchaban          #+#    #+#             */
-/*   Updated: 2020/06/08 13:33:26 by frchaban         ###   ########.fr       */
+/*   Updated: 2020/12/09 12:50:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 
@@ -20,7 +19,7 @@ int		ft_count_split(char **split)
 	i = 0;
 	if (split == NULL)
 		return (0);
-	while(split[i] != NULL)
+	while (split[i] != NULL)
 		i++;
 	return (i);
 }

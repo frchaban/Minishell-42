@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/11/11 13:19:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/09 15:01:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,16 @@ void	ft_free_double_str(char *temp, char *save)
 	free(save);
 }
 
-char	*get_cmd(int *print_prompt)
+char	*get_cmd(void)
 {
 	char	*line;
 	int		return_gnl;
 	char	*save;
 	char	*temp;
 
-	if (*print_prompt)
+	if (G_PRINT_PROMPT)
 		ft_putstr("minishell $>");
+	G_PRINT_PROMPT = 1;
 	signal(SIGINT, signal_ctrl_c);
 	signal(SIGQUIT, signal_ctrl_back_nothing);
 	save = ft_strdup("");

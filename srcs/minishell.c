@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/11/11 17:53:33 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/09 14:58:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,17 +111,18 @@ int		main(int argc, char **argv, char **env)
 	int		print_prompt;
 
 	(void)argv;
+	(void)print_prompt;
 	print_prompt = 1;
 	if (argc != 1)
 		return (0);
 	envp_to_list(&envir, env);
 	update_shlvl(envir);
 	remove_ctrl("stty", " -echoctl", envir);
+	G_PRINT_PROMPT = 1;
 	status = 1;
 	while (status)
 	{
-		line = get_cmd(&print_prompt);
-		print_prompt = check_cat_ctrl_c_case(line);
+		line = get_cmd();
 		main_2(&status, &line, envir);
 		free(envir->content);
 		envir->content = ft_itoa(errno);

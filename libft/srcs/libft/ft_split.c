@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:35:10 by Francois          #+#    #+#             */
-/*   Updated: 2020/09/08 14:45:28 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/12/09 12:51:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 static size_t	ft_wordlen(char const *s, unsigned int pos, char c)
 {
 	unsigned int	i;
