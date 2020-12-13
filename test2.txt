@@ -1,1 +1,0 @@
-	if (!(cp = malloc(sizeof(*cp) * (ft_strlen(line) + 1))))
