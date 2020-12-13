@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/12/13 17:11:37 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/13 21:12:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	launch(char **cmd, int *status, t_env *envir)
 	{
 		old_stdout = dup(STDOUT_FILENO);
 		if (ft_redir(cmd, 0) < 0)
-			return ;
+			return (ft_free_2dim(cmd));
 		args = NULL;
 		if (cmd[1])
 			args_to_list(&args, cmd);

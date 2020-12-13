@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:13:06 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/13 18:20:55 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/13 21:21:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,21 @@ int		ft_lesser_redir(char **cmd, int i, int flag)
 	return (fd);
 }
 
+int		special_case(char **cmd, int i, int flag)
+{
+	if (((ft_strequ(cmd[i], ">>") || ft_strequ(cmd[i], "<<")) && !cmd[i + 1]) 
+	|| ((ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<'))
+	&& (ft_strchr(cmd[i + 1], '>') || ft_strchr(cmd[i + 1], '<'))))
+	{
+		ft_error("minishell: syntax error near unexpected token `newline'",
+		NULL, 2, NULL);
+		flag == 1 ? exit(EXIT_FAILURE) : 0;
+		return (0);
+	}
+	return (1);
+
+}
+
 int		ft_redir(char **cmd, int flag)
 {
 	int i;
@@ -89,7 +104,9 @@ int		ft_redir(char **cmd, int flag)
 	res = 0;
 	while (cmd[++i])
 	{
-		if (ft_strequ(cmd[i], ">"))
+		if (!special_case(cmd, i, flag))
+		 	return (-1);
+		else if (ft_strequ(cmd[i], ">"))
 			res = ft_greater_redir(cmd, i, flag);
 		else if (ft_strequ(cmd[i], ">>"))
 			res = ft_greatgreat_redir(cmd, i, flag);
