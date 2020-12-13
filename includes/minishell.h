@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/13 16:55:42 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/13 18:11:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void				free_all_list(t_env *envir);
 char				*get_var_content(char *cmd, t_env *envir);
 int					ft_redir(char **cmd, int flag);
 
-int					args_to_list(t_list **args, char **cmd);
+void				args_to_list(t_list **args, char **cmd);
 char				**list_to_arg(t_list *args, char *cmd);
 void				free_args_list(t_list *args);
 int					args_size(t_list *args);

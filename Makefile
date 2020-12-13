@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/11/11 17:33:45 by user42           ###   ########.fr        #
+#    Updated: 2020/12/13 18:16:25 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS_LIST		= \
 					unset_builtin.c \
 					export_builtin.c \
 					args_lst_manage.c \
+					args_lst_manage_2.c \
 					cd_builtin.c \
 					pwd_builtin.c \
 					lst_manage.c \

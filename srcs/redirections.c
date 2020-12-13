@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:13:06 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/13 18:07:28 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/13 18:20:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ int		ft_greater_redir(char **cmd, int i, int flag)
 {
 	int fd;
 
-	flag == 1 ? cmd[i] = NULL : 0;
+	if (flag)
+	{
+		free(cmd[i]);
+		cmd[i] = NULL;
+	}
 	if ((fd = open(cmd[++i], O_CREAT | O_RDWR | O_TRUNC, 0644)) < 0)
 	{
 		ft_error("minishell: syntax error near unexpected token `newline'",
@@ -35,7 +39,11 @@ int		ft_greatgreat_redir(char **cmd, int i, int flag)
 {
 	int fd;
 
-	flag == 1 ? cmd[i] = NULL : 0;
+	if (flag)
+	{
+		free(cmd[i]);
+		cmd[i] = NULL;
+	}
 	if ((fd = open(cmd[++i], O_CREAT | O_RDWR | O_APPEND, 0644)) < 0)
 	{
 		ft_error("minishell: syntax error near unexpected token `newline'",
@@ -54,7 +62,11 @@ int		ft_lesser_redir(char **cmd, int i, int flag)
 {
 	int fd;
 
-	flag == 1 ? cmd[i] = NULL : 0;
+	if (flag)
+	{
+		free(cmd[i]);
+		cmd[i] = NULL;
+	}
 	if ((fd = open(cmd[++i], O_RDONLY, 0)) < 0)
 	{
 		ft_error("minishell: no such file or directory: ", NULL, 2, NULL);
@@ -77,7 +89,7 @@ int		ft_redir(char **cmd, int flag)
 	res = 0;
 	while (cmd[++i])
 	{
-		else if (ft_strequ(cmd[i], ">"))
+		if (ft_strequ(cmd[i], ">"))
 			res = ft_greater_redir(cmd, i, flag);
 		else if (ft_strequ(cmd[i], ">>"))
 			res = ft_greatgreat_redir(cmd, i, flag);
