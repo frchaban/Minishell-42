@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/12/13 18:16:25 by user42           ###   ########.fr        #
+#    Updated: 2020/12/14 11:53:37 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS_LIST		= \
 					lst_manage.c \
 					lst_manage_2.c \
 					redirections.c \
+					redirections_2.c \
 					parse.c \
 					variable_update.c \
 					signal_handler.c \
