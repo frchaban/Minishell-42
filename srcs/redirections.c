@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:13:06 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/14 12:05:23 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/14 12:10:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_lesser_redir(char **cmd, int i, int flag)
 
 	if ((fd = open(cmd[i + 1], O_RDONLY, 0)) < 0)
 	{
-		ft_error("minishell: no such file or directory: ", NULL, 2, NULL);
+		ft_error("minishell: no such file or directory: ", cmd[i + 1], 2, NULL);
 		flag == 1 ? exit(EXIT_FAILURE) : 0;
 	}
 	else
