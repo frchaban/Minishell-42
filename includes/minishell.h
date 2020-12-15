@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/14 11:53:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/15 16:28:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ typedef struct		s_env
 char				*get_cmd(void);
 void				execute(char **cmd, t_env *envir);
 void				launch(char **cmd, int *status, t_env *envir);
-char				**parse_cmd(char **line);
+char				**parse_cmd(char **line, t_env *env);
 
 void				cd_builtin(t_list *args, t_env *envir);
 void				pwd_builtin(t_list *args, t_env *env);
 void				echo_builtin(t_list *args);
-int					exit_builtin(void);
+int					exit_builtin(t_list *args);
 void				export_builtin(t_env *envir, t_list *args);
 void				env_builtin(t_env *envir);
 void				unset_builtin(t_list *args, t_env *envir);
@@ -76,7 +76,7 @@ char				**list_to_arg(t_list *args, char *cmd);
 void				free_args_list(t_list *args);
 int					args_size(t_list *args);
 
-char				**ft_parse_cmd(char *cmd);
+char				**ft_parse_cmd(char *cmd, t_env *env);
 
 void				signal_ctrl_c();
 void				signal_ctrl_back_exit();

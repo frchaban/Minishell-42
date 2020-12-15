@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/11/27 11:28:03 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/15 13:00:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 {
 	char	**cmd;
 
-	cmd = parse_cmd(&cmd_split[0]);
+	cmd = parse_cmd(&cmd_split[0], envir);
 	if (previous_fd)
 		dup2(previous_fd[0], STDIN_FILENO);
 	if (cmd_split[1])

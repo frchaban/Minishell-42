@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/12/14 11:53:37 by user42           ###   ########.fr        #
+#    Updated: 2020/12/15 13:13:27 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ SGFLAGS = -g ulimit -c unlimited
 
 FFLAGS = -g3 -fsanitize=address
 
-all :	$(NAME)
+all : $(NAME)
 
 $(NAME) :	$(OBJS)
 	@make -C $(LIBFT)

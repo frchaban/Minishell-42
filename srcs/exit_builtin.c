@@ -6,13 +6,17 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 13:00:33 by user42            #+#    #+#             */
-/*   Updated: 2020/11/11 13:00:33 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/15 17:14:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		exit_builtin(void)
+int		exit_builtin(t_list *args)
 {
+	if (args)
+		errno = ft_atoi(args->content);
+	else
+		errno = 0;
 	return (0);
 }

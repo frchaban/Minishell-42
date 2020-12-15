@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/10/13 12:29:23 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/12/15 16:18:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static	char	*check_valid_cmd(char *cmd)
 	i = 0;
 	result = NULL;
 	temp = set_up_elem(cmd, EXPORT);
-	if (ft_isdigit(temp->key[0]))
+	if (ft_isdigit(temp->key[0]) || cmd[0] == '=')
 		result = "export: not an identifier: ";
 	while (temp->key[i])
 	{
@@ -46,7 +46,12 @@ void			export_print_lst(t_env *envir)
 	while (ordered)
 	{
 		if (ordered->exportable == 1)
-			ft_printf("declare -x %s=\"%s\"\n", ordered->key, ordered->content);
+		{
+			ft_printf("declare -x %s", ordered->key);
+			if (ordered->content && ordered->content[0])
+				ft_printf("=\"%s\"", ordered->content);
+			ft_putchar('\n');
+		}
 		ordered = ordered->next;
 	}
 	ft_free_2dim(temp);
@@ -94,6 +99,7 @@ void			export_builtin(t_env *envir, t_list *args)
 		{
 			if ((error_msg = check_valid_cmd(args->content)) != NULL)
 			{
+				errno = 1;
 				ft_error(error_msg, args->content, 1, envir);
 				return ;
 			}

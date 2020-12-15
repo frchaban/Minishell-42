@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/13 21:36:18 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/15 17:20:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,28 @@ void	update_shlvl(t_env *envir)
 	}
 }
 
-void	remove_not_printable(char **line)
-{
-	int i;
+// void	remove_not_printable(char **line)
+// {
+// 	int i;
 
-	i = 0;
-	if (!line || !(*line))
-		return ;
-	while (line[0][i])
-	{
-		if (!ft_isprint(line[0][i]))
-		{
-			line[0][i++] = ' ';
-			if (line[0][i])
-				line[0][i++] = ' ';
-			if (line[0][i])
-				line[0][i] = ' ';
-			else
-				return ;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	if (!line || !(*line))
+// 		return ;
+// 	while (line[0][i])
+// 	{
+// 		if (!ft_isprint(line[0][i]))
+// 		{
+// 			line[0][i++] = ' ';
+// 			if (line[0][i])
+// 				line[0][i++] = ' ';
+// 			if (line[0][i])
+// 				line[0][i] = ' ';
+// 			else
+// 				return ;
+// 		}
+// 		i++;
+// 	}
+// }
 
 void	main_2(int *status, char **line, t_env *envir)
 {
@@ -85,7 +85,6 @@ void	main_2(int *status, char **line, t_env *envir)
 
 	if (!line || !(*line))
 		return ;
-	remove_not_printable(line);
 	semicolon_split = ft_split(*line, ';');
 	i = 0;
 	while (semicolon_split[i])
@@ -127,5 +126,5 @@ int		main(int argc, char **argv, char **env)
 		free(line);
 	}
 	free_all_list(envir);
-	return (0);
+	return (errno);
 }

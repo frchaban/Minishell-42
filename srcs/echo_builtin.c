@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   echo_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/25 15:29:26 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/12/15 12:01:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	ft_write(char *line)
+static int	ft_write(char *line)
 {
 	int i;
 
 	i = -1;
+	if (ft_strequ(line, "-n"))
+		return (0);
 	while (line[++i])
 	{
 		if (line[i] == '\\')
@@ -27,7 +29,9 @@ static void	ft_write(char *line)
 		else
 			write(1, &line[i], 1);
 	}
+	return (1);
 }
+
 
 void		echo_builtin(t_list *args)
 {
@@ -49,10 +53,10 @@ void		echo_builtin(t_list *args)
 		args = args->next;
 	while (args)
 	{
-		ft_write(args->content);
-		if (mult == 1 && args->next)
+		if (ft_write(args->content) && mult == 1 && args->next)
 			ft_printf(" ");
 		args = args->next;
 	}
 	flag == 1 ? ft_printf("\n") : 0;
+	errno = 0;
 }

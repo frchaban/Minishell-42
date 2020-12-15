@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_manage_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frchaban <frchaban@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:59:57 by frchaban          #+#    #+#             */
-/*   Updated: 2020/09/08 14:50:42 by gdupont          ###   ########.fr       */
+/*   Updated: 2020/12/15 13:23:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_var_content(char *cmd, t_env *envir)
 {
 	char *tronc;
 
-	tronc = ft_substr(cmd, 1, ft_strlen(cmd) - 1);
+	tronc = ft_substr(cmd, 0, ft_strlen(cmd));
 	free(cmd);
 	while (envir)
 	{

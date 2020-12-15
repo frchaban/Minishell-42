@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 13:05:02 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/09 14:58:08 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/14 17:57:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	signal_ctrl_c(void)
 {
 	G_PRINT_PROMPT = 0;
-	ft_putstr("\nminishell $>");
+	ft_putstr_fd("\nminishell $>", 2);
 	errno = 1;
 }
 

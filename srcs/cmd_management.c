@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/12/13 21:12:15 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/15 17:24:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**replace_var(char **cmd, t_env *envir)
 		return (NULL);
 	while (cmd[++i])
 	{
-		if (cmd[i][0] == '$')
+		if (cmd[i][0] == '$' && cmd[i][1] != '=')
 			cmd[i] = get_var_content(cmd[i], envir);
 	}
 	return (cmd);
@@ -41,6 +41,52 @@ void	ft_free_double_str(char *temp, char *save)
 	free(save);
 }
 
+// char	*update_line(char *line, int i, t_env *envir)
+// {
+// 	char	*final;
+// 	int		len_final;
+// 	int		y;
+// 	char	*tronc;
+
+// 	y = 1;
+// 	while (line[i + y] && line[i + y] != '$' && line[i + y] != ' '
+// 	 && line[i + y] != '=' && line[i + y] != '\"' &&
+// 	 line[i + y] != '\'')
+// 		y++;
+// 	len_final = ft_strlen(line) - y + 1;
+// 	tronc = ft_substr(line, i + 1, y);
+// 	tronc = get_var_content(tronc, envir);
+// 	if (!(final = malloc(sizeof(*final) * len_final + 1)))
+// 		return (NULL);
+// 	final[0] = '\0';
+// 	ft_strncat(final, line, i);
+// 	ft_strcat(final, tronc);
+// 	free(tronc);
+// 	ft_strcat(final, &line[i + y]);
+// //	free(line);
+// 	free(final);
+// 	return (NULL);
+// }
+
+// char	*ft_update_variable_2(char *line, t_env *envir)
+// {
+// 	int		i;
+
+// 	if (!line)
+// 		return (line);
+// //	ft_putendl_fd(line, 1);
+// 	i = -1;
+// 	while (line[++i])
+// 	{
+// 		if (line[i] == '$')
+// 			line = update_line(line, i--, envir);
+// 		if (!line[i])
+// 			break ;
+// 	}
+// //	ft_putendl_fd(line, 1);
+// 	return (line);
+// }
+
 char	*get_cmd(void)
 {
 	char	*line;
@@ -49,7 +95,7 @@ char	*get_cmd(void)
 	char	*temp;
 
 	if (G_PRINT_PROMPT)
-		ft_putstr("minishell $>");
+		ft_putstr_fd("minishell $>", 2);
 	G_PRINT_PROMPT = 1;
 	signal(SIGINT, signal_ctrl_c);
 	signal(SIGQUIT, signal_ctrl_back_nothing);
