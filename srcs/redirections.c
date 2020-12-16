@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:13:06 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/14 12:10:06 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/16 17:25:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int		ft_lesser_redir(char **cmd, int i, int flag)
 
 int		special_cases(char **cmd, int i, int flag)
 {
-	if (((ft_strequ(cmd[i], ">>") || ft_strequ(cmd[i], "<<") || 
-	ft_strequ(cmd[i], "<>")) && !cmd[i + 1]) 
+	if (((ft_strequ(cmd[i], ">>") || ft_strequ(cmd[i], "<<") ||
+	ft_strequ(cmd[i], "<>")) && !cmd[i + 1])
 	|| ((ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<'))
 	&& (ft_strchr(cmd[i + 1], '>') || ft_strchr(cmd[i + 1], '<'))))
 	{
@@ -80,8 +80,9 @@ int		special_cases(char **cmd, int i, int flag)
 		flag == 1 ? exit(EXIT_FAILURE) : 0;
 		return (0);
 	}
-	if ((ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<')) && ft_strlen(cmd[i]) >= 2 
-		&& !ft_strequ(cmd[i], ">>") && !ft_strequ(cmd[i], "<>"))
+	if ((ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<')) &&
+	ft_strlen(cmd[i]) >= 2 &&
+	!ft_strequ(cmd[i], ">>") && !ft_strequ(cmd[i], "<>"))
 	{
 		ft_error("minishell: syntax error near unexpected token ",
 		&(cmd[i][ft_strlen(cmd[i]) - 1]), 2, NULL);
@@ -103,7 +104,7 @@ int		ft_redir(char **cmd, int flag)
 		if (handle_min_sup(cmd, i, flag))
 			return (0);
 		else if (!special_cases(cmd, i, flag))
-		 	return (-1);
+			return (-1);
 		else if (ft_strequ(cmd[i], ">"))
 			res = ft_greater_redir(cmd, i, flag);
 		else if (ft_strequ(cmd[i], ">>"))

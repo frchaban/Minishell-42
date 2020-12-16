@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2020/12/15 13:13:27 by user42           ###   ########.fr        #
+#    Updated: 2020/12/16 18:18:52 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS_LIST		= \
 					redirections.c \
 					redirections_2.c \
 					parse.c \
+					parse_2.c \
 					variable_update.c \
 					signal_handler.c \
 					exit_builtin.c \
@@ -59,11 +60,11 @@ SGFLAGS = -g ulimit -c unlimited
 
 FFLAGS = -g3 -fsanitize=address
 
-all : $(NAME)
-
-$(NAME) :	$(OBJS)
+$(NAME) :	$(OBJS) 
 	@make -C $(LIBFT)
-	@$(CC) $(FLAGS) $(LFLAGS) $(FFLAGS) $(INCLUDES) $(OBJS) libft/libft.a -o $(NAME)
+	@$(CC) $(FLAGS) $(LFLAGS) $(FFLAGS) $(INCLUDES) $(OBJS) libft/libft.a -o $(NAME) 
+
+all : $(NAME)
 
 %.o: %.c
 	@$(CC) $(FLAGS) $(FFLAGS) $(INCLUDES) -o $@ -c $<

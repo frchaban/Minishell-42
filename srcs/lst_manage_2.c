@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 16:59:57 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/15 13:23:10 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/16 17:00:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ char	*get_var_content(char *cmd, t_env *envir)
 		}
 		envir = envir->next;
 	}
+	if (tronc && ft_strequ(tronc, "$"))
+		return (tronc);
 	free(tronc);
 	return (ft_strdup(""));
 }

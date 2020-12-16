@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 13:09:12 by user42            #+#    #+#             */
-/*   Updated: 2020/12/15 16:26:17 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/16 15:50:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	launch_builtin(char *cmd, t_list *args, t_env *envir, int *status)
 	else if (ft_strcmp(cmd, "env") == 0)
 		env_builtin(envir);
 	else if (ft_strcmp(cmd, "exit") == 0)
-		*status = exit_builtin(args);
+		*status = exit_builtin(args, envir);
 	else if (ft_strchr(cmd, '='))
 		variable_update(cmd, args, envir);
 }

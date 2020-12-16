@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/15 17:20:47 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/16 17:18:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,29 +51,6 @@ void	update_shlvl(t_env *envir)
 		envir = envir->next;
 	}
 }
-
-// void	remove_not_printable(char **line)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	if (!line || !(*line))
-// 		return ;
-// 	while (line[0][i])
-// 	{
-// 		if (!ft_isprint(line[0][i]))
-// 		{
-// 			line[0][i++] = ' ';
-// 			if (line[0][i])
-// 				line[0][i++] = ' ';
-// 			if (line[0][i])
-// 				line[0][i] = ' ';
-// 			else
-// 				return ;
-// 		}
-// 		i++;
-// 	}
-// }
 
 void	main_2(int *status, char **line, t_env *envir)
 {
@@ -126,5 +103,5 @@ int		main(int argc, char **argv, char **env)
 		free(line);
 	}
 	free_all_list(envir);
-	return (errno);
+	return ((int)errno);
 }

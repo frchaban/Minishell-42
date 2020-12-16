@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/03 18:24:04 by frchaban          #+#    #+#              #
-#    Updated: 2020/10/23 11:00:11 by gdupont          ###   ########.fr        #
+#    Updated: 2020/12/16 18:19:47 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ SRCS_LIST = \
 				libft/ft_strstr.c \
 				libft/ft_strtrim.c \
 				libft/ft_strtrim_freed.c \
+				libft/ft_s_isdigit.c \
 				libft/ft_substr.c \
 				libft/ft_tolower.c \
 				libft/ft_count_split.c\
@@ -119,10 +120,10 @@ INCLUDES = -I./includes
 all:	 $(NAME)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $^
+	@ar rcs $(NAME) $^
 
 %.o: %.c
-	$(CC) $(FLAGS) $(FFLAGS) -c $< $(INCLUDES) -o $@
+	@$(CC) $(FLAGS) $(FFLAGS) -c $< $(INCLUDES) -o $@
 
 clean:
 			rm -f $(OBJS)

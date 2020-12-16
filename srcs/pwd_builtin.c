@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 13:00:47 by user42            #+#    #+#             */
-/*   Updated: 2020/12/14 18:31:01 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/16 17:21:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,3 @@ void	pwd_builtin(t_list *args, t_env *env)
 		ft_printf("%s\n", strerror(errno));
 	free(buf);
 }
-
-//cd posix man page

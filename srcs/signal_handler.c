@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 13:05:02 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/14 17:57:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/16 16:31:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void	signal_ctrl_c(void)
 
 void	signal_ctrl_back_exit(void)
 {
-	kill(-1, SIGINT);
+	errno = 131;
 	ft_putchar('\n');
+	kill(-1, SIGABRT);
 }
 
 void	signal_ctrl_back_nothing(void)

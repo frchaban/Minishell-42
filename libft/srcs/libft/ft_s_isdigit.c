@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_lst_manage_2.c                                :+:      :+:    :+:   */
+/*   ft_s_isdigit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 18:15:52 by user42            #+#    #+#             */
-/*   Updated: 2020/12/16 15:28:23 by user42           ###   ########.fr       */
+/*   Created: 2020/05/12 15:44:22 by gdupont           #+#    #+#             */
+/*   Updated: 2020/12/16 18:16:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/libft.h"
 
-void			free_arg_list(t_list *args)
+int		ft_s_isdigit(char *s)
 {
-	free(args->content);
-	args->content = NULL;
-	free(args);
-}
+	int i;
 
-void			free_args_list(t_list *args)
-{
-	t_list	*actual;
-	t_list	*temp;
-
-	actual = args;
-	while (actual)
+	i = 0;
+	if (!s || !s[0])
+		return (0);
+	while (s[i])
 	{
-		temp = actual;
-		actual = actual->next;
-		free_arg_list(temp);
+		if (!ft_isdigit(s[i]))
+			return (0);
+		i++;
 	}
-	args = NULL;
+	return (1);
 }

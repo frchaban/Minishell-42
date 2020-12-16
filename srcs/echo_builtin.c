@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/15 12:01:09 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/16 17:20:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	ft_write(char *line)
 	}
 	return (1);
 }
-
 
 void		echo_builtin(t_list *args)
 {

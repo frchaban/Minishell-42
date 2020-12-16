@@ -6,13 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 17:44:46 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/14 19:13:01 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/16 15:29:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-
 
 static	t_list	*set_up_arg(char *line)
 {
@@ -44,7 +42,7 @@ t_list			*args_to_list_n1(int *first, t_list **args, char **cmd, int *i)
 	return (*args);
 }
 
-t_list		*args_to_list_n2(t_list **args, char **cmd, int *i)
+t_list			*args_to_list_n2(t_list **args, char **cmd, int *i)
 {
 	t_list *new;
 
@@ -56,7 +54,7 @@ t_list		*args_to_list_n2(t_list **args, char **cmd, int *i)
 	return (new);
 }
 
-void		args_to_list(t_list **args, char **cmd)
+void			args_to_list(t_list **args, char **cmd)
 {
 	int		i;
 	int		first;

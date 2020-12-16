@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/15 16:28:53 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/16 18:04:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,16 @@ char				*get_cmd(void);
 void				execute(char **cmd, t_env *envir);
 void				launch(char **cmd, int *status, t_env *envir);
 char				**parse_cmd(char **line, t_env *env);
+int					check_valid_quote_nb(char *cmd);
+char				*update_line(char *line, int i, t_env *envir);
+void				update_quote_2(char *line, int i);
+void				ft_update_quote(char *line);
+char				*ft_update_variable_2(char *line, t_env *envir);
 
 void				cd_builtin(t_list *args, t_env *envir);
 void				pwd_builtin(t_list *args, t_env *env);
 void				echo_builtin(t_list *args);
-int					exit_builtin(t_list *args);
+int					exit_builtin(t_list *args, t_env *env);
 void				export_builtin(t_env *envir, t_list *args);
 void				env_builtin(t_env *envir);
 void				unset_builtin(t_list *args, t_env *envir);
@@ -76,7 +81,7 @@ char				**list_to_arg(t_list *args, char *cmd);
 void				free_args_list(t_list *args);
 int					args_size(t_list *args);
 
-char				**ft_parse_cmd(char *cmd, t_env *env);
+char				**ft_parse_cmd(char *cmd);
 
 void				signal_ctrl_c();
 void				signal_ctrl_back_exit();
@@ -97,5 +102,6 @@ void				launch_builtin(char *cmd, t_list *args,
 char				*get_absolute_path(char *cmd, t_env *envir);
 char				*ft_absolute_path(char *cmd, t_env *envir);
 char				*get_path(t_env *envir);
+
 
 #endif
