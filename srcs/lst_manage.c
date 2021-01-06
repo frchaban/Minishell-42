@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_manage.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 15:03:33 by gdupont           #+#    #+#             */
-/*   Updated: 2020/12/15 13:08:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/05 16:15:50 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int		envp_to_list(t_env **env, char **envp)
 	if (!(*env = set_up_elem("?=0", NOT_EXPORT)))
 		return (-1);
 	i = 0;
+	if (!envp)
+		return (-1);
 	while (envp[i])
 	{
 		new = *env;

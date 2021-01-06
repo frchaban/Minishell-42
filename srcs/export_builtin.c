@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:46:51 by gdupont           #+#    #+#             */
-/*   Updated: 2020/12/30 19:57:36 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/05 16:28:04 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void			export_print_lst(t_env *envir)
 	t_env	*ordered;
 	t_env	*ordered_for_free;
 
+	if (!envir->next)
+		return ;
 	temp = list_to_envp(envir);
 	ft_sort_strings(temp);
 	envp_to_list(&ordered, temp);

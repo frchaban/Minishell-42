@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/03 17:28:03 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/05 17:05:34 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	**ft_parse_cmd(char *cmd)
 	int		word[2];
 	char	*end_next_word;
 
-	handle_backslash_and_begin_quote(cmd);
+	//handle_backslash_and_begin_quote(cmd);
 	if (!(parsed = malloc(sizeof(*parsed) * (ft_count_word(cmd) + 1))))
 		return (NULL);
 	i = 0;
@@ -114,6 +114,7 @@ char	**ft_parse_cmd(char *cmd)
 		i += ((cmd[i]) ? 1 : 0);
 		free(end_next_word);
 	}
+	handle_backslash_and_begin_quote(cmd);
 	parsed[word[0]] = NULL;
 	return (parsed);
 }

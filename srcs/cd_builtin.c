@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 12:59:40 by user42            #+#    #+#             */
-/*   Updated: 2020/11/11 12:59:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/05 16:34:59 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	cd_builtin(t_list *args, t_env *envir)
 	{
 		pwd = getcwd(NULL, 0);
 		update_pwd(pwd, old_pwd, envir);
+		free(old_pwd);
+		free(pwd);
 		return ;
 	}
 	free(old_pwd);

@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2020/12/31 12:02:25 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/06 11:07:17 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_is_escape_char(char c)
 {
-	if (c == '\\' || c == '\"')
+	if (c == '\\' || c == '\"' || c == '\'')
 		return (1);
 	return (0);
 }
@@ -26,6 +26,7 @@ static int	ft_write(char *line)
 	i = -1;
 	if (ft_strequ(line, "-n"))
 		return (0);
+	ft_printf("-%s-\n", line);
 	while (line[++i])
 	{
 		if (line[i] == '\\' && ft_is_escape_char(line[i + 1]))
