@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/08 15:20:44 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 16:27:15 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,22 @@ void	check_hashtag(char *line)
 	}
 }
 
+void	check_double_semicolon(char *line, t_env *envir)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == ';' && !is_escaped(line, i - 1) && line[i + 1]  == ';')
+		{
+			ft_error("syntax error near unexpected token `;;'", NULL, 258, envir);
+			line[0] = '\0';
+		}
+		i++;
+	}
+}
+
 void	minishell(int status, t_env *envir)
 {
 	char	*line;
@@ -94,6 +110,7 @@ void	minishell(int status, t_env *envir)
 		if (g_ctrl_backslash)
 			adjust_errno_sigquit(envir);
 		line = get_cmd();
+		check_double_semicolon(line, envir);
 		check_hashtag(line);
 		g_print_prompt = 1;
 		launcher(&status, &line, envir);
