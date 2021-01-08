@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 18:02:45 by user42            #+#    #+#             */
-/*   Updated: 2021/01/05 17:01:25 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/06 19:42:59 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		check_valid_quote_nb(char *cmd)
 	nb_double_quote = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '\'' && (!i || cmd[i - 1] != '\\'))
+		if (cmd[i] == '\'' && !is_escaped(cmd, i - 1))
 			nb_simple_quote++;
-		if (cmd[i] == '\"' && (!i || cmd[i - 1] != '\\'))
+		if (cmd[i] == '\"' && !is_escaped(cmd, i - 1))
 			nb_double_quote++;
 		i++;
 	}

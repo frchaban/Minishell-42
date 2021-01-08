@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/03 17:29:15 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/06 20:08:52 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void				free_args_list(t_list *args);
 int					args_size(t_list *args);
 
 char				**ft_parse_cmd(char *cmd);
-int					word_end(int *i, char *cmd, char *end_next_word);
+int					word_end(int i, char *cmd, char *end_next_word);
 int					is_escaped(char *cmd, int i);
 void				handle_quote(char *cmd);
 void				handle_backslash_and_begin_quote(char *cmd);
