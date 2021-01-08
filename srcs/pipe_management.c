@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 10:40:02 by gdupont           #+#    #+#             */
-/*   Updated: 2020/12/30 23:04:23 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 18:15:52 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,41 @@ void	call_next_cmd(char **cmd_split, char **cmd, int *status, t_env *envir)
 	else
 	{
 		close(next_fd[1]);
-		waitpid(pid_fork, &next_fd[2], 0);
 		pipe_cmd(cmd_split + 1, next_fd, status, envir);
+		ft_free_2dim(cmd);
+	}
+}
+
+void	launch_in_fork(char **cmd, int *status, t_env *envir)
+{
+	pid_t	pid_fork;
+	int		pid_status;
+
+	if ((pid_fork = fork()) == -1)
+		exit(errno);
+	else if (pid_fork == 0)
+	{
+		launch(cmd, status, envir);
+		exit(errno);
+	}
+	else
+	{
+		waitpid(pid_fork, &pid_status, 0);
 		ft_free_2dim(cmd);
 	}
 }
 
 void	pipe_cmd(char **cmd_split, int *previous_fd, int *status, t_env *envir)
 {
-	char	**cmd;
+	char		**cmd;
 
 	cmd = parse_cmd(&cmd_split[0], envir);
 	if (previous_fd)
 		dup2(previous_fd[0], STDIN_FILENO);
 	if (cmd_split[1])
 		call_next_cmd(cmd_split, cmd, status, envir);
+	else if (previous_fd)
+		launch_in_fork(cmd, status, envir);
 	else
 		launch(cmd, status, envir);
 }
