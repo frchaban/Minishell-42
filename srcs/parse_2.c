@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 18:02:45 by user42            #+#    #+#             */
-/*   Updated: 2021/01/06 19:42:59 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 16:11:05 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		check_valid_quote_nb(char *cmd)
 	nb_double_quote = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '\'' && !is_escaped(cmd, i - 1))
+		if (cmd[i] == '\'' && (!i || cmd[i - 1] != '\\'))
 			nb_simple_quote++;
-		if (cmd[i] == '\"' && !is_escaped(cmd, i - 1))
+		if (cmd[i] == '\"' && (!i || cmd[i - 1] != '\\'))
 			nb_double_quote++;
 		i++;
 	}
@@ -46,8 +46,8 @@ char	*update_line(char *line, int i, t_env *envir)
 	y = 1;
 	while (line[i + y] && line[i + y] != '$' && line[i + y] != ' '
 		&& line[i + y] != '=' && line[i + y] != '\"' &&
-		line[i + y] != '\'' && line[i + y - 1] != '?' && line[i + y] != '\\'
-		&& !ft_isdigit(line[i + y]))
+		line[i + y] != '\'' && line[i + y - 1] != '?' &&
+		!ft_isdigit(line[i + y]))
 		y++;
 	tronc = ft_substr(line, i + 1, y - 1);
 	tronc = get_var_content(tronc, envir);
@@ -103,21 +103,20 @@ char	*ft_update_variable_2(char *line, t_env *envir)
 	int		i;
 	int		s_quote;
 
-	s_quote = 0;
 	if (!line)
 		return (line);
 	i = -1;
+	s_quote = 0;
 	while (line[++i])
 	{
-		if (line[i] == '\\' && line[i + 1] == '$')
-			i++;
-		else if (line[i] == '\'' && !is_escaped(line, i - 1))
+		if (line[i] == '\'' && !is_escaped(line, i - 1))
 			s_quote++;
-		else if (line[i] == '$' && line[i + 1] != '=' && line[i + 1] != '\"'
-		&& line[i + 1] && !(s_quote % 2))
+		if (line[i] == '$' && line[i + 1] != '=' && line[i + 1] != '\"'
+		&& line[i + 1] && !is_escaped(line, i - 1) && !(s_quote % 2))
 		{
 			line = update_line(line, i, envir);
 			i = -1;
+			s_quote = 0;
 		}
 	}
 	return (line);

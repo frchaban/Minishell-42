@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:52:50 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/06 21:19:50 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 16:04:48 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ int		is_escaped(char *cmd, int i)
 int		word_end(int i, char *cmd, char *end_next_word)
 {
 	if (!ft_strchr(end_next_word, cmd[i]))
+		return (1);
+	else if (i == 0 && ft_strchr(end_next_word, cmd[i]))
 		return (0);
-	else if (ft_strchr(end_next_word, cmd[i]) && is_escaped(cmd, i - 1))
-	{
-		ft_printf("le caracter : -%c- is escaped == %d \n", cmd[i], is_escaped(cmd, i - 1));
-		return (0);
-	}
-	ft_printf("le caractere : -%c- is escaped == %d \n", cmd[i], is_escaped(cmd, i - 1));
-	return (1);
+	else if (ft_strchr(end_next_word, cmd[i]) && is_escaped(cmd, (i) - 1))
+		return (1);
+	return (0);
 }
 
 void	handle_quote(char *cmd)

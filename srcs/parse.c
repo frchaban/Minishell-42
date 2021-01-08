@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/06 21:28:18 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 16:04:16 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,19 @@ int		ft_count_word(char *cmd)
 	{
 		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
 			i++;
-		if ((cmd[i] == '\'' || cmd[i] == '\"') && !is_escaped(cmd, i - 1))
+		if (cmd[i] == '\'' || cmd[i] == '\"')
 			end_next_word = ft_substr(&cmd[i], 0, 1);
 		else
-			end_next_word = ft_strdup(" \t\'\"");
+			end_next_word = ft_strdup(" \t");
 		if (cmd[i])
 			i++;
-		while (!word_end(i, cmd, end_next_word) && cmd[i])
+		while (word_end(i, cmd, end_next_word) && cmd[i])
 			i++;
 		word_nb++;
 		free(end_next_word);
 		if (cmd[i])
 			i++;
 	}
-	ft_printf("word_nb = %d\n", word_nb);
 	return (word_nb);
 }
 
@@ -106,19 +105,15 @@ char	**ft_parse_cmd(char *cmd)
 	{
 		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
 			i++;
-		if ((cmd[i] == '\'' || cmd[i] == '\"') && !is_escaped(cmd, i - 1))
-			end_next_word = ft_substr(&cmd[i], 0, 1);
-		else
-			end_next_word = ft_strdup(" \t\'\"");
-		word[1] = i;
-		while (cmd[++i] && !word_end(i, cmd, end_next_word))
-			;
+		end_next_word = (cmd[i] == '\'' || cmd[i] == '\"') ?
+		ft_substr(&cmd[i], 0, 1) : ft_strdup(" \t");
+		word[1] = (cmd[i] == '\'' || cmd[i] == '\"') ? ++i : i;
+		while (cmd[i] && word_end(i, cmd, end_next_word))
+			i++;
 		parsed[word[0]++] = ft_substr(cmd, word[1], i - word[1]);
-		//i += ((cmd[i]) ? 1 : 0);
+		i += ((cmd[i]) ? 1 : 0);
 		free(end_next_word);
 	}
-	//handle_backslash_and_begin_quote(cmd);
 	parsed[word[0]] = NULL;
-	ft_print_split(parsed);
 	return (parsed);
 }
