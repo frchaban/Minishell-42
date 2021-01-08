@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/08 17:42:11 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 18:44:17 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_is_escape_char(char c)
 {
-	if (c == '\\' || c == '\"' || c == '\'')
+	if (c == '\\' || c == '\"' || c == '\'') //add || c == ' ' for echo \salut\        salut 
 		return (1);
 	return (0);
 }

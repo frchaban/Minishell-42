@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/08 16:42:49 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 19:07:06 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,28 @@ char	**parse_cmd(char **cmd, t_env *envir)
 		return (ft_parse_cmd(*cmd));
 }
 
+int		go_to_end_word(int i, char *cmd, char *end_word)
+{
+	char begin;
+
+	begin = cmd[i];
+	while (cmd[i])
+	{
+		if (ft_strchr(end_word, cmd[i]))
+		{
+			if ((cmd[i] == '\'' || cmd[i] == '\"') && is_escaped(cmd, i - 1))
+				;
+			else
+				return (i);
+		}
+		i++;
+	}
+	if (begin != '\'' && begin != '\"')
+		if (cmd[i] == '\'' || cmd[i] == '\"')
+			i--;
+	return (i);
+}
+
 int		ft_count_word(char *cmd)
 {
 	int		i;
@@ -71,16 +93,13 @@ int		ft_count_word(char *cmd)
 	word_nb = 0;
 	while (cmd[i])
 	{
-		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
-			i++;
+		// while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
+		// 	i++;
 		if (cmd[i] == '\'' || cmd[i] == '\"')
 			end_next_word = ft_substr(&cmd[i], 0, 1);
 		else
-			end_next_word = ft_strdup(" \t");
-		if (cmd[i])
-			i++;
-		while (word_end(i, cmd, end_next_word) && cmd[i])
-			i++;
+			end_next_word = ft_strdup(" \t\'\"");
+		i = go_to_end_word(i, cmd, end_next_word);
 		word_nb++;
 		free(end_next_word);
 		if (cmd[i])
@@ -103,17 +122,17 @@ char	**ft_parse_cmd(char *cmd)
 	word[0] = 0;
 	while (cmd[i])
 	{
-		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
-			i++;
+		// while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
+		// 	i++;
 		end_next_word = (cmd[i] == '\'' || cmd[i] == '\"') ?
-		ft_substr(&cmd[i], 0, 1) : ft_strdup(" \t");
+		ft_substr(&cmd[i], 0, 1) : ft_strdup(" \t\'\"");
 		word[1] = (cmd[i] == '\'' || cmd[i] == '\"') ? ++i : i;
-		while (cmd[i] && word_end(i, cmd, end_next_word))
-			i++;
+		i = go_to_end_word(i, cmd, end_next_word);
 		parsed[word[0]++] = ft_substr(cmd, word[1], i - word[1]);
 		i += ((cmd[i]) ? 1 : 0);
 		free(end_next_word);
 	}
 	parsed[word[0]] = NULL;
+	ft_print_split(parsed);
 	return (parsed);
 }
