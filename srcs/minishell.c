@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/03 15:58:13 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 15:20:44 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	update_shlvl(t_env *envir)
 	}
 }
 
-void	main_2(int *status, char **line, t_env *envir)
+void	launcher(int *status, char **line, t_env *envir)
 {
 	char	**semicolon_split;
 	char	**cmd;
@@ -85,9 +85,27 @@ void	check_hashtag(char *line)
 	}
 }
 
-int		main(int argc, char **argv, char **env)
+void	minishell(int status, t_env *envir)
 {
 	char	*line;
+
+	while (status)
+	{
+		if (g_ctrl_backslash)
+			adjust_errno_sigquit(envir);
+		line = get_cmd();
+		check_hashtag(line);
+		g_print_prompt = 1;
+		launcher(&status, &line, envir);
+		free(envir->content);
+		envir->content = ft_itoa(errno);
+		free(line);
+	}
+	free_all_list(envir);
+}
+
+int		main(int argc, char **argv, char **env)
+{
 	int		status;
 	t_env	*envir;
 
@@ -99,17 +117,8 @@ int		main(int argc, char **argv, char **env)
 	remove_ctrl("stty", " echoctl", envir);
 	status = 1;
 	g_print_prompt = 1;
+	g_ctrl_backslash = 0;
 	signal(SIGQUIT, signal_ctrl_back_nothing);
-	while (status)
-	{
-		line = get_cmd();
-		check_hashtag(line);
-		g_print_prompt = 1;
-		main_2(&status, &line, envir);
-		free(envir->content);
-		envir->content = ft_itoa(errno);
-		free(line);
-	}
-	free_all_list(envir);
+	minishell(status, envir);
 	return ((int)errno);
 }
