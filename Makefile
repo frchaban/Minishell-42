@@ -6,7 +6,7 @@
 #    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2021/01/03 17:53:58 by gdupont          ###   ########.fr        #
+#    Updated: 2021/01/08 16:34:47 by gdupont          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS_LIST		= \
 					parse.c \
 					parse_2.c \
 					parse_tools.c \
+					parse_tools2.c \
 					variable_update.c \
 					signal_handler.c \
 					exit_builtin.c \

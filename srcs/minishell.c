@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/08 16:27:15 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 16:31:01 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,51 +54,6 @@ void	launcher(int *status, char **line, t_env *envir)
 		close(save_fdin);
 	}
 	ft_free_2dim(semicolon_split);
-}
-
-void	check_hashtag(char *line)
-{
-	int i;
-	int simple_q;
-	int double_q;
-
-	i = -1;
-	simple_q = 0;
-	double_q = 0;
-	while (line[++i])
-	{
-		if (line[i] == '\'' && !is_escaped(line, i - 1))
-			simple_q++;
-		else if (line[i] == '\"' && !is_escaped(line, i - 1))
-			double_q++;
-		else if (!i && line[i] == '#')
-		{
-			line[i] = '\0';
-			line[i + 1] = '\0';
-		}
-		else if (line[i] == '#' && !is_escaped(line, i - 1) &&
-		ft_strchr(" \t", line[i - 1]) && !(simple_q % 2) && !(double_q % 2))
-		{
-			line[i] = '\0';
-			line[i + 1] = '\0';
-		}
-	}
-}
-
-void	check_double_semicolon(char *line, t_env *envir)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == ';' && !is_escaped(line, i - 1) && line[i + 1]  == ';')
-		{
-			ft_error("syntax error near unexpected token `;;'", NULL, 258, envir);
-			line[0] = '\0';
-		}
-		i++;
-	}
 }
 
 void	minishell(int status, t_env *envir)

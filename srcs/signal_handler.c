@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 13:05:02 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/08 15:21:12 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 16:40:37 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	ft_sigquit(int sig)
 
 void	adjust_errno_sigquit(t_env *envir)
 {
-		g_ctrl_backslash = 0;
-		errno = 131;
-		free(envir->content);
-		envir->content = ft_itoa(errno);
+	g_ctrl_backslash = 0;
+	errno = 131;
+	free(envir->content);
+	envir->content = ft_itoa(errno);
 }
 
 void	remove_ctrl(char *arg1, char *arg2, t_env *envir)

@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/08 15:25:23 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/08 16:37:47 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,16 @@ void				update_cmd(char **cmd, int i, int flag);
 char				*get_var_content(char *cmd, t_env *envir);
 int					ft_redir(char **cmd, int flag);
 int					handle_min_sup(char **cmd, int i, int flag);
+void				check_double_semicolon(char *line, t_env *envir);
+void				check_hashtag(char *line);
 
 /*
 ** ERROR & SIGNAL
 */
+
 void				ft_error(char *cmd_n_error_msg, char *arg,
 								int err_nb, t_env *env);
-								void				signal_ctrl_c(int signal);
+void				signal_ctrl_c(int signal);
 void				ft_sigquit(int sig);
 void				signal_ctrl_back_nothing(int signal);
 void				remove_ctrl(char *arg1, char *arg2, t_env *envir);
@@ -125,10 +128,5 @@ void				args_to_list(t_list **args, char **cmd);
 char				**list_to_arg(t_list *args, char *cmd);
 void				free_args_list(t_list *args);
 int					args_size(t_list *args);
-
-
-
-
-
 
 #endif
