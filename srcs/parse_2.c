@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 18:02:45 by user42            #+#    #+#             */
-/*   Updated: 2021/01/08 17:40:07 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/11 09:15:17 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ char	*update_line(char *line, int i, t_env *envir)
 	y = 1;
 	while (line[i + y] && line[i + y] != '$' && line[i + y] != ' '
 		&& line[i + y] != '=' && line[i + y] != '\"' &&
-		line[i + y] != '\'' && line[i + y - 1] != '?' &&
-		!ft_isdigit(line[i + y]))
+		line[i + y] != '\'' && line[i + y] != '?' &&
+		!ft_isdigit(line[i + y]) && line[i + y] != '\\')
 		y++;
 	tronc = ft_substr(line, i + 1, y - 1);
 	tronc = get_var_content(tronc, envir);
@@ -82,13 +82,13 @@ void	ft_update_quote(char *line)
 	double_quote = 0;
 	while (line[i])
 	{
-		if (line[i] == '\'')
+		if (line[i] == '\'' && !is_escaped(line, i - 1))
 		{
 			simple_quote++;
 			if (line[i + 1] == '\'' && simple_quote % 2 == 1)
 				update_quote_2(line, i);
 		}
-		if (line[i] == '\"')
+		if (line[i] == '\"' && !is_escaped(line, i - 1))
 		{
 			double_quote++;
 			if (line[i + 1] == '\"' && double_quote % 2 == 1)
