@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:33:23 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/08 16:40:01 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/11 12:06:37 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,19 @@ void	check_hashtag(char *line)
 void	check_double_semicolon(char *line, t_env *envir)
 {
 	int	i;
+	int quote[2];
 
 	i = 0;
+	quote[0] = 0;
+	quote[1] = 0;
 	while (line[i])
 	{
-		if (line[i] == ';' && !is_escaped(line, i - 1) && line[i + 1] == ';')
+		if (line[i] == '\'' && !is_escaped(line, i -1))
+			quote[0] += 1;
+		if (line[i] == '\"' && !is_escaped(line, i -1))
+			quote[1] += 1;
+		if (line[i] == ';' && !is_escaped(line, i - 1) && line[i + 1] == ';'
+		&& !(quote[0] % 2) && !(quote[1] % 2))
 		{
 			ft_error("syntax error near unexpected token `;;'",
 				NULL, 258, envir);

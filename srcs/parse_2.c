@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 18:02:45 by user42            #+#    #+#             */
-/*   Updated: 2021/01/11 09:15:17 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:03:58 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ int		check_valid_quote_nb(char *cmd)
 	return (1);
 }
 
+char	*return_tronc(char *line, int begin, int len)
+{
+	if (line[begin] == '?')
+		return (ft_strdup("?"));
+	else
+		return (ft_substr(line, begin, len));
+}
+
 char	*update_line(char *line, int i, t_env *envir)
 {
 	char	*final;
@@ -49,7 +57,7 @@ char	*update_line(char *line, int i, t_env *envir)
 		line[i + y] != '\'' && line[i + y] != '?' &&
 		!ft_isdigit(line[i + y]) && line[i + y] != '\\')
 		y++;
-	tronc = ft_substr(line, i + 1, y - 1);
+	tronc = return_tronc(line, i + 1, y - 1);
 	tronc = get_var_content(tronc, envir);
 	len_final = ft_strlen(line) - y + 1 + ft_strlen(tronc);
 	if (!(final = malloc(sizeof(*final) * len_final + 1)))

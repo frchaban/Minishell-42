@@ -6,43 +6,45 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/08 18:44:17 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/11 12:24:47 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	ft_is_escape_char(char c)
-{
-	if (c == '\\' || c == '\"' || c == '\'') //add || c == ' ' for echo \salut\        salut 
-		return (1);
-	return (0);
-}
+// static int	ft_is_escape_char(char c)
+// {
+// 	if (c == '\\' || c == '\"' || c == '\'') //add || c == ' ' for echo \salut\        salut 
+// 		return (1);
+// 	return (0);
+// }
 
 static int	ft_write(char *line)
 {
 	int i;
-	int quote[2];
+	//int quote[2];
 
 	i = -1;
 	if (ft_strequ(line, "-n"))
 		return (0);
-	quote[0] = 0;
-	quote[1] = 0;
-	while (line[++i])
-	{
-		if (line[i] == '\'' && !is_escaped(line, i - 1))
-			quote[0] += 1;
-		if (line[i] == '\"' && !is_escaped(line, i - 1))
-			quote[1] += 1;
-		if (line[i] == '\\' && ft_is_escape_char(line[i + 1]))
-			write(1, &line[++i], 1);
-		else if (i != 0 && line[i - 1] != '\\'
-		&& (line[i] == '\"' || line[i] == '\''))
-			write(1, &line[i], 1);
-		else
-			write(1, &line[i], 1);
-	}
+	else
+		ft_putstr(line);
+	// quote[0] = 0;
+	// quote[1] = 0;
+	// while (line[++i])
+	// {
+	// 	if (line[i] == '\'' && !is_escaped(line, i - 1))
+	// 		quote[0] += 1;
+	// 	if (line[i] == '\"' && !is_escaped(line, i - 1))
+	// 		quote[1] += 1;
+	// 	if (line[i] == '\\' && ft_is_escape_char(line[i + 1]))
+	// 		write(1, &line[++i], 1);
+	// 	else if (i != 0 && line[i - 1] != '\\'
+	// 	&& (line[i] == '\"' || line[i] == '\''))
+	// 		write(1, &line[i], 1);
+	// 	else
+	// 		write(1, &line[i], 1);
+	// }
 	return (1);
 }
 
