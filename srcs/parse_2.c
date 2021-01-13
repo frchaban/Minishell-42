@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 18:02:45 by user42            #+#    #+#             */
-/*   Updated: 2021/01/11 15:03:58 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:41:05 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 int		check_valid_quote_nb(char *cmd)
 {
-	int	nb_simple_quote;
-	int	nb_double_quote;
+	int	s_quote;
+	int	d_quote;
 	int	i;
 
 	if (!cmd)
 		return (0);
 	i = 0;
-	nb_simple_quote = 0;
-	nb_double_quote = 0;
+	s_quote = 0;
+	d_quote = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '\'' && !is_escaped(cmd, i - 1))
-			nb_simple_quote++;
-		if (cmd[i] == '\"' && !is_escaped(cmd, i - 1))
-			nb_double_quote++;
+		if (cmd[i] == '\'' && !(d_quote % 2) && 
+		(s_quote % 2 || !is_escaped(cmd, i - 1)))
+			s_quote++;
+		else if (cmd[i] == '\"' && !is_escaped(cmd, i - 1) && !(s_quote % 2))
+			d_quote++;
 		i++;
 	}
-	if (nb_simple_quote % 2 != 0 || (nb_double_quote % 2 != 0))
+	if (s_quote % 2 != 0 || (d_quote % 2 != 0))
 		return (0);
 	return (1);
 }
@@ -52,10 +53,8 @@ char	*update_line(char *line, int i, t_env *envir)
 	char	*tronc;
 
 	y = 1;
-	while (line[i + y] && line[i + y] != '$' && line[i + y] != ' '
-		&& line[i + y] != '=' && line[i + y] != '\"' &&
-		line[i + y] != '\'' && line[i + y] != '?' &&
-		!ft_isdigit(line[i + y]) && line[i + y] != '\\')
+	while (line[i + y] && !ft_strchr("$ =\"\'?\\", line[i + y]) &&
+		!ft_isdigit(line[i + y])) 
 		y++;
 	tronc = return_tronc(line, i + 1, y - 1);
 	tronc = get_var_content(tronc, envir);

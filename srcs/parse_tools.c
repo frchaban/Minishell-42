@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:52:50 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/12 08:52:16 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/13 10:09:51 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ void	handle_quote(char *cmd)
 		if (cmd[i] != '\"' && cmd[i] != '\'')
 			return ;
 		else if (cmd[i + 1] == cmd[i])
-		{
-			cmd[i] = ' ';
-			cmd[++i] = ' ';
-		}
+			ft_strcpy(&cmd[i], &cmd[i + 2]);
 	}
 }
 
@@ -71,11 +68,9 @@ void	handle_backslash_and_begin_quote(char *cmd)
 		else if (cmd[i] == '\"' && !is_escaped(cmd, i - 1))
 			quote[1] += 1;
 		else if (cmd[i] == '\\' && !(quote[0] % 2) && !(quote[1] % 2)
-		&& cmd[i + 1] != '\"' && cmd[i + 1] != '\''
-		&& !ft_strchr(" \t", cmd[i + 1]))
+		&& cmd[i + 1] != '\"' && cmd[i + 1] != '\'')
 		{
 			ft_strcpy(&cmd[i], &cmd[i + 1]);
-			//ft_printf("after :-%s-\n", cmd);
 		}
 	}
 }
