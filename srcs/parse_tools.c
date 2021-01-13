@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:52:50 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/13 10:09:51 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:54:57 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		word_end(int i, char *cmd, char *end_next_word)
 		return (1);
 	else if (i == 0 && ft_strchr(end_next_word, cmd[i]))
 		return (0);
-	else if (ft_strchr(end_next_word, cmd[i]) && is_escaped(cmd, (i) - 1))
+	else if (ft_strchr(end_next_word, cmd[i]) && is_escaped(cmd, i - 1))
 		return (1);
 	return (0);
 }
@@ -52,25 +52,42 @@ void	handle_quote(char *cmd)
 	}
 }
 
-void	handle_backslash_and_begin_quote(char *cmd)
+int		go_to_end_word(int i, char *cmd)
 {
-	int i;
-	int quote[2];
+	int s_quote;
+	int d_quote;
 
-	handle_quote(cmd);
-	i = -1;
-	quote[0] = 0;
-	quote[1] = 0;
-	while (cmd[++i])
+	s_quote = 0;
+	d_quote = 0;
+	while (cmd[i])
 	{
-		if (cmd[i] == '\'' && !is_escaped(cmd, i - 1))
-			quote[0] += 1;
-		else if (cmd[i] == '\"' && !is_escaped(cmd, i - 1))
-			quote[1] += 1;
-		else if (cmd[i] == '\\' && !(quote[0] % 2) && !(quote[1] % 2)
-		&& cmd[i + 1] != '\"' && cmd[i + 1] != '\'')
-		{
-			ft_strcpy(&cmd[i], &cmd[i + 1]);
-		}
+		if (cmd[i] == '\'' && !(d_quote % 2) &&
+		(s_quote % 2 || !is_escaped(cmd, i - 1)))
+			s_quote++;
+		else if (cmd[i] == '\"' && !is_escaped(cmd, i - 1) && !(s_quote % 2))
+			d_quote++;
+		else if (ft_strchr(" \t", cmd[i]) && !(s_quote % 2) && !(d_quote % 2))
+			return (i);
+		i++;
 	}
+	return (i);
+}
+
+int		ft_count_word(char *cmd)
+{
+	int		i;
+	int		word_nb;
+
+	i = 0;
+	word_nb = 0;
+	while (cmd[i])
+	{
+		i = go_to_end_word(i, cmd);
+		word_nb++;
+		if (!cmd[i])
+			return (word_nb);
+		while (ft_strchr(" \t", cmd[i]))
+			i++;
+	}
+	return (word_nb);
 }

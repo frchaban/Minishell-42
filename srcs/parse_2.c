@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 18:02:45 by user42            #+#    #+#             */
-/*   Updated: 2021/01/13 13:41:05 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:50:13 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		check_valid_quote_nb(char *cmd)
 	d_quote = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '\'' && !(d_quote % 2) && 
+		if (cmd[i] == '\'' && !(d_quote % 2) &&
 		(s_quote % 2 || !is_escaped(cmd, i - 1)))
 			s_quote++;
 		else if (cmd[i] == '\"' && !is_escaped(cmd, i - 1) && !(s_quote % 2))
@@ -54,7 +54,7 @@ char	*update_line(char *line, int i, t_env *envir)
 
 	y = 1;
 	while (line[i + y] && !ft_strchr("$ =\"\'?\\", line[i + y]) &&
-		!ft_isdigit(line[i + y])) 
+		!ft_isdigit(line[i + y]))
 		y++;
 	tronc = return_tronc(line, i + 1, y - 1);
 	tronc = get_var_content(tronc, envir);
@@ -72,40 +72,7 @@ char	*update_line(char *line, int i, t_env *envir)
 	return (final);
 }
 
-void	update_quote_2(char *line, int i)
-{
-	line[i] = '\0';
-	ft_strcat(line, &line[i + 2]);
-}
-
-void	ft_update_quote(char *line)
-{
-	int		simple_quote;
-	int		double_quote;
-	int		i;
-
-	i = 0;
-	simple_quote = 0;
-	double_quote = 0;
-	while (line[i])
-	{
-		if (line[i] == '\'' && !is_escaped(line, i - 1))
-		{
-			simple_quote++;
-			if (line[i + 1] == '\'' && simple_quote % 2 == 1)
-				update_quote_2(line, i);
-		}
-		if (line[i] == '\"' && !is_escaped(line, i - 1))
-		{
-			double_quote++;
-			if (line[i + 1] == '\"' && double_quote % 2 == 1)
-				update_quote_2(line, i);
-		}
-		i++;
-	}
-}
-
-char	*ft_update_variable_2(char *line, t_env *envir)
+char	*ft_update_variable(char *line, t_env *envir)
 {
 	int		i;
 	int		s_quote;
@@ -127,4 +94,26 @@ char	*ft_update_variable_2(char *line, t_env *envir)
 		}
 	}
 	return (line);
+}
+
+char	**devide_cmd(char *cmd)
+{
+	char	**parsed;
+	int		i;
+	int		word[2];
+
+	if (!(parsed = malloc(sizeof(*parsed) * (ft_count_word(cmd) + 1))))
+		return (NULL);
+	i = 0;
+	word[0] = 0;
+	while (cmd[i])
+	{
+		word[1] = i;
+		i = go_to_end_word(i, cmd);
+		parsed[word[0]++] = ft_substr(cmd, word[1], i - word[1]);
+		i += ((cmd[i]) ? 1 : 0);
+		i = pass_whitespaces(cmd, i);
+	}
+	parsed[word[0]] = NULL;
+	return (parsed);
 }

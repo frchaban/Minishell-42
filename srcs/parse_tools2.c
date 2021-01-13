@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:33:23 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/12 10:49:48 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:52:04 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,50 @@ void	check_double_semicolon(char *line, t_env *envir)
 		}
 		i++;
 	}
+}
+
+int		pass_whitespaces(char *line, int i)
+{
+	while (line[i] && ft_strchr(" \t", line[i]))
+		i++;
+	return (i);
+}
+
+char	**put_back_character(char *line, char c)
+{
+	char	**final;
+	int		i;
+	int		j;
+
+	final = ft_split(line, c);
+	if (!final)
+		return (NULL);
+	i = -1;
+	while (final[++i])
+	{
+		j = -1;
+		while (final[i][++j])
+			final[i][j] == 7 ? final[i][j] = c : 0;
+	}
+	return (final);
+}
+
+char	**handle_inside_quote_split(char *line, char c)
+{
+	int		i;
+	int		simple;
+	int		double_q;
+
+	i = -1;
+	simple = 0;
+	double_q = 0;
+	while (line[++i])
+	{
+		line[i] == '\'' && !is_escaped(line, i - 1) ? simple++ : 0;
+		line[i] == '\"' && !is_escaped(line, i - 1) ? double_q++ : 0;
+		if (line[i] == c && (simple % 2 || double_q % 2 ||
+		is_escaped(line, i - 1)))
+			line[i] = 7;
+	}
+	return (put_back_character(line, c));
 }
