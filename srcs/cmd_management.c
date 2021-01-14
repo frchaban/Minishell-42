@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 19:14:41 by gdupont           #+#    #+#             */
-/*   Updated: 2020/12/31 12:02:33 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/14 11:29:25 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ void	ft_free_double_str(char *temp, char *save)
 	g_print_prompt = 1;
 }
 
+void	manage_ctrl_d(int *return_gnl, char **line, char **save, char **temp)
+{
+	if (*return_gnl == 0 && !line[0][0] && !save[0][0])
+		ft_free_and_exit_ctrl_d(*line, *save);
+	if (*return_gnl == 0)
+	{
+		*temp = *save;
+		*save = ft_strjoin(*save, *line);
+		ft_free_double_str(*temp, *line);
+	}
+}
+
 char	*get_cmd(void)
 {
 	char	*line;
@@ -39,17 +51,13 @@ char	*get_cmd(void)
 	signal(SIGINT, signal_ctrl_c);
 	save = ft_strdup("");
 	while ((return_gnl = get_next_line(0, &line)) != 1)
-	{
-		if (return_gnl == 0 && !line[0] && !save[0])
-			ft_free_and_exit_ctrl_d(line, save);
-		if (return_gnl == 0)
-		{
-			temp = save;
-			save = ft_strjoin(save, line);
-			ft_free_double_str(temp, line);
-		}
-	}
+		manage_ctrl_d(&return_gnl, &line, &save, &temp);
 	temp = line;
+	if (g_ctrl_c)
+	{
+		save[0] = '\0';
+		g_ctrl_c = 1;
+	}
 	line = ft_strjoin(save, line);
 	ft_free_double_str(temp, save);
 	return (line);

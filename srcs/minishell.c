@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/08 18:14:36 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/14 10:25:50 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ int		main(int argc, char **argv, char **env)
 		return (0);
 	envp_to_list(&envir, env);
 	update_shlvl(envir);
-	remove_ctrl("stty", " echoctl", envir);
+	if (env[0])
+		remove_ctrl("stty", " echoctl", envir);
 	status = 1;
 	g_print_prompt = 1;
 	g_ctrl_backslash = 0;

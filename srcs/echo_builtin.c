@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/13 15:39:27 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/13 16:09:19 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static int	ft_write(char *line)
 {
-	int i;
-
-	i = -1;
 	if (ft_strequ(line, "-n"))
 		return (0);
 	else

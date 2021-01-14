@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:25:31 by user42            #+#    #+#             */
-/*   Updated: 2020/12/31 12:01:39 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/14 11:29:01 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_absolute_path(char *cmd, t_env *envir)
 	int		fd;
 
 	path = get_path(envir);
-	(path == NULL) ? test_path = NULL : 0;
+	(path == NULL || path[0] == '\0') ? test_path = NULL : 0;
 	path_folders = (path != NULL ? ft_split(path, ':') : NULL);
 	i = -1;
 	while (path_folders && path_folders[++i])

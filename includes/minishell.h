@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/13 15:50:31 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/14 10:31:39 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 int g_print_prompt;
 int	g_ctrl_backslash;
+int	g_ctrl_c;
 pid_t g_pid;
 
 typedef struct		s_env

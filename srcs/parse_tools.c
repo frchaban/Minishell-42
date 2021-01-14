@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:52:50 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/13 15:54:57 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/14 11:46:02 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int		go_to_end_word(int i, char *cmd)
 			s_quote++;
 		else if (cmd[i] == '\"' && !is_escaped(cmd, i - 1) && !(s_quote % 2))
 			d_quote++;
-		else if (ft_strchr(" \t", cmd[i]) && !(s_quote % 2) && !(d_quote % 2))
+		else if (ft_strchr(" \t", cmd[i]) && !(s_quote % 2) && !(d_quote % 2)
+		&& !is_escaped(cmd, i - 1))
 			return (i);
 		i++;
 	}

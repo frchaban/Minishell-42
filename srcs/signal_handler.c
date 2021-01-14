@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 13:05:02 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/08 16:40:37 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/14 10:31:55 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	signal_ctrl_c(int signal)
 {
 	(void)signal;
 	g_print_prompt = 0;
+	g_ctrl_c = 1;
 	ft_putstr_fd("\nminishell $>", 2);
 	errno = 1;
 }
