@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 12:59:40 by user42            #+#    #+#             */
-/*   Updated: 2021/01/05 16:34:59 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/15 10:37:24 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,29 @@
 
 void	update_pwd(char *pwd, char *old_pwd, t_env *envir)
 {
+	int del_pwd;
+	int del_oldpwd;
+
+	del_pwd = 1;
+	del_oldpwd = 1;
 	while (envir)
 	{
 		if (ft_strequ(envir->key, "PWD") == 1)
 		{
 			free(envir->content);
 			envir->content = pwd;
+			del_pwd = 0;
 		}
 		else if (ft_strequ(envir->key, "OLDPWD") == 1)
 		{
 			free(envir->content);
 			envir->content = old_pwd;
+			del_oldpwd = 0;
 		}
 		envir = envir->next;
 	}
+	del_oldpwd ? free(old_pwd) : 0;
+	del_pwd ? free(pwd) : 0;
 }
 
 int		cd(char *path, t_env *env)
@@ -72,8 +81,6 @@ void	cd_builtin(t_list *args, t_env *envir)
 	{
 		pwd = getcwd(NULL, 0);
 		update_pwd(pwd, old_pwd, envir);
-		free(old_pwd);
-		free(pwd);
 		return ;
 	}
 	free(old_pwd);
