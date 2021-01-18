@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/13 15:50:10 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/18 20:27:27 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,29 @@ void	get_through_and_clean_quote_and_backslash(char *cmd)
 	}
 }
 
+void	inspect_redirections(char *cmd)
+{
+	int s_quote;
+	int d_quote;
+	int i;
+
+	s_quote = 0;
+	d_quote = 0;
+	i = 0;
+	g_redirections = 1;
+	while (cmd[i])
+	{
+		if ((cmd[i] == '>' || cmd[i] == '<') && ((s_quote % 2) ||
+		(d_quote % 2) || is_escaped(cmd, i - 1)))
+			g_redirections = 0;
+		else if (cmd[i] == '\'' && !(d_quote % 2) && !is_escaped(cmd, i - 1))
+			s_quote++;
+		else if (cmd[i] == '\"' && !is_escaped(cmd, i - 1) && !(s_quote % 2))
+			d_quote++;
+		i++;
+	}
+}
+
 char	**parse_cmd(char **cmd, t_env *envir)
 {
 	char	**parsed_cmd;
@@ -92,6 +115,7 @@ char	**parse_cmd(char **cmd, t_env *envir)
 	*cmd = ft_update_variable(*cmd, envir);
 	if (!check_valid_quote_nb(*cmd))
 		return (NULL);
+	inspect_redirections(*cmd);
 	handle_quote(*cmd);
 	parsed_cmd = devide_cmd(*cmd);
 	i = 0;

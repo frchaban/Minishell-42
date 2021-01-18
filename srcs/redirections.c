@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:13:06 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/11 15:34:05 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/18 20:25:27 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ int		ft_lesser_redir(char **cmd, int i, int flag)
 
 int		special_cases(char **cmd, int i, int flag)
 {
+	char *for_error;
+
+	for_error = ">";
+	if (ft_strchr(cmd[i], '<') > ft_strchr(cmd[i], '>'))
+		for_error = "<";
 	if (((ft_strequ(cmd[i], ">>") || ft_strequ(cmd[i], "<<") ||
 	ft_strequ(cmd[i], "<>")) && !cmd[i + 1])
 	|| ((ft_strchr(cmd[i], '>') || ft_strchr(cmd[i], '<'))
@@ -85,7 +90,7 @@ int		special_cases(char **cmd, int i, int flag)
 	!ft_strequ(cmd[i], ">>") && !ft_strequ(cmd[i], "<>"))
 	{
 		ft_error("minishell: syntax error near unexpected token ",
-		&(cmd[i][ft_strlen(cmd[i]) - 1]), 2, NULL);
+		for_error, 2, NULL);
 		flag == 1 ? exit(EXIT_FAILURE) : 0;
 		return (0);
 	}
@@ -99,6 +104,8 @@ int		ft_redir(char **cmd, int flag)
 
 	i = -1;
 	res = 0;
+	if (!g_redirections)
+		return (res);
 	while (cmd[++i])
 	{
 		if (handle_min_sup(cmd, i, flag))
