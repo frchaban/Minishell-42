@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 14:18:20 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/19 15:04:36 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:19:51 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	swap_if_first_character_is_redir(char ***cmd_all)
 		return ;
 	final[size - 1] = NULL;
 	final[size - 3] = cmd[0];
-	final[size - 2] = cmd[1];	
+	final[size - 2] = cmd[1];
 	i = 2;
 	while (cmd[i])
 	{

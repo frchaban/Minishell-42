@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:52:50 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/19 12:18:50 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:23:18 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int		ft_count_word(char *cmd)
 
 	i = 0;
 	word_nb = 0;
-	
 	while (cmd[i])
 	{
 		i = go_to_end_word(i, cmd);

@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:33:23 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/19 14:37:20 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:19:22 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	**handle_inside_quote_split(char *line, char c)
 	double_q = 0;
 	while (line[++i])
 	{
-		line[i] == '\'' && !is_escaped(line, i - 1) && !(double_q % 2) 
+		line[i] == '\'' && !is_escaped(line, i - 1) && !(double_q % 2)
 		? simple++ : 0;
 		line[i] == '\"' && !is_escaped(line, i - 1) && !(simple % 2)
 		? double_q++ : 0;

@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/19 11:55:40 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:21:17 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_write(char *line)
 	return (1);
 }
 
-int		valid_newline(char *line)
+static int	valid_newline(char *line)
 {
 	int i;
 
