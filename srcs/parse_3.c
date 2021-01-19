@@ -6,20 +6,11 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 14:18:20 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/19 14:39:03 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:04:36 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_swap(char **a, char **b)
-{
-	char *temp;
-
-	temp = *a;
-	*a = *b;
-	*b = *a;
-}
 
 int		ft_size_of_2dim(char **s)
 {
