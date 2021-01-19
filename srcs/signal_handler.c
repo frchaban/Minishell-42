@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 13:05:02 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/14 10:31:55 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 10:51:28 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ void	remove_ctrl(char *arg1, char *arg2, t_env *envir)
 		waitpid(pid, &status, 0);
 	else if (pid == 0)
 	{
-		execve(cmd[0], cmd, NULL) == -1 ? ft_error("minishell: ",
-		strerror(errno), errno, envir) : 0;
+		execve(cmd[0], cmd, NULL);
 		exit(EXIT_FAILURE);
 	}
 	ft_free_2dim(cmd);

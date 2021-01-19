@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:33:23 by gdupont           #+#    #+#             */
-/*   Updated: 2021/01/13 15:52:04 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 10:26:04 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	check_double_semicolon(char *line, t_env *envir)
 	int	i;
 	int quote[2];
 
-	i = 0;
+	i = -1;
 	quote[0] = 0;
 	quote[1] = 0;
-	while (line[i])
+	while (line[++i])
 	{
 		if (line[i] == '\'' && !is_escaped(line, i - 1))
 			quote[0] += 1;
@@ -62,7 +62,11 @@ void	check_double_semicolon(char *line, t_env *envir)
 				NULL, 258, envir);
 			line[0] = '\0';
 		}
-		i++;
+	}
+	if (line[0] == ';' || line[0] == '|')
+	{
+		ft_error("syntax error near unexpected token ", &line[0], 258, envir);
+		line[0] = '\0';
 	}
 }
 
