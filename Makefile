@@ -6,7 +6,7 @@
 #    By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 11:29:54 by frchaban          #+#    #+#              #
-#    Updated: 2021/01/13 16:09:31 by gdupont          ###   ########.fr        #
+#    Updated: 2021/01/19 14:38:43 by gdupont          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS_LIST		= \
 					redirections_2.c \
 					parse.c \
 					parse_2.c \
+					parse_3.c \
 					parse_tools.c \
 					parse_tools2.c \
 					variable_update.c \

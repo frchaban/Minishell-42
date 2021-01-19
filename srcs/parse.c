@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:21:29 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/19 10:14:16 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 14:38:46 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ char	**parse_cmd(char **cmd, t_env *envir)
 	handle_quote(*cmd);
 	parsed_cmd = devide_cmd(*cmd);
 	i = 0;
+	swap_if_first_character_is_redir(&parsed_cmd);
 	while (parsed_cmd[i])
 		get_through_and_clean_quote_and_backslash(parsed_cmd[i++]);
 	return (parsed_cmd);

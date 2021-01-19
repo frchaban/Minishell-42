@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:32:44 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/18 20:33:38 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 14:38:27 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void				check_hashtag(char *line);
 int					ft_count_word(char *cmd);
 int					go_to_end_word(int i, char *cmd);
 char				**devide_cmd(char *cmd);
+void				swap_if_first_character_is_redir(char ***cmd_all);
 
 /*
 ** ERROR & SIGNAL

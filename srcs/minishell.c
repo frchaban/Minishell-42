@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:40:34 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/19 10:48:14 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 11:37:10 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,5 @@ int		main(int argc, char **argv, char **env)
 	g_ctrl_backslash = 0;
 	signal(SIGQUIT, signal_ctrl_back_nothing);
 	minishell(status, envir);
-	return ((int)errno);
+	return (errno);
 }

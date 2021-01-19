@@ -6,7 +6,7 @@
 /*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 14:51:55 by frchaban          #+#    #+#             */
-/*   Updated: 2021/01/15 10:00:51 by gdupont          ###   ########.fr       */
+/*   Updated: 2021/01/19 11:55:40 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,22 @@ static int	ft_write(char *line)
 	return (1);
 }
 
+int		valid_newline(char *line)
+{
+	int i;
+
+	i = 1;
+	if (line[0] != '-')
+		return (1);
+	while (line[i])
+	{
+		if (line[i] != 'n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void		echo_builtin(t_list *args)
 {
 	int		newline;
@@ -31,7 +47,7 @@ void		echo_builtin(t_list *args)
 	!args ? ft_printf("\n") : 0;
 	if (args)
 	{
-		newline = ((ft_strequ(args->content, "-n") ? 0 : 1));
+		newline = valid_newline(args->content);
 		if (newline == 1)
 			mult = ((args_size(args) > 1) ? 1 : 0);
 		else

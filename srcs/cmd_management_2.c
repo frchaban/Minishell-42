@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_management_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gdupont <gdupont@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 13:09:12 by user42            #+#    #+#             */
-/*   Updated: 2020/12/16 15:50:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/19 14:15:38 by gdupont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		is_builtin(char *cmd)
 	else if (ft_strcmp(cmd, "exit") == 0)
 		return (1);
 	else if (ft_strchr(cmd, '='))
+		return (1);
+	else if (cmd[0] == '>')
 		return (1);
 	return (0);
 }
